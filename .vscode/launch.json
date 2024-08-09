@@ -12,16 +12,6 @@
             ]
         },
         {
-            "name": "Debug stg",
-            "program": "package/app/lib/main.dart",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "debug",
-            "args": [
-                "--dart-define-from-file=dart_defines/stg.json"
-            ]
-        },
-        {
             "name": "Debug prod",
             "program": "package/app/lib/main.dart",
             "request": "launch",

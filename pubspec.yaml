@@ -1,4 +1,4 @@
-name: baseball_quiz_app_workspace
+name: app_440_workspace
 
 environment:
   sdk: ">=3.0.0"
