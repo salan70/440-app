@@ -82,10 +82,7 @@ Future<void> initialize() async {
   );
 
   // Firebase Crashlytics
-  FlutterError.onError = (errorDetails) {
-    // Flutterフレームワーク内でスローされたすべてのエラーを送信する
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   // Flutterフレームワークで処理されないエラーを送信する
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
