@@ -1,0 +1,24 @@
+{
+    // 使用するFlutter SDKのパスを指定。
+	"dart.flutterSdkPath": ".fvm/flutter_sdk",
+    // 検索対象から除外するファイル
+    "search.exclude": {
+        "**/.fvm": true,
+        "**/*.freezed.dart": true,
+        "**/*.g.dart": true,
+        "**/*.gr.dart": true,
+        "**/*.mocks.dart": true,
+    },
+    // ファイル監視対象から除外するファイル
+    "files.watcherExclude": {
+        "**/.fvm": true
+    },
+    "cSpell.words": [
+        "supabase",
+        "firestore",
+    ],
+    // launch.json がネストしたプロジェクトに到達するために指定
+    // 参考: https://zenn.dev/heyhey1028/scraps/87fad0c103401a
+    "dart.projectSearchDepth": 4,
+    "dart.runPubGetOnPubspecChanges": "never",
+}

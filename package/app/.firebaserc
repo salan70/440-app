@@ -1,0 +1,20 @@
+{
+  "projects": {
+    "default": "bq-389-prod"
+  },
+  "targets": {
+    "bq-389-prod": {
+      "hosting": {
+        "389-privacy-policy": [
+          "389-privacy-policy"
+        ],
+        "389-terms": [
+          "389-terms"
+        ],
+        "389-app-ads": [
+          "389-app-ads"
+        ]
+      }
+    }
+  }
+}

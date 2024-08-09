@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>763083161403-ieug7j3dprf30nch85b3ek7a07eoe9rs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.763083161403-ieug7j3dprf30nch85b3ek7a07eoe9rs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBOEAP7l_eOnp5Whs58N7CTA4qIQMlWigQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>763083161403</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.toda.baseballQuizApp.dev</string>
+	<key>PROJECT_ID</key>
+	<string>bq-389-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bq-389-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:763083161403:ios:b0c0e723244296db75c11e</string>
+</dict>
+</plist>
