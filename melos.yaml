@@ -1,7 +1,7 @@
-name: baseball_quiz_app
+name: app_440
 packages:
   - "package/**"
-repository: "https://github.com/salan70/baseball_quiz_app"
+repository: "https://github.com/salan70/440-app"
 sdkPath: .fvm/flutter_sdk
 
 command:
