@@ -77,7 +77,11 @@ Future<void> initialize() async {
   await Firebase.initializeApp();
 
   // App Check の初期化
-  await FirebaseAppCheck.instance.activate();
+  await FirebaseAppCheck.instance.activate(
+    androidProvider:
+        kReleaseMode ? AndroidProvider.playIntegrity : AndroidProvider.debug,
+
+  );
 
   // Firebase Analytics
   // アプリ起動時にイベントを送信
