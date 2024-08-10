@@ -1,4 +1,4 @@
-package com.toda.baseball_quiz_app
+package com.toda.q440
 
 import io.flutter.embedding.android.FlutterActivity
 
