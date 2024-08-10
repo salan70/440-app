@@ -22,3 +22,7 @@ melos_setup:
 clean_gen:
 	melos clean
 	melos gen
+
+.PHONY: release_build_android
+release_build_android:
+	cd package/app && fvm flutter build appbundle --release --dart-define-from-file=dart_defines/prod.json
