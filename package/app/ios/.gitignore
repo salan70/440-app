@@ -34,8 +34,5 @@ Runner/GeneratedPluginRegistrant.*
 !default.perspectivev3
 
 # Flavor関係
-**/ios/Flutter/Dart-Defines.xcconfig
-**/ios/Flutter/DartDefines.xcconfig
-**/ios/GoogleService-Info.plist
-/Flutter/DartDefines.xcconfig
+Flutter/Dart-Defines.xcconfig
 /GoogleService-Info.plist
