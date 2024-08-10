@@ -80,7 +80,8 @@ Future<void> initialize() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider:
         kReleaseMode ? AndroidProvider.playIntegrity : AndroidProvider.debug,
-
+    appleProvider:
+        kReleaseMode ? AppleProvider.deviceCheck : AppleProvider.debug,
   );
 
   // Firebase Analytics
