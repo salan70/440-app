@@ -7,10 +7,8 @@ import '../util/season_type.dart';
 part 'season_repository.g.dart';
 
 @riverpod
-SeasonRepository seasonRepository(SeasonRepositoryRef ref) {
-  final firestore = ref.watch(firestoreProvider);
-  return SeasonRepository(firestore);
-}
+SeasonRepository seasonRepository(SeasonRepositoryRef ref) =>
+    SeasonRepository(FirebaseFirestore.instance);
 
 class SeasonRepository {
   SeasonRepository(this._firestore);

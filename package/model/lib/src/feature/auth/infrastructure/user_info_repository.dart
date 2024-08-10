@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:common/common.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_info_repository.g.dart';
 
 @riverpod
-UserInfoRepository userInfoRepository(UserInfoRepositoryRef ref) {
-  final firestore = ref.watch(firestoreProvider);
-  return UserInfoRepository(firestore);
-}
+UserInfoRepository userInfoRepository(UserInfoRepositoryRef ref) =>
+    UserInfoRepository(FirebaseFirestore.instance);
 
 class UserInfoRepository {
   UserInfoRepository(this.firestore);
