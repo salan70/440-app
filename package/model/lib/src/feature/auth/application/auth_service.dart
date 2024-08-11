@@ -2,6 +2,7 @@ import 'package:common/common.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:version/version.dart';
 
 import '../../app_info/application/app_info_state.dart';
 import '../../app_review/application/app_review_state.dart';
@@ -27,17 +28,13 @@ class AuthService {
   ///
   /// 現在のユーザーを取得し、 null だったら匿名ユーザーを作成する。
   Future<void> login() async {
-    // 未ログインの場合、匿名ユーザーとしてログインする。
     await _maybeSignInAnonymously();
 
-    // 現在のユーザーを取得する。
+    // 現在のユーザーを取得し、ログ出力する。
     final currentUser = ref.read(authRepositoryProvider).getCurrentUser()!;
     logger.i('ログインしました。uid: ${currentUser.uid}');
 
-    // userInfo を更新する。
     await _createOrUpdateUserInfo();
-
-    // reviewHistory が存在しない場合、作成する。
     await _maybeCreateReviewHistory(currentUser);
   }
 
@@ -63,39 +60,51 @@ class AuthService {
 
   /// userInfo ドキュメントが存在しない場合は新規作成し、存在する場合は更新する。
   Future<void> _createOrUpdateUserInfo() async {
-    // userInfo ドキュメントを取得
     final currentUserInfo = await ref.read(currentUserInfoProvider.future);
-
-    // アプリのバージョンを取得
     final appVersion = await ref.read(currentAppVersionProvider.future);
-
-    // DB のバージョンを取得
     final dbConfig = await ref.read(dbConfigProvider.future);
-    if (dbConfig.dbVersion != dbConfig.dbVersion) {
-      // TODO(me): DB をダウンロードし、ダウンロードが成功したらドキュメントの値を更新する。
-      // ダウンロードが失敗したら、リトライさせるか、無視して dbVersion を更新しないかのどっちかで悩んでいる。
-    }
 
     // * userInfo ドキュメントが存在しない場合
     if (currentUserInfo == null) {
-      final currentUser = ref.read(authRepositoryProvider).getCurrentUser()!;
-      final userInfo = UserInfo(
-        userId: currentUser.uid,
-        appVersion: appVersion,
-        dbVersion: dbConfig.dbVersion,
-        createdAt: currentUser.metadata.creationTime!,
-      );
-
-      await ref.read(userInfoRepositoryProvider).createUserInfo(userInfo);
+      // TODO(me): DB をダウンロードし、ダウンロードが成功したらドキュメントの値を更新する。
+      // ダウンロードが失敗したら、リトライさせるか、無視して dbVersion を更新しないかのどっちかで悩んでいる。
+      await _createUserInfo(appVersion, dbConfig.dbVersion);
       return;
     }
 
     // * userInfo ドキュメントが存在する場合
-    final userInfo = currentUserInfo.copyWith(
+    if (currentUserInfo.dbVersion != dbConfig.dbVersion) {
+      // TODO(me): DB をダウンロードし、ダウンロードが成功したらドキュメントの値を更新する。
+      // ダウンロードが失敗したら、リトライさせるか、無視して dbVersion を更新しないかのどっちかで悩んでいる。
+    }
+
+    await _updateUserInfo(currentUserInfo, appVersion, dbConfig.dbVersion);
+  }
+
+  /// userInfo ドキュメントを新規作成する。
+  Future<void> _createUserInfo(Version appVersion, Version dbVersion) async {
+    final currentUser = ref.read(authRepositoryProvider).getCurrentUser()!;
+    final userInfo = UserInfo(
+      userId: currentUser.uid,
       appVersion: appVersion,
-      dbVersion: dbConfig.dbVersion,
+      dbVersion: dbVersion,
+      createdAt: currentUser.metadata.creationTime!,
     );
 
-    await ref.read(userInfoRepositoryProvider).updateUserInfo(userInfo);
+    await ref.read(userInfoRepositoryProvider).createUserInfo(userInfo);
+  }
+
+  /// userInfo ドキュメントを更新する。
+  Future<void> _updateUserInfo(
+    UserInfo currentUserInfo,
+    Version appVersion,
+    Version dbVersion,
+  ) async {
+    final newUserInfo = currentUserInfo.copyWith(
+      appVersion: appVersion,
+      dbVersion: dbVersion,
+    );
+
+    await ref.read(userInfoRepositoryProvider).updateUserInfo(newUserInfo);
   }
 }
