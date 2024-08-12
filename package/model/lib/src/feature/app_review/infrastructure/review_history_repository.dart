@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:common/common.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../domain/review_history.dart';
@@ -9,10 +8,8 @@ part 'review_history_repository.g.dart';
 @riverpod
 ReviewHistoryRepository reviewHistoryRepository(
   ReviewHistoryRepositoryRef ref,
-) {
-  final firestore = ref.watch(firestoreProvider);
-  return ReviewHistoryRepository(firestore);
-}
+) =>
+    ReviewHistoryRepository(FirebaseFirestore.instance);
 
 class ReviewHistoryRepository {
   ReviewHistoryRepository(this._firestore);

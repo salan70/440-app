@@ -6,7 +6,24 @@ part of 'app_info_state.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$needUpdateHash() => r'144b553d6aa5879d81450e79c0dc7629600bc0e8';
+String _$currentAppVersionHash() => r'405ec9d3e4576c9b15b74b11c3d34466d5358829';
+
+/// 現在のアプリバージョンを保持する。
+///
+/// Copied from [currentAppVersion].
+@ProviderFor(currentAppVersion)
+final currentAppVersionProvider = AutoDisposeFutureProvider<Version>.internal(
+  currentAppVersion,
+  name: r'currentAppVersionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentAppVersionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CurrentAppVersionRef = AutoDisposeFutureProviderRef<Version>;
+String _$needUpdateHash() => r'700d83e10f9de5c1d841a62300d921c2030757f5';
 
 /// アプリのアップデートが必要かどうかを返す。
 ///

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,10 +8,8 @@ import '../domain/daily_quiz.dart';
 part 'daily_quiz_repository.g.dart';
 
 @riverpod
-DailyQuizRepository dailyQuizRepository(DailyQuizRepositoryRef ref) {
-  final firestore = ref.watch(firestoreProvider);
-  return DailyQuizRepository(firestore);
-}
+DailyQuizRepository dailyQuizRepository(DailyQuizRepositoryRef ref) =>
+    DailyQuizRepository(FirebaseFirestore.instance);
 
 class DailyQuizRepository {
   DailyQuizRepository(this.firestore);

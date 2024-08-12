@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'interstitial_ad_service.dart';
+part of 'db_config_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$interstitialAdServiceHash() =>
-    r'7d7c31a053cdcbd2666bd2a8f7ac18ad7954df8e';
+String _$dbConfigRepositoryHash() =>
+    r'32f04fbf4ba61b222d1047b75cfec56c5a0bcadd';
 
-/// See also [interstitialAdService].
-@ProviderFor(interstitialAdService)
-final interstitialAdServiceProvider = Provider<InterstitialAdService>.internal(
-  interstitialAdService,
-  name: r'interstitialAdServiceProvider',
+/// See also [dbConfigRepository].
+@ProviderFor(dbConfigRepository)
+final dbConfigRepositoryProvider =
+    AutoDisposeProvider<DbConfigRepository>.internal(
+  dbConfigRepository,
+  name: r'dbConfigRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$interstitialAdServiceHash,
+      : _$dbConfigRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef InterstitialAdServiceRef = ProviderRef<InterstitialAdService>;
+typedef DbConfigRepositoryRef = AutoDisposeProviderRef<DbConfigRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

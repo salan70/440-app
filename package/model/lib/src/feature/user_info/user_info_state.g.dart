@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'interstitial_ad_service.dart';
+part of 'user_info_state.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$interstitialAdServiceHash() =>
-    r'7d7c31a053cdcbd2666bd2a8f7ac18ad7954df8e';
+String _$currentUserInfoHash() => r'7cc50204613466e80586d77eb00db3902377b3b6';
 
-/// See also [interstitialAdService].
-@ProviderFor(interstitialAdService)
-final interstitialAdServiceProvider = Provider<InterstitialAdService>.internal(
-  interstitialAdService,
-  name: r'interstitialAdServiceProvider',
+/// See also [currentUserInfo].
+@ProviderFor(currentUserInfo)
+final currentUserInfoProvider = AutoDisposeFutureProvider<UserInfo?>.internal(
+  currentUserInfo,
+  name: r'currentUserInfoProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$interstitialAdServiceHash,
+      : _$currentUserInfoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef InterstitialAdServiceRef = ProviderRef<InterstitialAdService>;
+typedef CurrentUserInfoRef = AutoDisposeFutureProviderRef<UserInfo?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

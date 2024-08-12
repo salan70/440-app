@@ -7,6 +7,7 @@ export 'src/feature/app_review/app_review.dart';
 export 'src/feature/auth/auth.dart';
 export 'src/feature/browser/browser.dart';
 export 'src/feature/daily_quiz/daily_quiz.dart';
+export 'src/feature/db_config/exporter.dart';
 export 'src/feature/inquiry/inquiry.dart';
 export 'src/feature/loading/loading.dart';
 export 'src/feature/push_notification/push_notification.dart';

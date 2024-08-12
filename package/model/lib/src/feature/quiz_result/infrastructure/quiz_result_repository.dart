@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:common/common.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,10 +15,8 @@ import '../domain/hitter_quiz_result.dart';
 part 'quiz_result_repository.g.dart';
 
 @riverpod
-QuizResultRepository quizResultRepository(QuizResultRepositoryRef ref) {
-  final firestore = ref.watch(firestoreProvider);
-  return QuizResultRepository(firestore);
-}
+QuizResultRepository quizResultRepository(QuizResultRepositoryRef ref) =>
+    QuizResultRepository(FirebaseFirestore.instance);
 
 class QuizResultRepository {
   QuizResultRepository(this.firestore);
