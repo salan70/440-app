@@ -26,7 +26,7 @@ class DbConfigRepository {
 
     if (querySnapshot.docs.isEmpty) {
       // * 対象ドキュメントが見つからなかった場合
-      throw FirestoreException.notFound();
+      throw DatabaseException.notFound();
     }
 
     // * 対象ドキュメントが見つかった場合
