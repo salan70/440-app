@@ -6,7 +6,7 @@ part of 'season_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$seasonRepositoryHash() => r'11a99238a86288841fa4c0ecbacffbd6e43898c2';
+String _$seasonRepositoryHash() => r'bb1ad16d941f2a738cbfbb07a8dfbeee9d62a890';
 
 /// See also [seasonRepository].
 @ProviderFor(seasonRepository)
