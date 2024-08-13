@@ -123,6 +123,10 @@ Future<void> initialize() async {
   // ローカルPUSH通知を日時に応じて送信するために必要
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Tokyo'));
+
+  // * ログイン関連の処理
+  final container = ProviderContainer();
+  await container.read(authServiceProvider).login();
 }
 
 class MyApp extends ConsumerStatefulWidget {
