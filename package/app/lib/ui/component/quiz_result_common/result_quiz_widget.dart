@@ -18,7 +18,7 @@ class ResultQuizWidget extends StatelessWidget {
     return RepaintBoundary(
       key: globalKey,
       child: ColoredBox(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         child: QuizWidget(hitterQuiz: hitterQuiz),
       ),
     );

@@ -179,7 +179,7 @@ class _MyApp extends ConsumerState<MyApp> {
         colorScheme: const ColorScheme.light(
           primary: primaryColor,
           error: errorColor,
-          background: backgroundColor,
+          surface: backgroundColor,
         ),
       ),
       routerConfig: ref.watch(appRouterProvider).config(),
