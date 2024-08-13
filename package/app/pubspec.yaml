@@ -19,7 +19,11 @@ dependencies:
     path: ../common
 
   # UI.
-  awesome_select: ^6.0.0
+  # パッケージの更新が止まっており、有志の人？が Flutter 3.22.0 に対応するための PR を出している
+  awesome_select:
+    git:
+      url: https://github.com/easyhour/flutter_awesome_select.git
+      ref: master
   confetti: ^0.7.0 # 紙吹雪を出すために使用
   google_fonts: ^6.1.0
   table_calendar: ^3.0.9
