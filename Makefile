@@ -18,9 +18,8 @@ melos_setup:
 	melos clean
 	melos bootstrap
 
-.PHONY: clean_gen
-clean_gen:
-	melos clean
+.PHONY: gen
+gen:
 	melos gen
 
 .PHONY: release_build_android
