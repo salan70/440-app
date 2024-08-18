@@ -15,6 +15,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:model/model.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -23,6 +25,7 @@ import 'core/router/app_router.dart';
 import 'core/router/navigator_key.dart';
 import 'core/util/colors_constant.dart';
 import 'ui/component/common/loading_widget.dart';
+import 'ui/controller/login_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +48,10 @@ Future<void> main() async {
     overlays: SystemUiOverlay.values,
   );
 
+  // Drift Database の初期化
+  final dbFolder = await getApplicationDocumentsDirectory();
+  final dbPath = p.join(dbFolder.path, 'app.db');
+
   // 画面の向きを縦で固定する。
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -60,6 +67,7 @@ Future<void> main() async {
           notificationSettingRepositoryProvider.overrideWith(
             (ref) => NotificationSettingRepository(notificationSettingBox),
           ),
+          dbPathProvider.overrideWith((ref) => dbPath),
         ],
         child: const MyApp(),
       ),
@@ -123,10 +131,6 @@ Future<void> initialize() async {
   // ローカルPUSH通知を日時に応じて送信するために必要
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Asia/Tokyo'));
-
-  // * ログイン関連の処理
-  final container = ProviderContainer();
-  await container.read(authServiceProvider).login();
 }
 
 class MyApp extends ConsumerStatefulWidget {
@@ -141,9 +145,12 @@ class _MyApp extends ConsumerState<MyApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // * ログイン関連の処理
+      await ref.read(loginControllerProvider).login();
+
+      // * ATTをダイアログ表示
       // main()だとうまく表示されないため、
       // MyAppのinitState()に記載
-      // ATTをダイアログ表示
       // AdMobの初期化より前に実行する必要がある
       if (await AppTrackingTransparency.trackingAuthorizationStatus ==
           TrackingStatus.notDetermined) {

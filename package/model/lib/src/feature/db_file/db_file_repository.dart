@@ -13,30 +13,15 @@ class DbFileRepository {
 
   final FirebaseStorage storage;
 
-  /// 指定されたバージョンの選手情報の DB をダウンロードし、
+  /// 指定されたバージョンの DB ファイルをダウンロードし、
   /// [Uint8List] として返す。
   ///
   /// [version] : データベースのバージョン
-  Future<Uint8List?> downloadPlayersDb(String version) async {
-    return _downloadDbFile(version, 'players.db');
-  }
-
-  /// 指定されたバージョンの打撃成績の DB をダウンロードし、
-  /// [Uint8List] として返す。
-  ///
-  /// [version] : データベースのバージョン
-  Future<Uint8List?> downloadBattingStatsDb(String version) async {
-    return _downloadDbFile(version, 'batting_stats.db');
-  }
-
-  /// 指定されたバージョンとファイル名のDBをダウンロードし、
-  /// [Uint8List] として返す。
-  ///
-  /// [version] : データベースのバージョン
-  /// [fileName] : ダウンロードするファイル名
-  Future<Uint8List?> _downloadDbFile(String version, String fileName) async {
-    final path = 'databases/$version/$fileName';
-    final data = await storage.ref(path).getData();
+  Future<Uint8List?> downloadBaseballStatsDb(String version) async {
+    final path = 'databases/$version/baseball_stats.db';
+    // 30MB までのファイルをダウンロードする。
+    const maxSize = 30 * 1024 * 1024;
+    final data = await storage.ref(path).getData(maxSize);
     return data;
   }
 }

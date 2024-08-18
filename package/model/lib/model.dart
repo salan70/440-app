@@ -2,6 +2,7 @@ library model;
 
 export 'src/feature/admob/admob.dart';
 export 'src/feature/analytics/analytics.dart';
+export 'src/feature/app_db/exporter.dart';
 export 'src/feature/app_info/app_info.dart';
 export 'src/feature/app_review/app_review.dart';
 export 'src/feature/auth/auth.dart';
@@ -16,4 +17,5 @@ export 'src/feature/quiz/quiz.dart';
 export 'src/feature/quiz_result/quiz_result.dart';
 export 'src/feature/search_condition/search_condition.dart';
 export 'src/feature/season/season.dart';
+export 'src/feature/user_info/exporter.dart';
 export 'src/util/util.dart';
