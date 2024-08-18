@@ -1,3 +1,4 @@
+import 'package:common/common.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,13 +16,19 @@ class DbFileRepository {
 
   /// 指定されたバージョンの DB ファイルをダウンロードし、
   /// [Uint8List] として返す。
+  /// ファイルが存在しない場合は例外を投げる。
   ///
   /// [version] : データベースのバージョン
-  Future<Uint8List?> downloadBaseballStatsDb(String version) async {
+  Future<Uint8List> downloadBaseballStatsDb(String version) async {
     final path = 'databases/$version/baseball_stats.db';
     // 30MB までのファイルをダウンロードする。
     const maxSize = 30 * 1024 * 1024;
     final data = await storage.ref(path).getData(maxSize);
+
+    if (data == null) {
+      throw DatabaseException.notFound(DataSourceType.firebaseStorage);
+    }
+
     return data;
   }
 }

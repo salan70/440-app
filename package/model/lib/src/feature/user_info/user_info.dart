@@ -38,17 +38,6 @@ class UserInfo with _$UserInfo {
   static final _defaultAppVersion = Version(1, 0, 0);
   static final _defaultDbVersion = Version(1, 0, 0);
 
-  /// Firestore のドキュメントを新規作成するためのデータに変換する。
-  Map<String, dynamic> toFirestoreCreate() {
-    return <String, dynamic>{
-      'userId': userId,
-      'appVersion': appVersion.toString(),
-      'dbVersion': dbVersion.toString(),
-      'createdAt': createdAt,
-      'updatedAt': FieldValue.serverTimestamp(),
-    };
-  }
-
   /// Firestore のドキュメントを更新するためのデータに変換する。
   Map<String, dynamic> toFirestoreUpdate() {
     return <String, dynamic>{
