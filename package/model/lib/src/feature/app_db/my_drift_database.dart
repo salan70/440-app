@@ -15,7 +15,7 @@ MyDriftDatabase myDriftDatabase(MyDriftDatabaseRef ref) {
   return MyDriftDatabase(dbPath);
 }
 
-@DriftDatabase(tables: [Players, BattingStats])
+@DriftDatabase(tables: [Players, BattingStats, TotalBattingStats])
 class MyDriftDatabase extends _$MyDriftDatabase {
   MyDriftDatabase(this.dbPath) : super(_openConnection(dbPath));
 
