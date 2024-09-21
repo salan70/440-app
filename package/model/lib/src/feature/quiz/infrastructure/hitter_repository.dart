@@ -162,7 +162,7 @@ class HitterRepository {
     );
   }
 
-  /// [battingStatList] と [totalBattingStat] から [YearStats] を生成する。
+  /// [battingStatList] と [totalBattingStat] から [YearStats] のリストを生成する。
   List<YearStats> _createYearStats(
     List<BattingStat> battingStatList,
     TotalBattingStat totalBattingStat,
@@ -175,10 +175,12 @@ class HitterRepository {
     for (final battingStat in battingStatList) {
       final statsMap = <StatsType, StatsValue>{};
       for (final stat in selectedStatsList) {
-        final value = battingStat.toJson()[stat.battingStatsColumn].toString();
+        final data = battingStat.toJson()[stat.battingStatsColumn];
+        final dataString = data?.toString() ?? StatsValue.emptyLabel;
+
         statsMap[stat] = StatsValue(
           unveilOrder: order++,
-          data: StatsValue.formatData(stat, value),
+          data: StatsValue.formatData(stat, dataString),
         );
       }
       yearStats.add(
@@ -192,19 +194,11 @@ class HitterRepository {
     // 通算成績を追加
     final totalStatsMap = <StatsType, StatsValue>{};
     for (final stat in selectedStatsList) {
-      if (stat == StatsType.team) {
-        totalStatsMap[stat] = StatsValue(
-          unveilOrder: order++,
-          data: StatsValue.emptyLabel,
-        );
-        continue;
-      }
-
-      final value =
-          totalBattingStat.toJson()[stat.battingStatsColumn].toString();
+      final data = totalBattingStat.toJson()[stat.battingStatsColumn];
+      final dataString = data?.toString() ?? StatsValue.emptyLabel;
       totalStatsMap[stat] = StatsValue(
         unveilOrder: order++,
-        data: StatsValue.formatData(stat, value),
+        data: StatsValue.formatData(stat, dataString),
       );
     }
     yearStats.add(

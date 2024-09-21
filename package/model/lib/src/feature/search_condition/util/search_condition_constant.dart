@@ -5,14 +5,14 @@ final defaultSearchCondition = SearchCondition(
   teamList: [
     'LAN',
   ],
-  minGames: 300,
-  minHits: 300,
-  minHr: 50,
+  minGames: 0,
+  minHits: 0,
+  minHr: 0,
   selectedStatsList: [
-    StatsType.team.displayLabel,
+    StatsType.strikeoutPercentage.displayLabel,
     StatsType.battingAverage.displayLabel,
     StatsType.homeRuns.displayLabel,
-    StatsType.onBasePlusSlugging.displayLabel,
+    StatsType.atBatsPerHomeRun.displayLabel,
   ],
 );
 
