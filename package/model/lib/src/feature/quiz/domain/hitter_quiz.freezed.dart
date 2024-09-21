@@ -40,9 +40,6 @@ mixin _$HitterQuiz {
   /// 不正解した回数。
   int get incorrectCount => throw _privateConstructorUsedError;
 
-  /// 対象となるシーズンの種類。
-  SeasonType get seasonType => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $HitterQuizCopyWith<HitterQuiz> get copyWith =>
       throw _privateConstructorUsedError;
@@ -61,8 +58,7 @@ abstract class $HitterQuizCopyWith<$Res> {
       List<String> selectedStatsList,
       List<Map<String, StatsValue>> statsMapList,
       int unveilCount,
-      int incorrectCount,
-      SeasonType seasonType});
+      int incorrectCount});
 }
 
 /// @nodoc
@@ -85,7 +81,6 @@ class _$HitterQuizCopyWithImpl<$Res, $Val extends HitterQuiz>
     Object? statsMapList = null,
     Object? unveilCount = null,
     Object? incorrectCount = null,
-    Object? seasonType = null,
   }) {
     return _then(_value.copyWith(
       hitterId: null == hitterId
@@ -116,10 +111,6 @@ class _$HitterQuizCopyWithImpl<$Res, $Val extends HitterQuiz>
           ? _value.incorrectCount
           : incorrectCount // ignore: cast_nullable_to_non_nullable
               as int,
-      seasonType: null == seasonType
-          ? _value.seasonType
-          : seasonType // ignore: cast_nullable_to_non_nullable
-              as SeasonType,
     ) as $Val);
   }
 }
@@ -139,8 +130,7 @@ abstract class _$$HitterQuizImplCopyWith<$Res>
       List<String> selectedStatsList,
       List<Map<String, StatsValue>> statsMapList,
       int unveilCount,
-      int incorrectCount,
-      SeasonType seasonType});
+      int incorrectCount});
 }
 
 /// @nodoc
@@ -161,7 +151,6 @@ class __$$HitterQuizImplCopyWithImpl<$Res>
     Object? statsMapList = null,
     Object? unveilCount = null,
     Object? incorrectCount = null,
-    Object? seasonType = null,
   }) {
     return _then(_$HitterQuizImpl(
       hitterId: null == hitterId
@@ -192,10 +181,6 @@ class __$$HitterQuizImplCopyWithImpl<$Res>
           ? _value.incorrectCount
           : incorrectCount // ignore: cast_nullable_to_non_nullable
               as int,
-      seasonType: null == seasonType
-          ? _value.seasonType
-          : seasonType // ignore: cast_nullable_to_non_nullable
-              as SeasonType,
     ));
   }
 }
@@ -210,8 +195,7 @@ class _$HitterQuizImpl extends _HitterQuiz {
       required final List<String> selectedStatsList,
       required final List<Map<String, StatsValue>> statsMapList,
       required this.unveilCount,
-      required this.incorrectCount,
-      required this.seasonType})
+      required this.incorrectCount})
       : _yearList = yearList,
         _selectedStatsList = selectedStatsList,
         _statsMapList = statsMapList,
@@ -271,13 +255,9 @@ class _$HitterQuizImpl extends _HitterQuiz {
   @override
   final int incorrectCount;
 
-  /// 対象となるシーズンの種類。
-  @override
-  final SeasonType seasonType;
-
   @override
   String toString() {
-    return 'HitterQuiz(hitterId: $hitterId, hitterName: $hitterName, yearList: $yearList, selectedStatsList: $selectedStatsList, statsMapList: $statsMapList, unveilCount: $unveilCount, incorrectCount: $incorrectCount, seasonType: $seasonType)';
+    return 'HitterQuiz(hitterId: $hitterId, hitterName: $hitterName, yearList: $yearList, selectedStatsList: $selectedStatsList, statsMapList: $statsMapList, unveilCount: $unveilCount, incorrectCount: $incorrectCount)';
   }
 
   @override
@@ -297,9 +277,7 @@ class _$HitterQuizImpl extends _HitterQuiz {
             (identical(other.unveilCount, unveilCount) ||
                 other.unveilCount == unveilCount) &&
             (identical(other.incorrectCount, incorrectCount) ||
-                other.incorrectCount == incorrectCount) &&
-            (identical(other.seasonType, seasonType) ||
-                other.seasonType == seasonType));
+                other.incorrectCount == incorrectCount));
   }
 
   @override
@@ -311,8 +289,7 @@ class _$HitterQuizImpl extends _HitterQuiz {
       const DeepCollectionEquality().hash(_selectedStatsList),
       const DeepCollectionEquality().hash(_statsMapList),
       unveilCount,
-      incorrectCount,
-      seasonType);
+      incorrectCount);
 
   @JsonKey(ignore: true)
   @override
@@ -329,8 +306,7 @@ abstract class _HitterQuiz extends HitterQuiz {
       required final List<String> selectedStatsList,
       required final List<Map<String, StatsValue>> statsMapList,
       required final int unveilCount,
-      required final int incorrectCount,
-      required final SeasonType seasonType}) = _$HitterQuizImpl;
+      required final int incorrectCount}) = _$HitterQuizImpl;
   const _HitterQuiz._() : super._();
 
   @override
@@ -363,10 +339,6 @@ abstract class _HitterQuiz extends HitterQuiz {
 
   /// 不正解した回数。
   int get incorrectCount;
-  @override
-
-  /// 対象となるシーズンの種類。
-  SeasonType get seasonType;
   @override
   @JsonKey(ignore: true)
   _$$HitterQuizImplCopyWith<_$HitterQuizImpl> get copyWith =>

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../season/util/season_type.dart';
 import '../domain/daily_quiz.dart';
 
 part 'daily_quiz_repository.g.dart';
@@ -47,15 +46,12 @@ class DailyQuizRepository {
       final playerId = data['playerId'] as String;
       final selectedStatsList =
           formatSelectedStatsList(data['selectedStatsList'] as List<dynamic>);
-      final seasonType =
-          SeasonType.fromFirestoreValue(data['seasonType'] as String?);
 
       return DailyQuiz(
         dailyQuizId: document.id,
         questionedAt: questionedAt,
         playerId: playerId,
         selectedStatsList: selectedStatsList,
-        seasonType: seasonType,
       );
     }).toList();
 

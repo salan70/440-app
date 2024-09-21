@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 
 import '../../../util/enum/hitting_stats_type.dart';
-import '../../season/util/season_type.dart';
 import '../domain/hitter_quiz.dart';
 import '../domain/hitter_quiz_state.dart';
 import '../domain/stats_value.dart';
@@ -16,13 +15,11 @@ class HitterConverter {
     SupabaseHitter supabaseHitter,
     List<HittingStats> rowStatsList,
     List<String> selectedStatsList,
-    SeasonType seasonType,
   ) {
     final hitterQuiz = _createHitterQuiz(
       supabaseHitter,
       rowStatsList,
       selectedStatsList,
-      seasonType,
     );
 
     return HitterQuizState.normal(
@@ -36,13 +33,11 @@ class HitterConverter {
     SupabaseHitter supabaseHitter,
     List<HittingStats> rowStatsList,
     List<String> selectedStatsList,
-    SeasonType seasonType,
   ) {
     final hitterQuiz = _createHitterQuiz(
       supabaseHitter,
       rowStatsList,
       selectedStatsList,
-      seasonType,
     );
 
     return HitterQuizState.daily(
@@ -88,7 +83,6 @@ class HitterConverter {
     SupabaseHitter supabaseHitter,
     List<HittingStats> rowStatsList,
     List<String> selectedStatsList,
-    SeasonType seasonType,
   ) {
     final statsListForUi =
         _createStatsListForUi(rowStatsList, selectedStatsList);
@@ -102,7 +96,6 @@ class HitterConverter {
       statsMapList: statsListForUi,
       unveilCount: 0,
       incorrectCount: 0,
-      seasonType: seasonType,
     );
   }
 

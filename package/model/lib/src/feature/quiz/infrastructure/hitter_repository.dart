@@ -8,7 +8,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../app_db/my_drift_database.dart';
 import '../../daily_quiz/domain/daily_quiz.dart';
 import '../../search_condition/domain/search_condition.dart';
-import '../../season/util/season_type.dart';
 import '../domain/hitter.dart';
 import '../domain/hitter_quiz_state.dart';
 import 'entity/hitting_stats.dart';
@@ -53,21 +52,19 @@ class HitterRepository {
   /// 検索条件に合う選手を1人取得し、その選手の成績を取得して返す。
   Future<HitterQuizState> fetchNormalHitterQuizState(
     SearchCondition searchCondition,
-    SeasonType seasonType,
   ) async {
     // 検索条件に合う選手を1人取得する。
     final supabaseHitter =
-        await _searchHitterBySearchCondition(searchCondition, seasonType);
+        await _searchHitterBySearchCondition(searchCondition);
 
     // 取得した選手の成績を取得する。
-    final statsList = await _fetchHittingStats(supabaseHitter.id, seasonType);
+    final statsList = await _fetchHittingStats(supabaseHitter.id);
 
     // InputNormalQuizState に変換して返す。
     return HitterConverter().toInputNormalQuizState(
       supabaseHitter,
       statsList,
       searchCondition.selectedStatsList,
-      seasonType,
     );
   }
 
@@ -75,32 +72,27 @@ class HitterRepository {
   ///
   /// 指定されたデイリークイズの選手 ID から選手情報を取得し、その選手の成績を取得して返す。
   Future<HitterQuizState> fetchInputDailyQuizState(DailyQuiz dailyQuiz) async {
-    final seasonType = dailyQuiz.seasonType;
-
     // 検索条件に合う選手を1人取得する。
-    final supabaseHitter =
-        await _searchHitterById(dailyQuiz.playerId, seasonType);
+    final supabaseHitter = await _searchHitterById(dailyQuiz.playerId);
 
     // 取得した選手の成績を取得する。
-    final statsList = await _fetchHittingStats(supabaseHitter.id, seasonType);
+    final statsList = await _fetchHittingStats(supabaseHitter.id);
 
     // InputDailyQuizState に変換して返す。
     return HitterConverter().toInputDailyQuizState(
       supabaseHitter,
       statsList,
       dailyQuiz.selectedStatsList,
-      seasonType,
     );
   }
 
   /// 検索条件で選手で検索し、ランダムで1人返す。
   Future<SupabaseHitter> _searchHitterBySearchCondition(
     SearchCondition searchCondition,
-    SeasonType seasonType,
   ) async {
-    final hittingStatsTable = seasonType.hittingStatsTable;
+    const hittingStatsTable = 'hittingStats';
     final responses = await supabase.client
-        .from(seasonType.hitterTable)
+        .from('players')
         .select<dynamic>('id, name, team, hasData, $hittingStatsTable!inner(*)')
         .eq('hasData', true)
         .filter('team', 'in', searchCondition.teamList)
@@ -126,10 +118,9 @@ class HitterRepository {
   /// ID で選手を検索する。
   Future<SupabaseHitter> _searchHitterById(
     String id,
-    SeasonType seasonType,
   ) async {
     final responses = await supabase.client
-        .from(seasonType.hitterTable)
+        .from('players')
         .select<dynamic>(
           'id, name, team, hasData',
         )
@@ -147,11 +138,10 @@ class HitterRepository {
   /// [playerId] から打撃成績の List を取得するする。
   Future<List<HittingStats>> _fetchHittingStats(
     String playerId,
-    SeasonType seasonType,
   ) async {
     final statsList = <HittingStats>[];
     final responses = await supabase.client
-        .from(seasonType.hittingStatsTable)
+        .from('hittingStats')
         .select<dynamic>()
         .eq('playerId', playerId) as List<dynamic>;
 

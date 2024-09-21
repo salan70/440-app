@@ -1,7 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../search_condition/application/search_condition_state.dart';
-import '../../season/application/season_state.dart';
 import '../domain/hitter_quiz_state.dart';
 import '../infrastructure/hitter_repository.dart';
 
@@ -15,9 +14,8 @@ Future<HitterQuizState> normalQuizState(NormalQuizStateRef ref) async {
   final searchCondition = ref.watch(searchConditionProvider);
 
   final now = DateTime.now();
-  final seasonType = await ref.watch(targetSeasonProvider(now).future);
   
   return ref
       .watch(hitterRepositoryProvider)
-      .fetchNormalHitterQuizState(searchCondition, seasonType);
+      .fetchNormalHitterQuizState(searchCondition);
 }

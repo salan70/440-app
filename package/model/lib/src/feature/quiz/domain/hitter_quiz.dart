@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../season/util/season_type.dart';
 import 'stats_value.dart';
 
 part 'hitter_quiz.freezed.dart';
@@ -30,9 +29,6 @@ class HitterQuiz with _$HitterQuiz {
 
     /// 不正解した回数。
     required int incorrectCount,
-
-    /// 対象となるシーズンの種類。
-    required SeasonType seasonType,
   }) = _HitterQuiz;
   const HitterQuiz._();
 
