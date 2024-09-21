@@ -32,12 +32,11 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
 
     // todo: ちゃんとやる
     // 仮にダミーデータを作成
-    const hitterQuiz = HitterQuiz(
-      hitterId: '',
-      hitterName: '',
-      yearList: [],
-      selectedStatsList: [],
-      statsMapList: [],
+    const hitterQuiz = Quiz(
+      playerId: '',
+      playerName: '',
+      yearStats: [],
+      selectedStats: [],
       unveilCount: 0,
       incorrectCount: 0,
     );

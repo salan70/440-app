@@ -16,7 +16,7 @@ class ResultText extends StatelessWidget {
             : Column(
                 children: [
                   const Text('残念...'),
-                  Text('正解は、${quizState.hitterQuiz.hitterName}選手でした。'),
+                  Text('正解は、${quizState.hitterQuiz.playerName}選手でした。'),
                 ],
               ),
       ),

@@ -7,8 +7,7 @@ import '../../app_db/my_drift_database.dart';
 import '../../app_db/tables.dart';
 import '../../search_condition/domain/search_condition.dart';
 import '../domain/hitter.dart';
-import '../domain/hitter_quiz.dart';
-import '../domain/stats_value.dart';
+import '../domain/quiz.dart';
 
 part 'hitter_repository.g.dart';
 
@@ -44,7 +43,7 @@ class HitterRepository {
   /// ノーマルクイズ用の選手情報を取得する。
   ///
   /// 検索条件に合う選手を1人取得し、その選手の成績を取得して返す。
-  Future<HitterQuiz> fetchNormalHitterQuiz(
+  Future<Quiz> fetchNormalHitterQuiz(
     SearchCondition searchCondition,
   ) async {
     // 検索条件に合う選手を1人取得する。
@@ -138,7 +137,7 @@ class HitterRepository {
     return responses;
   }
 
-  HitterQuiz _toHitterQuiz(
+  Quiz _toHitterQuiz(
     Player player,
     List<BattingStat> battingStatList,
     TotalBattingStat totalBattingStat,
@@ -155,12 +154,12 @@ class HitterRepository {
       yearList.add(battingStat.year.toString());
     }
 
-    return HitterQuiz(
-      hitterId: player.playerId,
-      hitterName: '${player.nameFirst} ${player.nameLast}',
-      yearList: yearList,
-      selectedStatsList: searchCondition.selectedStatsList,
-      statsMapList: statsMapList,
+    return Quiz(
+      playerId: player.playerId,
+      playerName: '${player.nameFirst} ${player.nameLast}',
+      // todo: ちゃんとやる
+      yearStats: [],
+      selectedStats: [],
       unveilCount: 0,
       incorrectCount: 0,
     );

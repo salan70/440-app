@@ -4,11 +4,11 @@ import 'package:model/model.dart';
 class QuizWidget extends StatelessWidget {
   const QuizWidget({super.key, required this.hitterQuiz});
 
-  final HitterQuiz hitterQuiz;
+  final Quiz hitterQuiz;
 
   @override
   Widget build(BuildContext context) {
-    final selectedStatsList = hitterQuiz.selectedStatsList;
+    final selectedStatsList = hitterQuiz.selectedStats;
     return Column(
       children: [
         Row(
@@ -21,7 +21,7 @@ class QuizWidget extends StatelessWidget {
             for (final selectedStats in selectedStatsList)
               Expanded(
                 child: Center(
-                  child: Text(selectedStats),
+                  child: Text(selectedStats.displayLabel),
                 ),
               ),
           ],
@@ -30,10 +30,10 @@ class QuizWidget extends StatelessWidget {
           padding: EdgeInsets.zero,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: hitterQuiz.statsMapList.length,
+          itemCount: hitterQuiz.yearStats.length,
           itemBuilder: (_, index) {
-            final year = hitterQuiz.yearList[index];
-            final statsMap = hitterQuiz.statsMapList[index];
+            final year = hitterQuiz.yearStats[index].year;
+            final statsMap = hitterQuiz.yearStats[index].stats;
             final unveilCount = hitterQuiz.unveilCount;
 
             return Row(

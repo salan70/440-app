@@ -1,8 +1,8 @@
-import 'package:model/src/feature/quiz/domain/hitter_quiz.dart';
-import 'package:model/src/feature/quiz/domain/stats_value.dart';
+import 'package:model/src/feature/quiz/domain/quiz.dart';
 import 'package:model/src/feature/quiz/infrastructure/entity/hitting_stats.dart';
 import 'package:model/src/feature/quiz/infrastructure/entity/supabase_hitter.dart';
 import 'package:model/src/feature/search_condition/domain/search_condition.dart';
+import 'package:model/src/util/enum/hitting_stats_type.dart';
 
 const dummyHitter = SupabaseHitter(
   id: '9d377b08-3b1d-4ff2-892f-597c404e4b7d',
@@ -143,30 +143,26 @@ const dummySearchCondition = SearchCondition(
   selectedStatsList: ['球団', '打率', '本塁打', 'OPS'],
 );
 
-const dummyHitterQuiz = HitterQuiz(
-  hitterId: '9d377b08-3b1d-4ff2-892f-597c404e4b7d',
-  hitterName: '牧秀悟',
-  yearList: ['2021', '2022', 'NPB：2年'],
-  selectedStatsList: ['球団', '打率', '本塁打', 'OPS'],
-  statsMapList: [
-    {
-      '球団': StatsValue(unveilOrder: 12, data: 'DeNA'),
-      '本塁打': StatsValue(unveilOrder: 11, data: '22'),
-      '打率': StatsValue(unveilOrder: 10, data: '.314'),
-      'OPS': StatsValue(unveilOrder: 9, data: '.890'),
-    },
-    {
-      '球団': StatsValue(unveilOrder: 8, data: 'DeNA'),
-      '本塁打': StatsValue(unveilOrder: 7, data: '24'),
-      '打率': StatsValue(unveilOrder: 6, data: '.291'),
-      'OPS': StatsValue(unveilOrder: 5, data: '.861'),
-    },
-    {
-      '球団': StatsValue(unveilOrder: 4, data: 'NPB：2年'),
-      '本塁打': StatsValue(unveilOrder: 0, data: '46'),
-      '打率': StatsValue(unveilOrder: 1, data: '.302'),
-      'OPS': StatsValue(unveilOrder: 2, data: '.876'),
-    }
+const dummyStats = {
+  StatsType.team: StatsValue(unveilOrder: 12, data: 'DeNA'),
+  StatsType.battingAverage: StatsValue(unveilOrder: 12, data: '0.314'),
+  StatsType.homeRuns: StatsValue(unveilOrder: 12, data: '22'),
+  StatsType.onBasePlusSlugging: StatsValue(unveilOrder: 12, data: '0.89'),
+};
+
+const dummyHitterQuiz = Quiz(
+  playerId: '9d377b08-3b1d-4ff2-892f-597c404e4b7d',
+  playerName: '牧秀悟',
+  yearStats: [
+    YearStats(year: '2021', stats: dummyStats),
+    YearStats(year: '2022', stats: dummyStats),
+    YearStats(year: 'NPB：2年', stats: dummyStats),
+  ],
+  selectedStats: [
+    StatsType.team,
+    StatsType.battingAverage,
+    StatsType.homeRuns,
+    StatsType.onBasePlusSlugging,
   ],
   unveilCount: 0,
   incorrectCount: 0,

@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../util/enum/hitting_stats_type.dart';
-import '../../quiz/domain/hitter_quiz.dart';
+import '../../quiz/domain/quiz.dart';
 
 part 'hitter_quiz_result.freezed.dart';
 
@@ -11,7 +11,7 @@ class HitterQuizResult with _$HitterQuizResult {
     required String docId,
     required DateTime updatedAt,
     required bool isCorrect,
-    required HitterQuiz hitterQuiz,
+    required Quiz hitterQuiz,
   }) = _HitterQuizResult;
 
   const HitterQuizResult._();
@@ -20,8 +20,8 @@ class HitterQuizResult with _$HitterQuizResult {
 
   /// 表示しうる成績の数
   int get totalStatsCount =>
-      hitterQuiz.statsMapList.length *
-      hitterQuiz.statsMapList.first.keys.length;
+      hitterQuiz.yearStats.length *
+      hitterQuiz.selectedStats.length;
 
   /// 成績を表示した割合
   double get unveilRate => hitterQuiz.unveilCount / totalStatsCount;

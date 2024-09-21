@@ -50,7 +50,7 @@ class QuizHistoryDailyPage extends ConsumerWidget {
                   child: ShowAnswerButton(
                     buttonType: ButtonType.main,
                     onTap: () => controller
-                        .onTapShowAnswer(quizResult.hitterQuiz.hitterName),
+                        .onTapShowAnswer(quizResult.hitterQuiz.playerName),
                   ),
                 ),
               ),

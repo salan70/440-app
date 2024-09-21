@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../util/enum/quiz_type.dart';
 import 'hitter.dart';
-import 'hitter_quiz.dart';
+import 'quiz.dart';
 
 @immutable
 class HitterQuizState {
@@ -16,14 +16,14 @@ class HitterQuizState {
     required this.enteredHitter,
   }) : quizType = QuizType.daily;
 
-  final HitterQuiz hitterQuiz;
+  final Quiz hitterQuiz;
   final Hitter? enteredHitter;
   final QuizType quizType;
 
-  bool get isCorrectEnteredHitter => enteredHitter?.id == hitterQuiz.hitterId;
+  bool get isCorrectEnteredHitter => enteredHitter?.id == hitterQuiz.playerId;
 
   HitterQuizState copyWith({
-    HitterQuiz? hitterQuiz,
+    Quiz? hitterQuiz,
     Hitter? enteredHitter,
   }) {
     switch (quizType) {

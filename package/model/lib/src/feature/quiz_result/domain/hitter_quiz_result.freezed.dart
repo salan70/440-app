@@ -19,7 +19,7 @@ mixin _$HitterQuizResult {
   String get docId => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   bool get isCorrect => throw _privateConstructorUsedError;
-  HitterQuiz get hitterQuiz => throw _privateConstructorUsedError;
+  Quiz get hitterQuiz => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HitterQuizResultCopyWith<HitterQuizResult> get copyWith =>
@@ -33,12 +33,9 @@ abstract class $HitterQuizResultCopyWith<$Res> {
       _$HitterQuizResultCopyWithImpl<$Res, HitterQuizResult>;
   @useResult
   $Res call(
-      {String docId,
-      DateTime updatedAt,
-      bool isCorrect,
-      HitterQuiz hitterQuiz});
+      {String docId, DateTime updatedAt, bool isCorrect, Quiz hitterQuiz});
 
-  $HitterQuizCopyWith<$Res> get hitterQuiz;
+  $QuizCopyWith<$Res> get hitterQuiz;
 }
 
 /// @nodoc
@@ -75,14 +72,14 @@ class _$HitterQuizResultCopyWithImpl<$Res, $Val extends HitterQuizResult>
       hitterQuiz: null == hitterQuiz
           ? _value.hitterQuiz
           : hitterQuiz // ignore: cast_nullable_to_non_nullable
-              as HitterQuiz,
+              as Quiz,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $HitterQuizCopyWith<$Res> get hitterQuiz {
-    return $HitterQuizCopyWith<$Res>(_value.hitterQuiz, (value) {
+  $QuizCopyWith<$Res> get hitterQuiz {
+    return $QuizCopyWith<$Res>(_value.hitterQuiz, (value) {
       return _then(_value.copyWith(hitterQuiz: value) as $Val);
     });
   }
@@ -97,13 +94,10 @@ abstract class _$$HitterQuizResultImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String docId,
-      DateTime updatedAt,
-      bool isCorrect,
-      HitterQuiz hitterQuiz});
+      {String docId, DateTime updatedAt, bool isCorrect, Quiz hitterQuiz});
 
   @override
-  $HitterQuizCopyWith<$Res> get hitterQuiz;
+  $QuizCopyWith<$Res> get hitterQuiz;
 }
 
 /// @nodoc
@@ -138,7 +132,7 @@ class __$$HitterQuizResultImplCopyWithImpl<$Res>
       hitterQuiz: null == hitterQuiz
           ? _value.hitterQuiz
           : hitterQuiz // ignore: cast_nullable_to_non_nullable
-              as HitterQuiz,
+              as Quiz,
     ));
   }
 }
@@ -160,7 +154,7 @@ class _$HitterQuizResultImpl extends _HitterQuizResult {
   @override
   final bool isCorrect;
   @override
-  final HitterQuiz hitterQuiz;
+  final Quiz hitterQuiz;
 
   @override
   String toString() {
@@ -198,7 +192,7 @@ abstract class _HitterQuizResult extends HitterQuizResult {
       {required final String docId,
       required final DateTime updatedAt,
       required final bool isCorrect,
-      required final HitterQuiz hitterQuiz}) = _$HitterQuizResultImpl;
+      required final Quiz hitterQuiz}) = _$HitterQuizResultImpl;
   const _HitterQuizResult._() : super._();
 
   @override
@@ -208,7 +202,7 @@ abstract class _HitterQuizResult extends HitterQuizResult {
   @override
   bool get isCorrect;
   @override
-  HitterQuiz get hitterQuiz;
+  Quiz get hitterQuiz;
   @override
   @JsonKey(ignore: true)
   _$$HitterQuizResultImplCopyWith<_$HitterQuizResultImpl> get copyWith =>
