@@ -12,8 +12,6 @@ part 'hitter_quiz_state_provider.g.dart';
 @riverpod
 Future<HitterQuizState> normalQuizState(NormalQuizStateRef ref) async {
   final searchCondition = ref.watch(searchConditionProvider);
-
-  final now = DateTime.now();
   
   return ref
       .watch(hitterRepositoryProvider)
