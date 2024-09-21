@@ -50,6 +50,8 @@ class YearStats with _$YearStats {
           ),
         ),
       );
+
+  static const String totalYearLabel = 'Total';
 }
 
 @freezed
@@ -66,6 +68,8 @@ class StatsValue with _$StatsValue {
         unveilOrder: json['unveilOrder'] as int,
         data: json['data'] as String,
       );
+
+  static const String emptyLabel = '-';
 
   static String formatData(StatsType statsType, String data) {
     if (statsType.isPercentage) {

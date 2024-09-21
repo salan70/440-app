@@ -143,48 +143,77 @@ class HitterRepository {
     TotalBattingStat totalBattingStat,
     SearchCondition searchCondition,
   ) {
-    final statsMapList = _createStatsMapFromBattingStat(
+    final yearStats = _createYearStats(
       battingStatList,
+      totalBattingStat,
       searchCondition.selectedStatsList.map(StatsType.fromString).toList(),
     );
-    // _createStatsMap(totalBattingStat, searchCondition.selectedStatsList),
 
-    final yearList = <String>[];
-    for (final battingStat in battingStatList) {
-      yearList.add(battingStat.year.toString());
-    }
+    final selectedStats =
+        searchCondition.selectedStatsList.map(StatsType.fromString).toList();
 
     return Quiz(
       playerId: player.playerId,
       playerName: '${player.nameFirst} ${player.nameLast}',
-      // todo: ちゃんとやる
-      yearStats: [],
-      selectedStats: [],
+      yearStats: yearStats,
+      selectedStats: selectedStats,
       unveilCount: 0,
       incorrectCount: 0,
     );
   }
 
-  List<Map<String, StatsValue>> _createStatsMapFromBattingStat(
+  /// [battingStatList] と [totalBattingStat] から [YearStats] を生成する。
+  List<YearStats> _createYearStats(
     List<BattingStat> battingStatList,
+    TotalBattingStat totalBattingStat,
     List<StatsType> selectedStatsList,
   ) {
-    final statsMapList = <Map<String, StatsValue>>[];
-    // todo: ランダムにする
+    final yearStats = <YearStats>[];
     var order = 0;
 
+    // 年度ごとの成績を追加
     for (final battingStat in battingStatList) {
-      final statsMap = <String, StatsValue>{};
+      final statsMap = <StatsType, StatsValue>{};
       for (final stat in selectedStatsList) {
         final value = battingStat.toJson()[stat.battingStatsColumn].toString();
-        statsMap[stat.displayLabel] = StatsValue(
+        statsMap[stat] = StatsValue(
           unveilOrder: order++,
           data: StatsValue.formatData(stat, value),
         );
       }
-      statsMapList.add(statsMap);
+      yearStats.add(
+        YearStats(
+          year: battingStat.year.toString(),
+          stats: statsMap,
+        ),
+      );
     }
 
-    return statsMapList;
+    // 通算成績を追加
+    final totalStatsMap = <StatsType, StatsValue>{};
+    for (final stat in selectedStatsList) {
+      if (stat == StatsType.team) {
+        totalStatsMap[stat] = StatsValue(
+          unveilOrder: order++,
+          data: StatsValue.emptyLabel,
+        );
+        continue;
+      }
+
+      final value =
+          totalBattingStat.toJson()[stat.battingStatsColumn].toString();
+      totalStatsMap[stat] = StatsValue(
+        unveilOrder: order++,
+        data: StatsValue.formatData(stat, value),
+      );
+    }
+    yearStats.add(
+      YearStats(
+        year: YearStats.totalYearLabel,
+        stats: totalStatsMap,
+      ),
+    );
+
+    return yearStats;
   }
 }
