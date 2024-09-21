@@ -83,9 +83,9 @@ class HitterRepository {
   Future<TotalBattingStat> _searchTotalBattingStat(
     SearchCondition searchCondition,
   ) async {
+    const finalYear = 2023;
     final query = db.select(db.totalBattingStats)
-      // todo: 定数として定義する
-      ..where((stats) => stats.finalYear.equals(2023))
+      ..where((stats) => stats.finalYear.equals(finalYear))
       ..where((stats) => stats.finalTeamId.isIn(searchCondition.teamList))
       ..where(
         (stats) => stats.games.isBiggerOrEqualValue(searchCondition.minGames),
