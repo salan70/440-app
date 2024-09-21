@@ -5,5 +5,4 @@ export 'domain/hitter_quiz_state.dart';
 export 'domain/quiz.dart';
 export 'infrastructure/entity/hitting_stats.dart';
 export 'infrastructure/entity/supabase_hitter.dart';
-export 'infrastructure/hitter_converter.dart';
 export 'infrastructure/hitter_repository.dart';
