@@ -6,7 +6,7 @@ part of 'hitter_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hitterRepositoryHash() => r'9f6295761c5c5cfc888d8348a8854abca8a848a2';
+String _$hitterRepositoryHash() => r'bec734d23b20445ea1c48890f1309db1a975c8d2';
 
 /// See also [hitterRepository].
 @ProviderFor(hitterRepository)

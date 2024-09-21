@@ -7,13 +7,13 @@ import '../infrastructure/hitter_repository.dart';
 part 'hitter_quiz_state_provider.g.dart';
 
 /// 保存されている検索条件をもとに [HitterQuizState] を取得する。
-///
-/// 検索条件に合う選手が存在しない場合は、 `null` を返す。
 @riverpod
 Future<HitterQuizState> normalQuizState(NormalQuizStateRef ref) async {
   final searchCondition = ref.watch(searchConditionProvider);
-  
-  return ref
+
+  final hitterQuiz = await ref
       .watch(hitterRepositoryProvider)
-      .fetchNormalHitterQuizState(searchCondition);
+      .fetchNormalHitterQuiz(searchCondition);
+
+  return HitterQuizState.normal(hitterQuiz: hitterQuiz, enteredHitter: null);
 }

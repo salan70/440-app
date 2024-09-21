@@ -1,7 +1,9 @@
 import 'package:drift/drift.dart';
 
+import '../../util/enum/hitting_stats_type.dart';
+
 class Players extends Table {
-  TextColumn get playerId => text()();
+  TextColumn get playerId => text().named('playerId')();
   TextColumn get nameFirst => text().withLength(min: 1, max: 50).nullable()();
   TextColumn get nameLast => text().withLength(min: 1, max: 50)();
 
@@ -88,4 +90,73 @@ class TotalBattingStats extends Table {
 
   @override
   Set<Column> get primaryKey => {playerId};
+}
+
+extension StatsTypeExtension on StatsType {
+  String get battingStatsColumn {
+    switch (this) {
+      case StatsType.team:
+        return 'teamId';
+      case StatsType.games:
+        return 'games';
+      case StatsType.plateAppearances:
+        return 'plateAppearances';
+      case StatsType.atBats:
+        return 'atBats';
+      case StatsType.hits:
+        return 'hits';
+      case StatsType.extraBaseHits:
+        return 'extraBaseHits';
+      case StatsType.totalBases:
+        return 'totalBases';
+      case StatsType.doubles:
+        return 'doubles';
+      case StatsType.triples:
+        return 'triples';
+      case StatsType.homeRuns:
+        return 'homeRuns';
+      case StatsType.runs:
+        return 'runs';
+      case StatsType.runsBattedIn:
+        return 'runsBattedIn';
+      case StatsType.walks:
+        return 'walks';
+      case StatsType.intentionalWalks:
+        return 'intentionalWalks';
+      case StatsType.hitByPitch:
+        return 'hitByPitch';
+      case StatsType.strikeouts:
+        return 'strikeouts';
+      case StatsType.stolenBases:
+        return 'stolenBases';
+      case StatsType.caughtStealing:
+        return 'caughtStealing';
+      case StatsType.sacrificeHits:
+        return 'sacrificeHits';
+      case StatsType.sacrificeFlies:
+        return 'sacrificeFlies';
+      case StatsType.groundedIntoDoublePlays:
+        return 'groundedIntoDoublePlays';
+      case StatsType.battingAverage:
+        return 'battingAverage';
+      case StatsType.onBasePercentage:
+        return 'onBasePercentage';
+      case StatsType.sluggingPercentage:
+        return 'sluggingPercentage';
+      case StatsType.onBasePlusSlugging:
+        return 'onBasePlusSlugging';
+      case StatsType.battingAverageOnBallsInPlay:
+        return 'battingAverageOnBallsInPlay';
+      case StatsType.isolatedPower:
+        return 'isolatedPower';
+      case StatsType.atBatsPerHomeRun:
+        return 'atBatsPerHomeRun';
+      case StatsType.walkToStrikeoutRatio:
+        return 'walkToStrikeoutRatio';
+      case StatsType.walkPercentage:
+        return 'walkPercentage';
+      case StatsType.strikeoutPercentage:
+        return 'strikeoutPercentage';
+    }
+  }
 }

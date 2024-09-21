@@ -22,6 +22,10 @@ class SearchConditionRepository {
   final _boxKey = HiveBoxType.searchCondition.key;
 
   SearchCondition fetchSearchCondition() {
+
+    return defaultSearchCondition;
+
+
     final searchCondition = box.get(
       _boxKey,
       defaultValue: defaultSearchCondition,

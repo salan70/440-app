@@ -31,6 +31,11 @@ enum StatsType {
   walkPercentage,
   strikeoutPercentage;
 
+  static StatsType fromString(String value) {
+    return StatsType.values
+        .firstWhere((element) => element.displayLabel == value);
+  }
+
   String get displayLabel {
     switch (this) {
       case StatsType.team:

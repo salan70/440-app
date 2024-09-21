@@ -6,11 +6,9 @@ part of 'hitter_quiz_state_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$normalQuizStateHash() => r'9233eebfc056290caedb1fb6def8d6cc05eb4b39';
+String _$normalQuizStateHash() => r'902a85f75ee39015abc39097e47e3ae09fe96c30';
 
 /// 保存されている検索条件をもとに [HitterQuizState] を取得する。
-///
-/// 検索条件に合う選手が存在しない場合は、 `null` を返す。
 ///
 /// Copied from [normalQuizState].
 @ProviderFor(normalQuizState)

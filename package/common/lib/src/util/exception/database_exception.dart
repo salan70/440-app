@@ -58,5 +58,7 @@ enum DatabaseExceptionType {
 enum DataSourceType {
   firestore,
 
-  firebaseStorage;
+  firebaseStorage,
+  
+  drift;
 }

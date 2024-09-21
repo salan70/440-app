@@ -30,11 +30,22 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
       throw ArgumentError.notNull('dailyQuiz');
     }
 
-    final hitterQuizState = await ref
-        .watch(hitterRepositoryProvider)
-        .fetchInputDailyQuizState(dailyQuiz);
+    // todo: ちゃんとやる
+    // 仮にダミーデータを作成
+    const hitterQuiz = HitterQuiz(
+      hitterId: '',
+      hitterName: '',
+      yearList: [],
+      selectedStatsList: [],
+      statsMapList: [],
+      unveilCount: 0,
+      incorrectCount: 0,
+    );
 
-    return PlayDailyQuizPageState(quizState: hitterQuizState);
+    const hitterQuizState =
+        HitterQuizState.daily(hitterQuiz: hitterQuiz, enteredHitter: null);
+
+    return const PlayDailyQuizPageState(quizState: hitterQuizState);
   }
 
   // * ---------------------- state.hitterQuiz の更新関連 ---------------------- * //
