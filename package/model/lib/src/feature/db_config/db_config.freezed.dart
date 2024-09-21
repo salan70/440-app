@@ -17,11 +17,11 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DbConfig {
   /// 配信中の DB のバージョン。
-  Version get dbVersion => throw _privateConstructorUsedError;
-
+  Version get dbVersion =>
+      throw _privateConstructorUsedError; // TODO(me): このフィールド削除する。
   /// 選手情報の DB の URL.
-  String get playersDbUrl => throw _privateConstructorUsedError;
-
+  String get playersDbUrl =>
+      throw _privateConstructorUsedError; // TODO(me): このフィールド削除する。
   /// 打撃成績の DB の URL.
   String get battingStatsDbUrl => throw _privateConstructorUsedError;
 
@@ -127,11 +127,11 @@ class _$DbConfigImpl extends _DbConfig {
   /// 配信中の DB のバージョン。
   @override
   final Version dbVersion;
-
+// TODO(me): このフィールド削除する。
   /// 選手情報の DB の URL.
   @override
   final String playersDbUrl;
-
+// TODO(me): このフィールド削除する。
   /// 打撃成績の DB の URL.
   @override
   final String battingStatsDbUrl;
@@ -176,12 +176,10 @@ abstract class _DbConfig extends DbConfig {
 
   /// 配信中の DB のバージョン。
   Version get dbVersion;
-  @override
-
+  @override // TODO(me): このフィールド削除する。
   /// 選手情報の DB の URL.
   String get playersDbUrl;
-  @override
-
+  @override // TODO(me): このフィールド削除する。
   /// 打撃成績の DB の URL.
   String get battingStatsDbUrl;
   @override

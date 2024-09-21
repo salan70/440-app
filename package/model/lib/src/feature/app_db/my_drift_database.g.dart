@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_db.dart';
+part of 'my_drift_database.dart';
 
 // ignore_for_file: type=lint
 class $PlayersTable extends Players with TableInfo<$PlayersTable, Player> {
@@ -1811,9 +1811,9 @@ class BattingStatsCompanion extends UpdateCompanion<BattingStat> {
   }
 }
 
-abstract class _$AppDb extends GeneratedDatabase {
-  _$AppDb(QueryExecutor e) : super(e);
-  $AppDbManager get managers => $AppDbManager(this);
+abstract class _$MyDriftDatabase extends GeneratedDatabase {
+  _$MyDriftDatabase(QueryExecutor e) : super(e);
+  $MyDriftDatabaseManager get managers => $MyDriftDatabaseManager(this);
   late final $PlayersTable players = $PlayersTable(this);
   late final $BattingStatsTable battingStats = $BattingStatsTable(this);
   @override
@@ -1837,14 +1837,14 @@ typedef $$PlayersTableUpdateCompanionBuilder = PlayersCompanion Function({
 });
 
 class $$PlayersTableTableManager extends RootTableManager<
-    _$AppDb,
+    _$MyDriftDatabase,
     $PlayersTable,
     Player,
     $$PlayersTableFilterComposer,
     $$PlayersTableOrderingComposer,
     $$PlayersTableCreateCompanionBuilder,
     $$PlayersTableUpdateCompanionBuilder> {
-  $$PlayersTableTableManager(_$AppDb db, $PlayersTable table)
+  $$PlayersTableTableManager(_$MyDriftDatabase db, $PlayersTable table)
       : super(TableManagerState(
           db: db,
           table: table,
@@ -1880,7 +1880,7 @@ class $$PlayersTableTableManager extends RootTableManager<
 }
 
 class $$PlayersTableFilterComposer
-    extends FilterComposer<_$AppDb, $PlayersTable> {
+    extends FilterComposer<_$MyDriftDatabase, $PlayersTable> {
   $$PlayersTableFilterComposer(super.$state);
   ColumnFilters<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -1899,7 +1899,7 @@ class $$PlayersTableFilterComposer
 }
 
 class $$PlayersTableOrderingComposer
-    extends OrderingComposer<_$AppDb, $PlayersTable> {
+    extends OrderingComposer<_$MyDriftDatabase, $PlayersTable> {
   $$PlayersTableOrderingComposer(super.$state);
   ColumnOrderings<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -1995,14 +1995,15 @@ typedef $$BattingStatsTableUpdateCompanionBuilder = BattingStatsCompanion
 });
 
 class $$BattingStatsTableTableManager extends RootTableManager<
-    _$AppDb,
+    _$MyDriftDatabase,
     $BattingStatsTable,
     BattingStat,
     $$BattingStatsTableFilterComposer,
     $$BattingStatsTableOrderingComposer,
     $$BattingStatsTableCreateCompanionBuilder,
     $$BattingStatsTableUpdateCompanionBuilder> {
-  $$BattingStatsTableTableManager(_$AppDb db, $BattingStatsTable table)
+  $$BattingStatsTableTableManager(
+      _$MyDriftDatabase db, $BattingStatsTable table)
       : super(TableManagerState(
           db: db,
           table: table,
@@ -2162,7 +2163,7 @@ class $$BattingStatsTableTableManager extends RootTableManager<
 }
 
 class $$BattingStatsTableFilterComposer
-    extends FilterComposer<_$AppDb, $BattingStatsTable> {
+    extends FilterComposer<_$MyDriftDatabase, $BattingStatsTable> {
   $$BattingStatsTableFilterComposer(super.$state);
   ColumnFilters<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -2337,7 +2338,7 @@ class $$BattingStatsTableFilterComposer
 }
 
 class $$BattingStatsTableOrderingComposer
-    extends OrderingComposer<_$AppDb, $BattingStatsTable> {
+    extends OrderingComposer<_$MyDriftDatabase, $BattingStatsTable> {
   $$BattingStatsTableOrderingComposer(super.$state);
   ColumnOrderings<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -2511,9 +2512,9 @@ class $$BattingStatsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class $AppDbManager {
-  final _$AppDb _db;
-  $AppDbManager(this._db);
+class $MyDriftDatabaseManager {
+  final _$MyDriftDatabase _db;
+  $MyDriftDatabaseManager(this._db);
   $$PlayersTableTableManager get players =>
       $$PlayersTableTableManager(_db, _db.players);
   $$BattingStatsTableTableManager get battingStats =>
@@ -2524,19 +2525,20 @@ class $AppDbManager {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appDbHash() => r'87f3584b0b1b9fba373faab02c7171be0e19ded5';
+String _$myDriftDatabaseHash() => r'66c7cd2997c5c795c2d06e336ac3026402702041';
 
-/// See also [appDb].
-@ProviderFor(appDb)
-final appDbProvider = AutoDisposeProvider<AppDb>.internal(
-  appDb,
-  name: r'appDbProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$appDbHash,
+/// See also [myDriftDatabase].
+@ProviderFor(myDriftDatabase)
+final myDriftDatabaseProvider = AutoDisposeProvider<MyDriftDatabase>.internal(
+  myDriftDatabase,
+  name: r'myDriftDatabaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$myDriftDatabaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef AppDbRef = AutoDisposeProviderRef<AppDb>;
+typedef MyDriftDatabaseRef = AutoDisposeProviderRef<MyDriftDatabase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -4,6 +4,7 @@ import 'package:common/common.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../app_db/my_drift_database.dart';
 import '../../daily_quiz/domain/daily_quiz.dart';
 import '../../search_condition/domain/search_condition.dart';
 import '../../season/util/season_type.dart';
@@ -17,6 +18,7 @@ part 'hitter_repository.g.dart';
 
 @riverpod
 HitterRepository hitterRepository(HitterRepositoryRef ref) {
+  final myDriftDatabase = ref.watch(myDriftDatabaseProvider);
   final supabase = ref.watch(supabaseProvider);
   return HitterRepository(supabase);
 }

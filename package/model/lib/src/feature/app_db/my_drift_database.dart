@@ -7,21 +7,20 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'db_path_provider.dart';
 import 'tables.dart';
 
-part 'app_db.g.dart';
+part 'my_drift_database.g.dart';
 
 @riverpod
-AppDb appDb(AppDbRef ref) {
-  final dbPath = ref.read(dbPathProvider);
-  return AppDb(dbPath);
+MyDriftDatabase myDriftDatabase(MyDriftDatabaseRef ref) {
+  final dbPath = ref.watch(dbPathProvider);
+  return MyDriftDatabase(dbPath);
 }
 
 @DriftDatabase(tables: [Players, BattingStats])
-class AppDb extends _$AppDb {
-  AppDb(this.dbPath) : super(_openConnection(dbPath));
+class MyDriftDatabase extends _$MyDriftDatabase {
+  MyDriftDatabase(this.dbPath) : super(_openConnection(dbPath));
 
   @override
   int get schemaVersion => 1;
-
   final String dbPath;
 }
 
