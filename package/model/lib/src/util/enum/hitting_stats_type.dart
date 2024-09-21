@@ -102,6 +102,42 @@ enum StatsType {
         return 'SO%';
     }
   }
+
+  /// %表記するかどうか。
+  bool get isPercentage {
+    final percentageStatsList = [
+      StatsType.walkPercentage,
+      StatsType.strikeoutPercentage,
+    ];
+
+    return percentageStatsList.contains(this);
+  }
+
+  /// .XXX や Y.XXX のように表記するかどうか。
+  /// ※ Y が 0 の場合、 .XXX のように 0 を表記しない。
+  bool get isDecimal {
+    final decimalStatsList = [
+      StatsType.battingAverage,
+      StatsType.onBasePercentage,
+      StatsType.sluggingPercentage,
+      StatsType.onBasePlusSlugging,
+      StatsType.battingAverageOnBallsInPlay,
+      StatsType.isolatedPower,
+      StatsType.atBatsPerHomeRun,
+    ];
+
+    return decimalStatsList.contains(this);
+  }
+
+  /// Y.XXX のように表記するかどうか。
+  /// ※ Y が 0 の場合、 0.XXX のように 0 を表記する。
+  bool get isDecimalWithZero {
+    final decimalWithZeroStatsList = [
+      StatsType.walkToStrikeoutRatio,
+    ];
+
+    return decimalWithZeroStatsList.contains(this);
+  }
 }
 
 enum ResultRank {

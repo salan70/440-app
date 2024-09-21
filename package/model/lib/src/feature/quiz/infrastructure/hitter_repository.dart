@@ -180,36 +180,12 @@ class HitterRepository {
         final value = battingStat.toJson()[stat.battingStatsColumn].toString();
         statsMap[stat.displayLabel] = StatsValue(
           unveilOrder: order++,
-          data: _formatStatsValue(stat.name, value),
-          );
+          data: StatsValue.formatData(stat, value),
+        );
       }
       statsMapList.add(statsMap);
     }
 
     return statsMapList;
-  }
-
-  String _formatStatsValue(String key, String value) {
-    // todo: 現状機能していないため修正する
-    if (['打率', 'OPS'].contains(key)) {
-      return _formatStatsData(value);
-    }
-    return value;
-  }
-
-  String _formatStatsData(String str) {
-    final doubleVal = double.tryParse(str);
-
-    if (doubleVal == null) {
-      return str;
-    }
-
-    final fixedVal = doubleVal.toStringAsFixed(3);
-
-    if (fixedVal.startsWith('0')) {
-      return fixedVal.substring(1);
-    }
-
-    return fixedVal;
   }
 }

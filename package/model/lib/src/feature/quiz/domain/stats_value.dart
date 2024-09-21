@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../util/enum/hitting_stats_type.dart';
+import '../../../util/extension/string_extension.dart';
+
 part 'stats_value.freezed.dart';
 part 'stats_value.g.dart';
 
@@ -14,6 +17,24 @@ class StatsValue with _$StatsValue {
     required String data,
   }) = _StatsValue;
 
-  factory StatsValue.fromJson(Map<String, dynamic> json) =>
-      _$StatsValueFromJson(json);
+  factory StatsValue.fromJson(Map<String, dynamic> json) {
+    return _$StatsValueFromJson(json);
+  }
+
+  static String formatData(StatsType statsType, String data) {
+    if (statsType.isPercentage) {
+      return data.toPercent;
+    }
+
+    if (statsType.isDecimal) {
+      final decimalWithZero = data.decimalWithZero;
+      return decimalWithZero.removeZeroPrefix;
+    }
+
+    if (statsType.isDecimalWithZero) {
+      return data.decimalWithZero;
+    }
+
+    return data;
+  }
 }
