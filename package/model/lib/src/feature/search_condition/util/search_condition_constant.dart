@@ -14,10 +14,10 @@ final defaultSearchCondition = SearchCondition(
   minHits: 300,
   minHr: 50,
   selectedStatsList: [
-    StatsType.team.label,
-    StatsType.avg.label,
-    StatsType.hr.label,
-    StatsType.ops.label,
+    StatsType.team.displayLabel,
+    StatsType.battingAverage.displayLabel,
+    StatsType.homeRuns.displayLabel,
+    StatsType.onBasePlusSlugging.displayLabel,
   ],
 );
 

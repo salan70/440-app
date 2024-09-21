@@ -12,10 +12,10 @@ final dummySearchCondition1 = SearchCondition(
   minHits: 0,
   minHr: 0,
   selectedStatsList: [
-    StatsType.team.label,
-    StatsType.avg.label,
-    StatsType.hr.label,
-    StatsType.ops.label,
+    StatsType.team.displayLabel,
+    StatsType.battingAverage.displayLabel,
+    StatsType.homeRuns.displayLabel,
+    StatsType.onBasePlusSlugging.displayLabel,
   ],
 );
 
@@ -29,9 +29,9 @@ final dummySearchCondition2 = SearchCondition(
   minHits: 0,
   minHr: 0,
   selectedStatsList: [
-    StatsType.team.label,
-    StatsType.avg.label,
-    StatsType.hr.label,
-    StatsType.ops.label,
+    StatsType.team.displayLabel,
+    StatsType.battingAverage.displayLabel,
+    StatsType.homeRuns.displayLabel,
+    StatsType.onBasePlusSlugging.displayLabel,
   ],
 );
