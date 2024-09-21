@@ -141,11 +141,7 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
 
   Future<List<Hitter>> onSearchHitter(String inputText) async {
     _updateEnteredHitter(null);
-
-    final seasonType = state.value!.quizState.hitterQuiz.seasonType;
-    return ref
-        .read(hitterQuizServiceProvider)
-        .searchHitter(inputText, seasonType);
+    return ref.read(hitterRepositoryProvider).searchHitter(inputText);
   }
 
   void onSelectedHitter(Hitter value) {

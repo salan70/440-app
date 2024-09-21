@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:common/common.dart';
+import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,13 +21,32 @@ part 'hitter_repository.g.dart';
 HitterRepository hitterRepository(HitterRepositoryRef ref) {
   final myDriftDatabase = ref.watch(myDriftDatabaseProvider);
   final supabase = ref.watch(supabaseProvider);
-  return HitterRepository(supabase);
+  return HitterRepository(supabase, myDriftDatabase);
 }
 
 class HitterRepository {
-  HitterRepository(this.supabase);
+  HitterRepository(this.supabase, this.db);
 
   final Supabase supabase;
+  final MyDriftDatabase db;
+
+  /// [searchWord] で選手を部分検索する。
+  Future<List<Hitter>> searchHitter(String searchWord) async {
+    final hitterList = await (db.select(db.players)
+          ..where(
+            (player) =>
+                player.nameLast.like('%$searchWord%') |
+                player.nameFirst.like('%$searchWord%'),
+          ))
+        .get();
+
+    return hitterList.map((player) {
+      return Hitter(
+        id: player.playerId,
+        label: '${player.nameFirst} ${player.nameLast}',
+      );
+    }).toList();
+  }
 
   /// ノーマルクイズ用の選手情報を取得する。
   ///
@@ -141,23 +161,5 @@ class HitterRepository {
     }
 
     return statsList;
-  }
-
-  /// 解答を入力するテキストフィールドの検索用。
-  ///
-  /// 全選手の名前と ID を取得する。
-  Future<List<Hitter>> fetchAllHitter(SeasonType seasonType) async {
-    final responses = await supabase.client
-        .from(seasonType.hitterTable)
-        .select<dynamic>() as List<dynamic>;
-
-    final allHitterList = <Hitter>[];
-    for (final response in responses) {
-      final hitterMap = Hitter.fromJson(
-        response as Map<String, dynamic>,
-      );
-      allHitterList.add(hitterMap);
-    }
-    return allHitterList;
   }
 }
