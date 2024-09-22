@@ -4,6 +4,7 @@ import '../../../util/enum/hitting_stats_type.dart';
 import '../../../util/extension/string_extension.dart';
 
 part 'quiz.freezed.dart';
+part 'quiz.g.dart';
 
 @freezed
 class Quiz with _$Quiz {
@@ -40,6 +41,7 @@ class YearStats with _$YearStats {
     required String year,
     required Map<StatsType, StatsValue> stats,
   }) = _YearStats;
+  const YearStats._();
 
   factory YearStats.fromJson(Map<String, dynamic> json) => YearStats(
         year: json['year'] as String,
@@ -63,6 +65,7 @@ class StatsValue with _$StatsValue {
     /// 成績（データ）。
     required String data,
   }) = _StatsValue;
+  const StatsValue._();
 
   factory StatsValue.fromJson(Map<String, dynamic> json) => StatsValue(
         unveilOrder: json['unveilOrder'] as int,

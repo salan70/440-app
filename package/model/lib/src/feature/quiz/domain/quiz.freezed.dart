@@ -296,11 +296,16 @@ abstract class _Quiz extends Quiz {
       throw _privateConstructorUsedError;
 }
 
+YearStats _$YearStatsFromJson(Map<String, dynamic> json) {
+  return _YearStats.fromJson(json);
+}
+
 /// @nodoc
 mixin _$YearStats {
   String get year => throw _privateConstructorUsedError;
   Map<StatsType, StatsValue> get stats => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $YearStatsCopyWith<YearStats> get copyWith =>
       throw _privateConstructorUsedError;
@@ -382,11 +387,15 @@ class __$$YearStatsImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-class _$YearStatsImpl implements _YearStats {
+@JsonSerializable()
+class _$YearStatsImpl extends _YearStats {
   const _$YearStatsImpl(
       {required this.year, required final Map<StatsType, StatsValue> stats})
-      : _stats = stats;
+      : _stats = stats,
+        super._();
+
+  factory _$YearStatsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$YearStatsImplFromJson(json);
 
   @override
   final String year;
@@ -412,6 +421,7 @@ class _$YearStatsImpl implements _YearStats {
             const DeepCollectionEquality().equals(other._stats, _stats));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, year, const DeepCollectionEquality().hash(_stats));
@@ -421,12 +431,23 @@ class _$YearStatsImpl implements _YearStats {
   @pragma('vm:prefer-inline')
   _$$YearStatsImplCopyWith<_$YearStatsImpl> get copyWith =>
       __$$YearStatsImplCopyWithImpl<_$YearStatsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$YearStatsImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class _YearStats implements YearStats {
+abstract class _YearStats extends YearStats {
   const factory _YearStats(
       {required final String year,
       required final Map<StatsType, StatsValue> stats}) = _$YearStatsImpl;
+  const _YearStats._() : super._();
+
+  factory _YearStats.fromJson(Map<String, dynamic> json) =
+      _$YearStatsImpl.fromJson;
 
   @override
   String get year;
@@ -438,6 +459,10 @@ abstract class _YearStats implements YearStats {
       throw _privateConstructorUsedError;
 }
 
+StatsValue _$StatsValueFromJson(Map<String, dynamic> json) {
+  return _StatsValue.fromJson(json);
+}
+
 /// @nodoc
 mixin _$StatsValue {
   /// 表示順。
@@ -446,6 +471,7 @@ mixin _$StatsValue {
   /// 成績（データ）。
   String get data => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $StatsValueCopyWith<StatsValue> get copyWith =>
       throw _privateConstructorUsedError;
@@ -528,9 +554,13 @@ class __$$StatsValueImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
+@JsonSerializable()
+class _$StatsValueImpl extends _StatsValue {
+  const _$StatsValueImpl({required this.unveilOrder, required this.data})
+      : super._();
 
-class _$StatsValueImpl implements _StatsValue {
-  const _$StatsValueImpl({required this.unveilOrder, required this.data});
+  factory _$StatsValueImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StatsValueImplFromJson(json);
 
   /// 表示順。
   @override
@@ -555,6 +585,7 @@ class _$StatsValueImpl implements _StatsValue {
             (identical(other.data, data) || other.data == data));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, unveilOrder, data);
 
@@ -563,12 +594,23 @@ class _$StatsValueImpl implements _StatsValue {
   @pragma('vm:prefer-inline')
   _$$StatsValueImplCopyWith<_$StatsValueImpl> get copyWith =>
       __$$StatsValueImplCopyWithImpl<_$StatsValueImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StatsValueImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class _StatsValue implements StatsValue {
+abstract class _StatsValue extends StatsValue {
   const factory _StatsValue(
       {required final int unveilOrder,
       required final String data}) = _$StatsValueImpl;
+  const _StatsValue._() : super._();
+
+  factory _StatsValue.fromJson(Map<String, dynamic> json) =
+      _$StatsValueImpl.fromJson;
 
   @override
 

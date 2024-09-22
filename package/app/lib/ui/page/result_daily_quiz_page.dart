@@ -16,7 +16,7 @@ import '../controller/result_daily_quiz_page_controller.dart';
 class ResultDailyQuizPage extends ConsumerWidget {
   ResultDailyQuizPage({super.key, required this.quizState});
 
-  final HitterQuizState quizState;
+  final QuizState quizState;
 
   static const _shareText = '#プロ野球クイズ #389quiz #今日の1問\n$appStoreUrl';
   static const _buttonWidth = 160.0;
@@ -39,7 +39,7 @@ class ResultDailyQuizPage extends ConsumerWidget {
                     ResultText(quizState: quizState),
                     ResultQuizWidget(
                       globalKey: _globalKey,
-                      hitterQuiz: quizState.hitterQuiz,
+                      hitterQuiz: quizState.quiz,
                     ),
                     const SizedBox(height: 24),
                     Center(

@@ -5,8 +5,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../util/enum/hitting_stats_type.dart';
 import '../../../util/extension/date_time_extension.dart';
 import '../../daily_quiz/domain/daily_quiz.dart';
-import '../../quiz/domain/hitter_quiz_state.dart';
 import '../../quiz/domain/quiz.dart';
+import '../../quiz/domain/quiz_state.dart';
 import '../../search_condition/domain/search_condition.dart';
 import '../domain/daily_hitter_quiz_result.dart';
 import '../domain/hitter_quiz_result.dart';
@@ -37,9 +37,9 @@ class QuizResultRepository {
   Future<void> updateDailyQuizResult(
     User user,
     DailyQuiz dailyQuiz,
-    HitterQuizState quizState,
+    QuizState quizState,
   ) async {
-    final hitterQuiz = quizState.hitterQuiz;
+    final hitterQuiz = quizState.quiz;
     await firestore
         .collection('users')
         .doc(user.uid)
@@ -74,10 +74,10 @@ class QuizResultRepository {
 
   Future<void> createNormalQuizResult(
     User user,
-    HitterQuizState quizState,
+    QuizState quizState,
     SearchCondition searchCondition,
   ) async {
-    final hitterQuiz = quizState.hitterQuiz;
+    final quiz = quizState.quiz;
     await firestore
         .collection('users')
         .doc(user.uid)
@@ -85,14 +85,14 @@ class QuizResultRepository {
         .add(<String, dynamic>{
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
-      'playerId': hitterQuiz.playerId,
-      'playerName': hitterQuiz.playerName,
-      'selectedStats': hitterQuiz.selectedStats,
+      'playerId': quiz.playerId,
+      'playerName': quiz.playerName,
+      'selectedStats': quiz.selectedStats,
       // todo: Firestore の形式に合わせる
-      'yearStats': hitterQuiz.yearStats,
-      'unveilCount': hitterQuiz.unveilCount,
+      'yearStats': quiz.yearStats,
+      'unveilCount': quiz.unveilCount,
       'isCorrect': quizState.isCorrectEnteredHitter,
-      'incorrectCount': hitterQuiz.incorrectCount,
+      'incorrectCount': quiz.incorrectCount,
       'searchCondition': searchCondition.toJson(),
     });
   }

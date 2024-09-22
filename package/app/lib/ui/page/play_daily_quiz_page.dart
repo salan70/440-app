@@ -59,7 +59,7 @@ class _PlayDailyQuizPageState extends ConsumerState<PlayDailyQuizPage> {
                 loading: () => const Center(child: CircularProgressIndicator()),
                 data: (pageState) {
                   final quizState = pageState.quizState;
-                  final hitterQuiz = quizState.hitterQuiz;
+                  final hitterQuiz = quizState.quiz;
                   return ListView(
                     children: [
                       const BannerAdWidget(),

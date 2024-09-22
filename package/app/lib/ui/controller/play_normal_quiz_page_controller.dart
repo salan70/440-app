@@ -16,7 +16,7 @@ part 'play_normal_quiz_page_controller.g.dart';
 @freezed
 class PlayNormalQuizPageState with _$PlayNormalQuizPageState {
   const factory PlayNormalQuizPageState({
-    required HitterQuizState normalQuizState,
+    required QuizState normalQuizState,
   }) = _PlayNormalQuizPageState;
 }
 
@@ -35,8 +35,8 @@ class PlayNormalQuizPageController extends _$PlayNormalQuizPageController {
     final currentQuizState = currentValue.normalQuizState;
 
     final newHitterQuizState = currentQuizState.copyWith(
-      hitterQuiz: currentQuizState.hitterQuiz.copyWith(
-        unveilCount: currentQuizState.hitterQuiz.unveilCount + 1,
+      quiz: currentQuizState.quiz.copyWith(
+        unveilCount: currentQuizState.quiz.unveilCount + 1,
       ),
     );
     final newValue = currentValue.copyWith(normalQuizState: newHitterQuizState);
@@ -50,8 +50,8 @@ class PlayNormalQuizPageController extends _$PlayNormalQuizPageController {
     final currentQuizState = currentValue.normalQuizState;
 
     final newHitterQuizState = currentQuizState.copyWith(
-      hitterQuiz: currentQuizState.hitterQuiz.copyWith(
-        unveilCount: currentQuizState.hitterQuiz.totalStatsCount,
+      quiz: currentQuizState.quiz.copyWith(
+        unveilCount: currentQuizState.quiz.totalStatsCount,
       ),
     );
     final newValue = currentValue.copyWith(normalQuizState: newHitterQuizState);
@@ -65,8 +65,8 @@ class PlayNormalQuizPageController extends _$PlayNormalQuizPageController {
     final currentQuizState = currentValue.normalQuizState;
 
     final newHitterQuizState = currentQuizState.copyWith(
-      hitterQuiz: currentQuizState.hitterQuiz.copyWith(
-        incorrectCount: currentQuizState.hitterQuiz.incorrectCount + 1,
+      quiz: currentQuizState.quiz.copyWith(
+        incorrectCount: currentQuizState.quiz.incorrectCount + 1,
       ),
     );
     final newValue = currentValue.copyWith(normalQuizState: newHitterQuizState);
@@ -140,7 +140,7 @@ class PlayNormalQuizPageController extends _$PlayNormalQuizPageController {
     FocusManager.instance.primaryFocus?.unfocus();
 
     final isAllStatsUnveiled =
-        state.value!.normalQuizState.hitterQuiz.isAllStatsUnveiled;
+        state.value!.normalQuizState.quiz.isAllStatsUnveiled;
     // 非公開の成績が残っている場合、確認ダイアログを表示する。
     if (isAllStatsUnveiled == false) {
       _showConfirmOpenAllDialog();
@@ -152,7 +152,7 @@ class PlayNormalQuizPageController extends _$PlayNormalQuizPageController {
     FocusManager.instance.primaryFocus?.unfocus();
 
     final isAllStatsUnveiled =
-        state.value!.normalQuizState.hitterQuiz.isAllStatsUnveiled;
+        state.value!.normalQuizState.quiz.isAllStatsUnveiled;
     // 非公開の成績が残っている場合、ランダムで成績1つ公開する。
     if (isAllStatsUnveiled == false) {
       _openRandom();

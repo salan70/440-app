@@ -7,7 +7,7 @@ part of 'play_normal_quiz_page_controller.dart';
 // **************************************************************************
 
 String _$playNormalQuizPageControllerHash() =>
-    r'cbc8a20f3f6d9bed92e8f31ec922a2626ef40977';
+    r'dca682948dee6189a834145630ba5bac92df3fed';
 
 /// See also [PlayNormalQuizPageController].
 @ProviderFor(PlayNormalQuizPageController)

@@ -5,37 +5,37 @@ import 'hitter.dart';
 import 'quiz.dart';
 
 @immutable
-class HitterQuizState {
-  const HitterQuizState.normal({
-    required this.hitterQuiz,
+class QuizState {
+  const QuizState.normal({
+    required this.quiz,
     required this.enteredHitter,
   }) : quizType = QuizType.normal;
 
-  const HitterQuizState.daily({
-    required this.hitterQuiz,
+  const QuizState.daily({
+    required this.quiz,
     required this.enteredHitter,
   }) : quizType = QuizType.daily;
 
-  final Quiz hitterQuiz;
+  final Quiz quiz;
   final Hitter? enteredHitter;
   final QuizType quizType;
 
-  bool get isCorrectEnteredHitter => enteredHitter?.id == hitterQuiz.playerId;
+  bool get isCorrectEnteredHitter => enteredHitter?.id == quiz.playerId;
 
-  HitterQuizState copyWith({
-    Quiz? hitterQuiz,
+  QuizState copyWith({
+    Quiz? quiz,
     Hitter? enteredHitter,
   }) {
     switch (quizType) {
       case QuizType.normal:
-        return HitterQuizState.normal(
-          hitterQuiz: hitterQuiz ?? this.hitterQuiz,
+        return QuizState.normal(
+          quiz: quiz ?? this.quiz,
           enteredHitter: enteredHitter ?? this.enteredHitter,
         );
 
       case QuizType.daily:
-        return HitterQuizState.daily(
-          hitterQuiz: hitterQuiz ?? this.hitterQuiz,
+        return QuizState.daily(
+          quiz: quiz ?? this.quiz,
           enteredHitter: enteredHitter ?? this.enteredHitter,
         );
     }
