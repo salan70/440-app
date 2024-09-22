@@ -39,8 +39,8 @@ class SelectStatsWidget extends StatelessWidget {
       selectedValue: selectedStatsList,
       choiceItems: S2Choice.listFrom<String, void>(
         source: statsTypeList,
-        value: (index, _) => statsTypeList[index].displayLabel,
-        title: (index, _) => statsTypeList[index].displayLabel,
+        value: (index, _) => statsTypeList[index].label,
+        title: (index, _) => statsTypeList[index].label,
       ),
       modalType: S2ModalType.bottomSheet,
       choiceType: S2ChoiceType.chips,

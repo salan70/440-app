@@ -1,5 +1,3 @@
-
-
 import 'package:model/src/feature/search_condition/domain/search_condition.dart';
 import 'package:model/src/util/enum/hitting_stats_type.dart';
 
@@ -12,10 +10,10 @@ final dummySearchCondition1 = SearchCondition(
   minHits: 0,
   minHr: 0,
   selectedStatsList: [
-    StatsType.team.displayLabel,
-    StatsType.battingAverage.displayLabel,
-    StatsType.homeRuns.displayLabel,
-    StatsType.onBasePlusSlugging.displayLabel,
+    StatsType.team.label,
+    StatsType.battingAverage.label,
+    StatsType.homeRuns.label,
+    StatsType.onBasePlusSlugging.label,
   ],
 );
 
@@ -29,9 +27,9 @@ final dummySearchCondition2 = SearchCondition(
   minHits: 0,
   minHr: 0,
   selectedStatsList: [
-    StatsType.team.displayLabel,
-    StatsType.battingAverage.displayLabel,
-    StatsType.homeRuns.displayLabel,
-    StatsType.onBasePlusSlugging.displayLabel,
+    StatsType.team.label,
+    StatsType.battingAverage.label,
+    StatsType.homeRuns.label,
+    StatsType.onBasePlusSlugging.label,
   ],
 );

@@ -9,10 +9,10 @@ final defaultSearchCondition = SearchCondition(
   minHits: 0,
   minHr: 0,
   selectedStatsList: [
-    StatsType.strikeoutPercentage.displayLabel,
-    StatsType.battingAverage.displayLabel,
-    StatsType.homeRuns.displayLabel,
-    StatsType.atBatsPerHomeRun.displayLabel,
+    StatsType.strikeoutPercentage.label,
+    StatsType.battingAverage.label,
+    StatsType.homeRuns.label,
+    StatsType.atBatsPerHomeRun.label,
   ],
 );
 

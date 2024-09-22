@@ -31,12 +31,10 @@ enum StatsType {
   walkPercentage,
   strikeoutPercentage;
 
-  static StatsType fromString(String value) {
-    return StatsType.values
-        .firstWhere((element) => element.displayLabel == value);
-  }
+  static StatsType fromString(String value) =>
+      StatsType.values.firstWhere((element) => element.label == value);
 
-  String get displayLabel {
+  String get label {
     switch (this) {
       case StatsType.team:
         return 'team';
@@ -177,12 +175,12 @@ const statsTypeList = StatsType.values;
 
 /// 確率系のStatsTypeのリスト
 final List<String> probabilityStats = [
-  StatsType.battingAverage.displayLabel,
-  StatsType.onBasePercentage.displayLabel,
-  StatsType.sluggingPercentage.displayLabel,
-  StatsType.onBasePlusSlugging.displayLabel,
-  StatsType.battingAverageOnBallsInPlay.displayLabel,
-  StatsType.isolatedPower.displayLabel,
-  StatsType.walkPercentage.displayLabel,
-  StatsType.strikeoutPercentage.displayLabel,
+  StatsType.battingAverage.label,
+  StatsType.onBasePercentage.label,
+  StatsType.sluggingPercentage.label,
+  StatsType.onBasePlusSlugging.label,
+  StatsType.battingAverageOnBallsInPlay.label,
+  StatsType.isolatedPower.label,
+  StatsType.walkPercentage.label,
+  StatsType.strikeoutPercentage.label,
 ];

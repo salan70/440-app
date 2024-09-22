@@ -21,7 +21,7 @@ class QuizWidget extends StatelessWidget {
             for (final selectedStats in selectedStatsList)
               Expanded(
                 child: Center(
-                  child: Text(selectedStats.displayLabel),
+                  child: Text(selectedStats.label),
                 ),
               ),
           ],
