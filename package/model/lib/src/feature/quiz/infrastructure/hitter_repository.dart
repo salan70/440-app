@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:common/common.dart';
 import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -166,62 +168,78 @@ class HitterRepository {
     TotalBattingStat totalBattingStat,
     List<StatsType> selectedStatsList,
   ) {
-    // todo: ランダムにする
-    const order = 0;
-
-    // 年度ごとの成績を作成
+    // `YearStats` のリストを生成する。
+    // この時点では、すべての `YearStats` の `unveilOrder` が 0 である。
     final yearStats = battingStatList
-        .map(
-          (battingStat) =>
-              _createYearStat(battingStat, selectedStatsList, order),
-        )
+        .map((stat) => _createYearStat(stat, selectedStatsList))
         .toList();
+    yearStats.add(_createTotalYearStat(totalBattingStat, selectedStatsList));
 
-    // 通算成績を追加
-    final totalYearStat =
-        _createTotalYearStat(totalBattingStat, selectedStatsList, order);
-    yearStats.add(totalYearStat);
-
-    return yearStats;
+    // 表示順をランダムにする。
+    final randomizedYearStats = _randomizeUnveilOrders(yearStats);
+    return randomizedYearStats;
   }
 
   YearStats _createYearStat(
     BattingStat battingStat,
     List<StatsType> selectedStatsList,
-    int order,
   ) {
-    final statsMap = <StatsType, StatsValue>{};
-    for (final stat in selectedStatsList) {
-      final data = battingStat.toJson()[stat.battingStatsColumn];
-      final dataString = data?.toString() ?? '-';
-      statsMap[stat] = StatsValue(
-        unveilOrder: order++,
-        data: StatsValue.formatData(stat, dataString),
-      );
-    }
+    final stats = {
+      for (final statsType in selectedStatsList)
+        statsType: StatsValue(
+          unveilOrder: 0,
+          data: StatsValue.formatData(
+            statsType,
+            battingStat.toJson()[statsType.battingStatsColumn]?.toString() ??
+                StatsValue.emptyLabel,
+          ),
+        ),
+    };
     return YearStats(
       year: battingStat.year.toString(),
-      stats: statsMap,
+      stats: stats,
     );
   }
 
   YearStats _createTotalYearStat(
     TotalBattingStat totalBattingStat,
     List<StatsType> selectedStatsList,
-    int order,
   ) {
-    final totalStatsMap = <StatsType, StatsValue>{};
-    for (final stat in selectedStatsList) {
-      final data = totalBattingStat.toJson()[stat.battingStatsColumn];
-      final dataString = data?.toString() ?? '-';
-      totalStatsMap[stat] = StatsValue(
-        unveilOrder: order++,
-        data: StatsValue.formatData(stat, dataString),
-      );
-    }
+    final stats = {
+      for (final statsType in selectedStatsList)
+        statsType: StatsValue(
+          unveilOrder: 0,
+          data: StatsValue.formatData(
+            statsType,
+            totalBattingStat
+                    .toJson()[statsType.battingStatsColumn]
+                    ?.toString() ??
+                StatsValue.emptyLabel,
+          ),
+        ),
+    };
     return YearStats(
-      year: '通算',
-      stats: totalStatsMap,
+      year: YearStats.totalYearLabel,
+      stats: stats,
     );
+  }
+
+  List<YearStats> _randomizeUnveilOrders(List<YearStats> yearStats) {
+    final random = Random();
+    final allStats = yearStats.expand((ys) => ys.stats.values).toList();
+    final orders = List.generate(allStats.length, (i) => i)..shuffle(random);
+
+    var orderIndex = 0;
+    return yearStats.map((ys) {
+      final newStats = Map.fromEntries(
+        ys.stats.entries.map(
+          (e) => MapEntry(
+            e.key,
+            e.value.copyWith(unveilOrder: orders[orderIndex++]),
+          ),
+        ),
+      );
+      return ys.copyWith(stats: newStats);
+    }).toList();
   }
 }
