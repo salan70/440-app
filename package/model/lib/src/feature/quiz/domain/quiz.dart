@@ -8,6 +8,8 @@ part 'quiz.g.dart';
 
 @freezed
 class Quiz with _$Quiz {
+  // TODO(me): named constructor を使いたい。
+  // 問題作成時は、必ず `unveilCount` と `incorrectCount` が 0 であるため。
   const factory Quiz({
     /// 回答となる選手のID.
     required String playerId,
