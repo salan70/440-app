@@ -13,7 +13,7 @@ Future<QuizState> normalQuizState(NormalQuizStateRef ref) async {
 
   final hitterQuiz = await ref
       .watch(hitterRepositoryProvider)
-      .fetchNormalHitterQuiz(searchCondition);
+      .fetchNormalQuiz(searchCondition);
 
   return QuizState.normal(quiz: hitterQuiz, enteredHitter: null);
 }

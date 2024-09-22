@@ -40,22 +40,22 @@ class HitterRepository {
     }).toList();
   }
 
-  /// ノーマルクイズ用の選手情報を取得する。
+  /// ノーマルクイズを取得する。
   ///
-  /// 検索条件に合う選手を1人取得し、その選手の成績を取得して返す。
-  Future<Quiz> fetchNormalHitterQuiz(
-    SearchCondition searchCondition,
-  ) async {
+  /// 検索条件に合う選手を1人取得し、その選手の成績からクイズを生成して返す。
+  Future<Quiz> fetchNormalQuiz(SearchCondition searchCondition) async {
     // 検索条件に合う選手を1人取得する。
     final totalBattingStat = await _searchTotalBattingStat(searchCondition);
     final batter = await _fetchBatterById(totalBattingStat.playerId);
     final battingStat = await _fetchBattingStatById(batter.playerId);
+    final selectedStatsList =
+        searchCondition.selectedStatsList.map(StatsType.fromString).toList();
 
-    final hitterQuiz = _toHitterQuiz(
+    final hitterQuiz = _createQuiz(
       batter,
       battingStat,
       totalBattingStat,
-      searchCondition,
+      selectedStatsList,
     );
     return hitterQuiz;
   }
@@ -137,26 +137,24 @@ class HitterRepository {
     return responses;
   }
 
-  Quiz _toHitterQuiz(
+  /// [Quiz] を生成する。
+  Quiz _createQuiz(
     Player player,
     List<BattingStat> battingStatList,
     TotalBattingStat totalBattingStat,
-    SearchCondition searchCondition,
+    List<StatsType> selectedStatsList,
   ) {
     final yearStats = _createYearStats(
       battingStatList,
       totalBattingStat,
-      searchCondition.selectedStatsList.map(StatsType.fromString).toList(),
+      selectedStatsList,
     );
-
-    final selectedStats =
-        searchCondition.selectedStatsList.map(StatsType.fromString).toList();
 
     return Quiz(
       playerId: player.playerId,
       playerName: '${player.nameFirst} ${player.nameLast}',
       yearStats: yearStats,
-      selectedStats: selectedStats,
+      selectedStats: selectedStatsList,
       unveilCount: 0,
       incorrectCount: 0,
     );
@@ -168,46 +166,62 @@ class HitterRepository {
     TotalBattingStat totalBattingStat,
     List<StatsType> selectedStatsList,
   ) {
-    final yearStats = <YearStats>[];
-    var order = 0;
+    // todo: ランダムにする
+    const order = 0;
 
-    // 年度ごとの成績を追加
-    for (final battingStat in battingStatList) {
-      final statsMap = <StatsType, StatsValue>{};
-      for (final stat in selectedStatsList) {
-        final data = battingStat.toJson()[stat.battingStatsColumn];
-        final dataString = data?.toString() ?? StatsValue.emptyLabel;
-
-        statsMap[stat] = StatsValue(
-          unveilOrder: order++,
-          data: StatsValue.formatData(stat, dataString),
-        );
-      }
-      yearStats.add(
-        YearStats(
-          year: battingStat.year.toString(),
-          stats: statsMap,
-        ),
-      );
-    }
+    // 年度ごとの成績を作成
+    final yearStats = battingStatList
+        .map(
+          (battingStat) =>
+              _createYearStat(battingStat, selectedStatsList, order),
+        )
+        .toList();
 
     // 通算成績を追加
+    final totalYearStat =
+        _createTotalYearStat(totalBattingStat, selectedStatsList, order);
+    yearStats.add(totalYearStat);
+
+    return yearStats;
+  }
+
+  YearStats _createYearStat(
+    BattingStat battingStat,
+    List<StatsType> selectedStatsList,
+    int order,
+  ) {
+    final statsMap = <StatsType, StatsValue>{};
+    for (final stat in selectedStatsList) {
+      final data = battingStat.toJson()[stat.battingStatsColumn];
+      final dataString = data?.toString() ?? '-';
+      statsMap[stat] = StatsValue(
+        unveilOrder: order++,
+        data: StatsValue.formatData(stat, dataString),
+      );
+    }
+    return YearStats(
+      year: battingStat.year.toString(),
+      stats: statsMap,
+    );
+  }
+
+  YearStats _createTotalYearStat(
+    TotalBattingStat totalBattingStat,
+    List<StatsType> selectedStatsList,
+    int order,
+  ) {
     final totalStatsMap = <StatsType, StatsValue>{};
     for (final stat in selectedStatsList) {
       final data = totalBattingStat.toJson()[stat.battingStatsColumn];
-      final dataString = data?.toString() ?? StatsValue.emptyLabel;
+      final dataString = data?.toString() ?? '-';
       totalStatsMap[stat] = StatsValue(
         unveilOrder: order++,
         data: StatsValue.formatData(stat, dataString),
       );
     }
-    yearStats.add(
-      YearStats(
-        year: YearStats.totalYearLabel,
-        stats: totalStatsMap,
-      ),
+    return YearStats(
+      year: '通算',
+      stats: totalStatsMap,
     );
-
-    return yearStats;
   }
 }
