@@ -154,9 +154,9 @@ const dummyHitterQuiz = Quiz(
   playerId: '9d377b08-3b1d-4ff2-892f-597c404e4b7d',
   playerName: '牧秀悟',
   yearStats: [
-    YearStats(year: '2021', stats: dummyStats),
-    YearStats(year: '2022', stats: dummyStats),
-    YearStats(year: 'NPB：2年', stats: dummyStats),
+    YearStats.perYear(displayOrder: 0, year: '2021', stats: dummyStats),
+    YearStats.perYear(displayOrder: 1, year: '2022', stats: dummyStats),
+    YearStats.total(stats: dummyStats),
   ],
   selectedStats: [
     StatsType.team,

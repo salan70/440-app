@@ -37,23 +37,83 @@ class Quiz with _$Quiz {
   bool get isAllStatsUnveiled => unveilCount >= totalStatsCount;
 }
 
-@freezed
-class YearStats with _$YearStats {
-  const factory YearStats({
-    required String year,
-    required Map<StatsType, StatsValue> stats,
-  }) = _YearStats;
-  const YearStats._();
+@immutable
+class YearStats {
+  factory YearStats.fromJson(Map<String, dynamic> json) {
+    final stats = (json['stats'] as Map<String, dynamic>).map(
+      (key, value) => MapEntry(
+        StatsType.fromString(key),
+        StatsValue.fromJson(value as Map<String, dynamic>),
+      ),
+    );
 
-  factory YearStats.fromJson(Map<String, dynamic> json) => YearStats(
+    // TODO(me): `displayOrder` が `null` かどうかで判断しないほうがいいかも。
+    // ※ `copyWith` も同様。
+    if (json['displayOrder'] != null) {
+      return YearStats.perYear(
+        displayOrder: json['displayOrder'] as int,
         year: json['year'] as String,
-        stats: (json['stats'] as Map<String, dynamic>).map(
-          (key, value) => MapEntry(
-            StatsType.fromString(key),
-            StatsValue.fromJson(value as Map<String, dynamic>),
-          ),
-        ),
+        stats: stats,
       );
+    }
+
+    return YearStats.total(stats: stats);
+  }
+
+  /// 年度ごとの成績。
+  const YearStats.perYear({
+    required this.displayOrder,
+    required this.year,
+    required this.stats,
+  });
+
+  /// 通算成績。
+  const YearStats.total({
+    required this.stats,
+  })  : displayOrder = null,
+        year = totalYearLabel;
+
+  /// 表示順。
+  ///
+  /// 小さい順に上から並んで表示される。
+  /// [year] が重複する可能性があるため、このフィールドが必要。
+  ///
+  /// [YearStats.total] の場合は `null` となる。
+  final int? displayOrder;
+
+  /// 年度。
+  ///
+  /// [YearStats.total] の場合は `totalYearLabel` の値が入る。
+  final String year;
+
+  /// 成績。
+  final Map<StatsType, StatsValue> stats;
+
+  /// Firestore のフィールドに保存する形式に変換する。
+  Map<String, dynamic> toFirestoreField() => {
+        'displayOrder': displayOrder,
+        'year': year,
+        'stats': stats.map(
+          (key, value) => MapEntry(key.label, value.toJson()),
+        ),
+      };
+
+  YearStats copyWith({
+    int? displayOrder,
+    String? year,
+    Map<StatsType, StatsValue>? stats,
+  }) {
+    if (this.displayOrder != null) {
+      return YearStats.perYear(
+        displayOrder: displayOrder ?? this.displayOrder!,
+        year: year ?? this.year,
+        stats: stats ?? this.stats,
+      );
+    }
+    return YearStats.total(
+      stats: stats ?? this.stats,
+    );
+  }
 
   static const String totalYearLabel = 'Total';
 }

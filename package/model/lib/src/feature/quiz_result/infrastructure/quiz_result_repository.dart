@@ -78,6 +78,9 @@ class QuizResultRepository {
     SearchCondition searchCondition,
   ) async {
     final quiz = quizState.quiz;
+    final selectedStats = quiz.selectedStats.map((e) => e.label).toList();
+    final yearStats = quiz.yearStats.map((e) => e.toFirestoreField()).toList();
+
     await firestore
         .collection('users')
         .doc(user.uid)
@@ -87,9 +90,8 @@ class QuizResultRepository {
       'updatedAt': FieldValue.serverTimestamp(),
       'playerId': quiz.playerId,
       'playerName': quiz.playerName,
-      'selectedStats': quiz.selectedStats,
-      // todo: Firestore の形式に合わせる
-      'yearStats': quiz.yearStats,
+      'selectedStats': selectedStats,
+      'yearStats': yearStats,
       'unveilCount': quiz.unveilCount,
       'isCorrect': quizState.isCorrectEnteredHitter,
       'incorrectCount': quiz.incorrectCount,

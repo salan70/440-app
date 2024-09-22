@@ -195,7 +195,8 @@ class HitterRepository {
           ),
         ),
     };
-    return YearStats(
+    return YearStats.perYear(
+      displayOrder: battingStat.displayOrder,
       year: battingStat.year.toString(),
       stats: stats,
     );
@@ -218,10 +219,7 @@ class HitterRepository {
           ),
         ),
     };
-    return YearStats(
-      year: YearStats.totalYearLabel,
-      stats: stats,
-    );
+    return YearStats.total(stats: stats);
   }
 
   List<YearStats> _randomizeUnveilOrders(List<YearStats> yearStats) {
