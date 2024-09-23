@@ -6,7 +6,7 @@ part of 'daily_quiz_state.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dailyQuizHash() => r'd0c9db688cd3a841df43f488e5866bd18bfeafe8';
+String _$dailyQuizHash() => r'4f7aabe2fd312315b1e0c032e1fe881eb5410f90';
 
 /// Copied from Dart SDK
 class _SystemHash {

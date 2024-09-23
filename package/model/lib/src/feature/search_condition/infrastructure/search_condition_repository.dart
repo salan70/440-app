@@ -25,18 +25,18 @@ class SearchConditionRepository {
 
     return defaultSearchCondition;
 
+    // TODO(me): ローカル DB から取得する。
+    // final searchCondition = box.get(
+    //   _boxKey,
+    //   defaultValue: defaultSearchCondition,
+    // )!;
 
-    final searchCondition = box.get(
-      _boxKey,
-      defaultValue: defaultSearchCondition,
-    )!;
-
-    // selectedStatsListに年度が含まれている場合は削除して、返す
-    return searchCondition.copyWith(
-      selectedStatsList: List<String>.from(
-        searchCondition.selectedStatsList,
-      )..remove('年度'),
-    );
+    // // selectedStatsListに年度が含まれている場合は削除して、返す
+    // return searchCondition.copyWith(
+    //   selectedStatsList: List<String>.from(
+    //     searchCondition.selectedStatsList,
+    //   )..remove('年度'),
+    // );
   }
 
   void saveSearchCondition(SearchCondition searchCondition) {

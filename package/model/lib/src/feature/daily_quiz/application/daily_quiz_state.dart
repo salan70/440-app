@@ -14,7 +14,7 @@ part 'daily_quiz_state.g.dart';
 /// 有効な [DailyQuiz] が存在しなかった場合は、 `null` を返す。
 @riverpod
 Future<DailyQuiz?> dailyQuiz(DailyQuizRef ref, DateTime questionedAt) async {
-  // todo: repository で取得した値を返すようにする。
+  // TODO(me): repository で取得した値を返すようにする。
   // Firestore に dailyQuiz のドキュメントを登録していないため、仮にダミーデータを指定。
   final dailyQuiz = DailyQuiz(
     dailyQuizId: 'dailyQuizId',
@@ -28,7 +28,8 @@ Future<DailyQuiz?> dailyQuiz(DailyQuizRef ref, DateTime questionedAt) async {
     ],
   );
   return dailyQuiz;
-  // return ref.watch(dailyQuizRepositoryProvider).fetchByQuestionedAt(questionedAt);
+  // return ref.watch(dailyQuizRepositoryProvider)
+  // .fetchByQuestionedAt(questionedAt);
 }
 
 /// dailyQuiz をプレイ済みかどうかを返す。

@@ -16,8 +16,6 @@ class HitterQuizResult with _$HitterQuizResult {
 
   const HitterQuizResult._();
 
-  // TODO(me): selectedStatsListに年度が含まれた場合、年度をremoveする処理を書く'
-
   /// 表示しうる成績の数
   int get totalStatsCount =>
       hitterQuiz.yearStats.length *
