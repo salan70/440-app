@@ -30,21 +30,12 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
       throw ArgumentError.notNull('dailyQuiz');
     }
 
-    // todo: ちゃんとやる
-    // 仮にダミーデータを作成
-    const quiz = Quiz(
-      playerId: '',
-      playerName: '',
-      yearStats: [],
-      selectedStats: [],
-      unveilCount: 0,
-      incorrectCount: 0,
-    );
+    final quiz = await ref
+        .watch(hitterRepositoryProvider)
+        .fetchDailyQuiz(dailyQuiz.playerId, dailyQuiz.selectedStatsList);
+    final quizState = QuizState.daily(quiz: quiz, enteredHitter: null);
 
-    const quizState =
-        QuizState.daily(quiz: quiz, enteredHitter: null);
-
-    return const PlayDailyQuizPageState(quizState: quizState);
+    return PlayDailyQuizPageState(quizState: quizState);
   }
 
   // * ---------------------- state.quiz の更新関連 ---------------------- * //

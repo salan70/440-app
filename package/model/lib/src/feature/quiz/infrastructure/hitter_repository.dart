@@ -47,8 +47,8 @@ class HitterRepository {
   /// 検索条件に合う選手を1人取得し、その選手の成績からクイズを生成して返す。
   Future<Quiz> fetchNormalQuiz(SearchCondition searchCondition) async {
     // 検索条件に合う選手を1人取得する。
-    final totalBattingStat = await _searchTotalBattingStat(searchCondition);
-    final batter = await _fetchBatterById(totalBattingStat.playerId);
+    final totalStat = await _searchTotalStatByCondition(searchCondition);
+    final batter = await _fetchBatterById(totalStat.playerId);
     final battingStat = await _fetchBattingStatById(batter.playerId);
     final selectedStatsList =
         searchCondition.selectedStatsList.map(StatsType.fromString).toList();
@@ -56,32 +56,34 @@ class HitterRepository {
     final hitterQuiz = _createQuiz(
       batter,
       battingStat,
-      totalBattingStat,
+      totalStat,
       selectedStatsList,
     );
     return hitterQuiz;
   }
 
-  /// デイリークイズ用の選手情報を取得する。
+  /// デイリークイズを取得する。
   ///
-  /// 指定されたデイリークイズの選手 ID から選手情報を取得し、その選手の成績を取得して返す。
-  // Future<HitterQuizState> fetchInputDailyQuizState(DailyQuiz dailyQuiz) async {
-  //   // 検索条件に合う選手を1人取得する。
-  //   final supabaseHitter = await _searchHitterById(dailyQuiz.playerId);
+  /// [playerId] から選手情報を取得し、その選手の成績からクイズを生成して返す。
+  Future<Quiz> fetchDailyQuiz(
+    String playerId,
+    List<StatsType> selectedStatsList,
+  ) async {
+    final totalStats = await _fetchTotalStatById(playerId);
+    final batter = await _fetchBatterById(playerId);
+    final battingStats = await _fetchBattingStatById(playerId);
 
-  //   // 取得した選手の成績を取得する。
-  //   final statsList = await _fetchHittingStats(supabaseHitter.id);
-
-  //   // InputDailyQuizState に変換して返す。
-  //   return HitterConverter().toInputDailyQuizState(
-  //     supabaseHitter,
-  //     statsList,
-  //     dailyQuiz.selectedStatsList,
-  //   );
-  // }
+    final quiz = _createQuiz(
+      batter,
+      battingStats,
+      totalStats,
+      selectedStatsList,
+    );
+    return quiz;
+  }
 
   /// [searchCondition] に合う通算成績を1人分取得する。
-  Future<TotalBattingStat> _searchTotalBattingStat(
+  Future<TotalBattingStat> _searchTotalStatByCondition(
     SearchCondition searchCondition,
   ) async {
     const finalYear = 2023;
@@ -100,6 +102,23 @@ class HitterRepository {
       ..orderBy([(stats) => OrderingTerm.random()])
       ..limit(1);
 
+    final responses = await query.get();
+
+    // 検索条件に合致するデータがない場合、例外を返す。
+    if (responses.isEmpty) {
+      throw DatabaseException.notFound(DataSourceType.drift);
+    }
+
+    return responses[0];
+  }
+
+  /// [playerId] に対応する通算選手の成績を取得する。
+  Future<TotalBattingStat> _fetchTotalStatById(String playerId) async {
+    final query = db.select(db.totalBattingStats)
+      ..where((stats) => stats.playerId.equals(playerId))
+      ..limit(1);
+
+    // todo: こっから下の処理、共通化できそう
     final responses = await query.get();
 
     // 検索条件に合致するデータがない場合、例外を返す。

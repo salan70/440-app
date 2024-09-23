@@ -7,7 +7,7 @@ part of 'play_daily_quiz_page_controller.dart';
 // **************************************************************************
 
 String _$playDailyQuizPageControllerHash() =>
-    r'61700b0c5d53a80a11bce8f8894c86596d06ca5f';
+    r'ac2c7d6cc18eabb43cccaf58ecdb362439c99297';
 
 /// Copied from Dart SDK
 class _SystemHash {
