@@ -39,7 +39,10 @@ class QuizResultRepository {
     DailyQuiz dailyQuiz,
     QuizState quizState,
   ) async {
-    final hitterQuiz = quizState.quiz;
+    final quiz = quizState.quiz;
+    final selectedStats = quiz.selectedStats.map((e) => e.label).toList();
+    final yearStats = quiz.yearStats.map((e) => e.toFirestoreField()).toList();
+
     await firestore
         .collection('users')
         .doc(user.uid)
@@ -48,27 +51,13 @@ class QuizResultRepository {
         .set(<String, dynamic>{
       'questionedAt': dailyQuiz.questionedAt,
       'updatedAt': FieldValue.serverTimestamp(),
-      // todo
-      // 'playerId': hitterQuiz.hitterId,
-      // 'playerName': hitterQuiz.hitterName,
-      // 'selectedStatsList': hitterQuiz.selectedStatsList,
-      // 'yearList': hitterQuiz.yearList,
-      // 'statsMapList': hitterQuiz.statsMapList
-      // .map(
-      //   (statsMap) => statsMap.map(
-      //     (key, value) => MapEntry(
-      //       key,
-      //       {
-      //         'unveilOrder': value.unveilOrder,
-      //         'data': value.data,
-      //       },
-      //     ),
-      //   ),
-      // )
-      // .toList(),
-      'unveilCount': hitterQuiz.unveilCount,
+      'playerId': quiz.playerId,
+      'playerName': quiz.playerName,
+      'selectedStats': selectedStats,
+      'yearStats': yearStats,
+      'unveilCount': quiz.unveilCount,
       'isCorrect': quizState.isCorrectEnteredHitter,
-      'incorrectCount': hitterQuiz.incorrectCount,
+      'incorrectCount': quiz.incorrectCount,
     });
   }
 
