@@ -38,9 +38,6 @@ dependencies:
   # Static analysis.
   pedantic_mono: ^1.20.1
 
-  # Supabase.
-  supabase_flutter: ^1.2.2
-
   # Firebase.
   cloud_firestore: ^5.2.1
   firebase_analytics: ^11.2.1

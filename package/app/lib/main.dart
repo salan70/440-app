@@ -17,7 +17,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:model/model.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -118,12 +117,6 @@ Future<void> initialize() async {
   await Hive.initFlutter();
   Hive.registerAdapter(SearchConditionAdapter());
   Hive.registerAdapter(NotificationSettingAdapter());
-
-  // Supabaseの初期化
-  await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL']!,
-    anonKey: dotenv.env['SUPABASE_API_KEY']!,
-  );
 
   // table_calendarを日本語で表示するために必要
   await initializeDateFormatting();
