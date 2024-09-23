@@ -155,7 +155,9 @@ const dummyHitterQuiz = Quiz(
   playerName: '牧秀悟',
   yearStats: [
     YearStats.perYear(displayOrder: 0, year: '2021', stats: dummyStats),
-    YearStats.perYear(displayOrder: 1, year: '2022', stats: dummyStats),
+    YearStats.perYear(displayOrder: 1, year: '2021', stats: dummyStats),
+    YearStats.perYear(displayOrder: 2, year: '2022', stats: dummyStats),
+    YearStats.perYear(displayOrder: 3, year: '2023', stats: dummyStats),
     YearStats.total(stats: dummyStats),
   ],
   selectedStats: [
