@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:common/common.dart';
 import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../util/enum/hitting_stats_type.dart';
+import '../../../util/extension/drift_query_extension.dart';
 import '../../app_db/my_drift_database.dart';
 import '../../app_db/tables.dart';
 import '../../search_condition/domain/search_condition.dart';
@@ -26,13 +26,13 @@ class HitterRepository {
 
   /// [searchWord] で選手を部分検索する。
   Future<List<Hitter>> searchHitter(String searchWord) async {
-    final hitterList = await (db.select(db.players)
-          ..where(
-            (e) =>
-                e.nameLast.like('%$searchWord%') |
-                e.nameFirst.like('%$searchWord%'),
-          ))
-        .get();
+    final query = (db.select(db.players)
+      ..where(
+        (e) =>
+            e.nameLast.like('%$searchWord%') |
+            e.nameFirst.like('%$searchWord%'),
+      ));
+    final hitterList = await query.fetchMultipleResults();
 
     return hitterList.map((player) {
       return Hitter(
@@ -102,14 +102,7 @@ class HitterRepository {
       ..orderBy([(stats) => OrderingTerm.random()])
       ..limit(1);
 
-    final responses = await query.get();
-
-    // 検索条件に合致するデータがない場合、例外を返す。
-    if (responses.isEmpty) {
-      throw DatabaseException.notFound(DataSourceType.drift);
-    }
-
-    return responses[0];
+    return query.fetchSingleResult();
   }
 
   /// [playerId] に対応する通算選手の成績を取得する。
@@ -118,15 +111,7 @@ class HitterRepository {
       ..where((stats) => stats.playerId.equals(playerId))
       ..limit(1);
 
-    // todo: こっから下の処理、共通化できそう
-    final responses = await query.get();
-
-    // 検索条件に合致するデータがない場合、例外を返す。
-    if (responses.isEmpty) {
-      throw DatabaseException.notFound(DataSourceType.drift);
-    }
-
-    return responses[0];
+    return query.fetchSingleResult();
   }
 
   Future<Player> _fetchBatterById(String playerId) async {
@@ -134,14 +119,7 @@ class HitterRepository {
       ..where((player) => player.playerId.equals(playerId))
       ..limit(1);
 
-    final responses = await query.get();
-
-    // データがない場合、例外を返す。
-    if (responses.isEmpty) {
-      throw DatabaseException.notFound(DataSourceType.drift);
-    }
-
-    return responses[0];
+    return query.fetchSingleResult();
   }
 
   Future<List<BattingStat>> _fetchBattingStatById(String playerId) async {
@@ -149,13 +127,7 @@ class HitterRepository {
       ..where((stats) => stats.playerId.equals(playerId))
       ..orderBy([(stats) => OrderingTerm.asc(stats.displayOrder)]);
 
-    final responses = await query.get();
-
-    if (responses.isEmpty) {
-      throw DatabaseException.notFound(DataSourceType.drift);
-    }
-
-    return responses;
+    return query.fetchMultipleResults();
   }
 
   /// [Quiz] を生成する。
