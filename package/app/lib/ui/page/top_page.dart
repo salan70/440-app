@@ -32,10 +32,6 @@ class _TopPageState extends ConsumerState<TopPage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // TODO(me): このへんの処理全部くくって controller に持たせたい
-      // ログインする。
-      await ref.read(authServiceProvider).login();
-
       // バージョンチェック
       final needUpdate = await ref.read(needUpdateProvider.future);
       if (needUpdate) {

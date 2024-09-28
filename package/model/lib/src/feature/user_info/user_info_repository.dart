@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:common/common.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'user_info.dart';
@@ -16,21 +17,13 @@ class UserInfoRepository {
 
   /// userInfo ドキュメントを取得する。
   ///
-  /// 存在しない場合は null を返す。
-  Future<UserInfo?> fetchUserInfo(String userId) async {
+  /// 存在しない場合は例外を投げる。
+  Future<UserInfo> fetchUserInfo(String userId) async {
     final snapshot = await firestore.collection('users').doc(userId).get();
     if (!snapshot.exists) {
-      return null;
+      throw DatabaseException.notFound(DataSourceType.firestore);
     }
     return UserInfo.fromFirestore(snapshot.data()!, userId);
-  }
-
-  /// userInfo ドキュメントを新規作成する。
-  Future<void> createUserInfo(UserInfo userInfo) async {
-    // ドキュメント ID を指定して新規作成するため、 `set()` を使う。 
-    await firestore.collection('users').doc(userInfo.userId).set(
-      <String, dynamic>{...userInfo.toFirestoreCreate()},
-    );
   }
 
   /// userInfo ドキュメントを更新する。

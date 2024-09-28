@@ -4,7 +4,7 @@ import 'package:model/model.dart';
 class ResultText extends StatelessWidget {
   const ResultText({super.key, required this.quizState});
 
-  final HitterQuizState quizState;
+  final QuizState quizState;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ResultText extends StatelessWidget {
             : Column(
                 children: [
                   const Text('残念...'),
-                  Text('正解は、${quizState.hitterQuiz.hitterName}選手でした。'),
+                  Text('正解は、${quizState.quiz.playerName}選手でした。'),
                 ],
               ),
       ),

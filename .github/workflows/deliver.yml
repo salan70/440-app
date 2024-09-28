@@ -41,8 +41,6 @@ jobs:
         working-directory: package/app
         run: |
           touch .env
-          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
-          echo "SUPABASE_API_KEY=${{ secrets.SUPABASE_API_KEY }}" >> .env
           echo "BANNER_ID_IOS=${{ secrets.BANNER_ID_IOS }}" >> .env
           echo "BANNER_ID_ANDROID=${{ secrets.BANNER_ID_ANDROID }}" >> .env
           echo "INTERSTITIAL_ID_IOS=${{ secrets.INTERSTITIAL_ID_IOS }}" >> .env
@@ -140,8 +138,6 @@ jobs:
         working-directory: package/app
         run: |
           touch .env
-          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
-          echo "SUPABASE_API_KEY=${{ secrets.SUPABASE_API_KEY }}" >> .env
           echo "BANNER_ID_IOS=${{ secrets.BANNER_ID_IOS }}" >> .env
           echo "BANNER_ID_ANDROID=${{ secrets.BANNER_ID_ANDROID }}" >> .env
           echo "INTERSTITIAL_ID_IOS=${{ secrets.INTERSTITIAL_ID_IOS }}" >> .env

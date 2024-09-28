@@ -7,7 +7,7 @@ part of 'quiz_result_repository.dart';
 // **************************************************************************
 
 String _$quizResultRepositoryHash() =>
-    r'8d152649851967ac5294a21928e66d6ac0df2562';
+    r'7b3283f57c7daeca2ccf8d6dc5c33466deeb46bf';
 
 /// See also [quizResultRepository].
 @ProviderFor(quizResultRepository)

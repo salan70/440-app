@@ -16,11 +16,17 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DailyQuiz {
+  /// [DailyQuiz] のID.
   String get dailyQuizId => throw _privateConstructorUsedError;
+
+  /// 出題日時。
   DateTime get questionedAt => throw _privateConstructorUsedError;
+
+  /// 回答となる選手のID.
   String get playerId => throw _privateConstructorUsedError;
-  List<String> get selectedStatsList => throw _privateConstructorUsedError;
-  SeasonType get seasonType => throw _privateConstructorUsedError;
+
+  /// 出題するデータの種別。
+  List<StatsType> get selectedStatsList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DailyQuizCopyWith<DailyQuiz> get copyWith =>
@@ -36,8 +42,7 @@ abstract class $DailyQuizCopyWith<$Res> {
       {String dailyQuizId,
       DateTime questionedAt,
       String playerId,
-      List<String> selectedStatsList,
-      SeasonType seasonType});
+      List<StatsType> selectedStatsList});
 }
 
 /// @nodoc
@@ -57,7 +62,6 @@ class _$DailyQuizCopyWithImpl<$Res, $Val extends DailyQuiz>
     Object? questionedAt = null,
     Object? playerId = null,
     Object? selectedStatsList = null,
-    Object? seasonType = null,
   }) {
     return _then(_value.copyWith(
       dailyQuizId: null == dailyQuizId
@@ -75,11 +79,7 @@ class _$DailyQuizCopyWithImpl<$Res, $Val extends DailyQuiz>
       selectedStatsList: null == selectedStatsList
           ? _value.selectedStatsList
           : selectedStatsList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      seasonType: null == seasonType
-          ? _value.seasonType
-          : seasonType // ignore: cast_nullable_to_non_nullable
-              as SeasonType,
+              as List<StatsType>,
     ) as $Val);
   }
 }
@@ -96,8 +96,7 @@ abstract class _$$DailyQuizImplCopyWith<$Res>
       {String dailyQuizId,
       DateTime questionedAt,
       String playerId,
-      List<String> selectedStatsList,
-      SeasonType seasonType});
+      List<StatsType> selectedStatsList});
 }
 
 /// @nodoc
@@ -115,7 +114,6 @@ class __$$DailyQuizImplCopyWithImpl<$Res>
     Object? questionedAt = null,
     Object? playerId = null,
     Object? selectedStatsList = null,
-    Object? seasonType = null,
   }) {
     return _then(_$DailyQuizImpl(
       dailyQuizId: null == dailyQuizId
@@ -133,35 +131,40 @@ class __$$DailyQuizImplCopyWithImpl<$Res>
       selectedStatsList: null == selectedStatsList
           ? _value._selectedStatsList
           : selectedStatsList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      seasonType: null == seasonType
-          ? _value.seasonType
-          : seasonType // ignore: cast_nullable_to_non_nullable
-              as SeasonType,
+              as List<StatsType>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$DailyQuizImpl implements _DailyQuiz {
+class _$DailyQuizImpl extends _DailyQuiz {
   const _$DailyQuizImpl(
       {required this.dailyQuizId,
       required this.questionedAt,
       required this.playerId,
-      required final List<String> selectedStatsList,
-      required this.seasonType})
-      : _selectedStatsList = selectedStatsList;
+      required final List<StatsType> selectedStatsList})
+      : _selectedStatsList = selectedStatsList,
+        super._();
 
+  /// [DailyQuiz] のID.
   @override
   final String dailyQuizId;
+
+  /// 出題日時。
   @override
   final DateTime questionedAt;
+
+  /// 回答となる選手のID.
   @override
   final String playerId;
-  final List<String> _selectedStatsList;
+
+  /// 出題するデータの種別。
+  final List<StatsType> _selectedStatsList;
+
+  /// 出題するデータの種別。
   @override
-  List<String> get selectedStatsList {
+  List<StatsType> get selectedStatsList {
     if (_selectedStatsList is EqualUnmodifiableListView)
       return _selectedStatsList;
     // ignore: implicit_dynamic_type
@@ -169,11 +172,8 @@ class _$DailyQuizImpl implements _DailyQuiz {
   }
 
   @override
-  final SeasonType seasonType;
-
-  @override
   String toString() {
-    return 'DailyQuiz(dailyQuizId: $dailyQuizId, questionedAt: $questionedAt, playerId: $playerId, selectedStatsList: $selectedStatsList, seasonType: $seasonType)';
+    return 'DailyQuiz(dailyQuizId: $dailyQuizId, questionedAt: $questionedAt, playerId: $playerId, selectedStatsList: $selectedStatsList)';
   }
 
   @override
@@ -188,19 +188,12 @@ class _$DailyQuizImpl implements _DailyQuiz {
             (identical(other.playerId, playerId) ||
                 other.playerId == playerId) &&
             const DeepCollectionEquality()
-                .equals(other._selectedStatsList, _selectedStatsList) &&
-            (identical(other.seasonType, seasonType) ||
-                other.seasonType == seasonType));
+                .equals(other._selectedStatsList, _selectedStatsList));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      dailyQuizId,
-      questionedAt,
-      playerId,
-      const DeepCollectionEquality().hash(_selectedStatsList),
-      seasonType);
+  int get hashCode => Object.hash(runtimeType, dailyQuizId, questionedAt,
+      playerId, const DeepCollectionEquality().hash(_selectedStatsList));
 
   @JsonKey(ignore: true)
   @override
@@ -209,24 +202,30 @@ class _$DailyQuizImpl implements _DailyQuiz {
       __$$DailyQuizImplCopyWithImpl<_$DailyQuizImpl>(this, _$identity);
 }
 
-abstract class _DailyQuiz implements DailyQuiz {
+abstract class _DailyQuiz extends DailyQuiz {
   const factory _DailyQuiz(
       {required final String dailyQuizId,
       required final DateTime questionedAt,
       required final String playerId,
-      required final List<String> selectedStatsList,
-      required final SeasonType seasonType}) = _$DailyQuizImpl;
+      required final List<StatsType> selectedStatsList}) = _$DailyQuizImpl;
+  const _DailyQuiz._() : super._();
 
   @override
+
+  /// [DailyQuiz] のID.
   String get dailyQuizId;
   @override
+
+  /// 出題日時。
   DateTime get questionedAt;
   @override
+
+  /// 回答となる選手のID.
   String get playerId;
   @override
-  List<String> get selectedStatsList;
-  @override
-  SeasonType get seasonType;
+
+  /// 出題するデータの種別。
+  List<StatsType> get selectedStatsList;
   @override
   @JsonKey(ignore: true)
   _$$DailyQuizImplCopyWith<_$DailyQuizImpl> get copyWith =>

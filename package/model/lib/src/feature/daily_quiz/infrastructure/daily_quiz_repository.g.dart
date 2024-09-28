@@ -7,7 +7,7 @@ part of 'daily_quiz_repository.dart';
 // **************************************************************************
 
 String _$dailyQuizRepositoryHash() =>
-    r'c2d511858017abe34bf40458abb03e3e2f126a7e';
+    r'2601652f0c49cb3e9bb29a753ebb9677150d679b';
 
 /// See also [dailyQuizRepository].
 @ProviderFor(dailyQuizRepository)

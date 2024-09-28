@@ -1,11 +1,11 @@
 import 'package:ntp/ntp.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../util/enum/hitting_stats_type.dart';
 import '../../../util/extension/date_time_extension.dart';
 import '../../auth/infrastructure/auth_repository.dart';
 import '../../quiz_result/infrastructure/quiz_result_repository.dart';
 import '../domain/daily_quiz.dart';
-import '../infrastructure/daily_quiz_repository.dart';
 
 part 'daily_quiz_state.g.dart';
 
@@ -13,8 +13,24 @@ part 'daily_quiz_state.g.dart';
 ///
 /// 有効な [DailyQuiz] が存在しなかった場合は、 `null` を返す。
 @riverpod
-Future<DailyQuiz?> dailyQuiz(DailyQuizRef ref, DateTime questionedAt) async =>
-    ref.watch(dailyQuizRepositoryProvider).fetchByQuestionedAt(questionedAt);
+Future<DailyQuiz?> dailyQuiz(DailyQuizRef ref, DateTime questionedAt) async {
+  // TODO(me): repository で取得した値を返すようにする。
+  // Firestore に dailyQuiz のドキュメントを登録していないため、仮にダミーデータを指定。
+  final dailyQuiz = DailyQuiz(
+    dailyQuizId: 'dailyQuizId',
+    questionedAt: questionedAt,
+    playerId: 'muncyma01',
+    selectedStatsList: [
+      StatsType.battingAverage,
+      StatsType.homeRuns,
+      StatsType.runsBattedIn,
+      StatsType.stolenBases,
+    ],
+  );
+  return dailyQuiz;
+  // return ref.watch(dailyQuizRepositoryProvider)
+  // .fetchByQuestionedAt(questionedAt);
+}
 
 /// dailyQuiz をプレイ済みかどうかを返す。
 @riverpod

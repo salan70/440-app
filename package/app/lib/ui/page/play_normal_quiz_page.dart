@@ -46,7 +46,7 @@ class _PlayNormalQuizPageState extends ConsumerState<PlayNormalQuizPage> {
               loading: () => const Center(child: CircularProgressIndicator()),
               data: (pageState) {
                 final normalQuizState = pageState.normalQuizState;
-                final hitterQuiz = normalQuizState.hitterQuiz;
+                final hitterQuiz = normalQuizState.quiz;
                 return ListView(
                   children: [
                     const BannerAdWidget(),

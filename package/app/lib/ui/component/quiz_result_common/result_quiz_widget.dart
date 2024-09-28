@@ -11,14 +11,14 @@ class ResultQuizWidget extends StatelessWidget {
   });
 
   final GlobalKey globalKey;
-  final HitterQuiz hitterQuiz;
+  final Quiz hitterQuiz;
 
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
       key: globalKey,
       child: ColoredBox(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         child: QuizWidget(hitterQuiz: hitterQuiz),
       ),
     );

@@ -1,161 +1,234 @@
 import 'dart:math';
 
-import 'package:common/common.dart';
+import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../daily_quiz/domain/daily_quiz.dart';
+import '../../../util/enum/hitting_stats_type.dart';
+import '../../../util/extension/drift_query_extension.dart';
+import '../../app_db/my_drift_database.dart';
+import '../../app_db/tables.dart';
 import '../../search_condition/domain/search_condition.dart';
-import '../../season/util/season_type.dart';
 import '../domain/hitter.dart';
-import '../domain/hitter_quiz_state.dart';
-import 'entity/hitting_stats.dart';
-import 'entity/supabase_hitter.dart';
-import 'hitter_converter.dart';
+import '../domain/quiz.dart';
 
 part 'hitter_repository.g.dart';
 
 @riverpod
 HitterRepository hitterRepository(HitterRepositoryRef ref) {
-  final supabase = ref.watch(supabaseProvider);
-  return HitterRepository(supabase);
+  final myDriftDatabase = ref.watch(myDriftDatabaseProvider);
+  return HitterRepository(myDriftDatabase);
 }
 
 class HitterRepository {
-  HitterRepository(this.supabase);
+  HitterRepository(this.db);
 
-  final Supabase supabase;
+  final MyDriftDatabase db;
 
-  /// ノーマルクイズ用の選手情報を取得する。
-  ///
-  /// 検索条件に合う選手を1人取得し、その選手の成績を取得して返す。
-  Future<HitterQuizState> fetchNormalHitterQuizState(
-    SearchCondition searchCondition,
-    SeasonType seasonType,
-  ) async {
-    // 検索条件に合う選手を1人取得する。
-    final supabaseHitter =
-        await _searchHitterBySearchCondition(searchCondition, seasonType);
+  /// [searchWord] で選手を部分検索する。
+  Future<List<Hitter>> searchHitter(String searchWord) async {
+    final query = (db.select(db.players)
+      ..where(
+        (e) =>
+            e.nameLast.like('%$searchWord%') |
+            e.nameFirst.like('%$searchWord%'),
+      ));
+    final hitterList = await query.fetchMultipleResults();
 
-    // 取得した選手の成績を取得する。
-    final statsList = await _fetchHittingStats(supabaseHitter.id, seasonType);
-
-    // InputNormalQuizState に変換して返す。
-    return HitterConverter().toInputNormalQuizState(
-      supabaseHitter,
-      statsList,
-      searchCondition.selectedStatsList,
-      seasonType,
-    );
-  }
-
-  /// デイリークイズ用の選手情報を取得する。
-  ///
-  /// 指定されたデイリークイズの選手 ID から選手情報を取得し、その選手の成績を取得して返す。
-  Future<HitterQuizState> fetchInputDailyQuizState(DailyQuiz dailyQuiz) async {
-    final seasonType = dailyQuiz.seasonType;
-
-    // 検索条件に合う選手を1人取得する。
-    final supabaseHitter =
-        await _searchHitterById(dailyQuiz.playerId, seasonType);
-
-    // 取得した選手の成績を取得する。
-    final statsList = await _fetchHittingStats(supabaseHitter.id, seasonType);
-
-    // InputDailyQuizState に変換して返す。
-    return HitterConverter().toInputDailyQuizState(
-      supabaseHitter,
-      statsList,
-      dailyQuiz.selectedStatsList,
-      seasonType,
-    );
-  }
-
-  /// 検索条件で選手で検索し、ランダムで1人返す。
-  Future<SupabaseHitter> _searchHitterBySearchCondition(
-    SearchCondition searchCondition,
-    SeasonType seasonType,
-  ) async {
-    final hittingStatsTable = seasonType.hittingStatsTable;
-    final responses = await supabase.client
-        .from(seasonType.hitterTable)
-        .select<dynamic>('id, name, team, hasData, $hittingStatsTable!inner(*)')
-        .eq('hasData', true)
-        .filter('team', 'in', searchCondition.teamList)
-        .gte('$hittingStatsTable.試合', searchCondition.minGames)
-        .gte('$hittingStatsTable.安打', searchCondition.minHits)
-        .gte('$hittingStatsTable.本塁打', searchCondition.minHr)
-        // ? なぜか `ascending` は true でも false でも同じ結果になる。
-        // ? UI での挙動的には問題ないので、このままにしておいている。
-        .order('表示順', foreignTable: hittingStatsTable) as List<dynamic>;
-
-    // 検索条件に合致する選手がいない場合、例外を返す。
-    if (responses.isEmpty) {
-      throw SupabaseException.notFound();
-    }
-
-    // ランダムで1人選出する。
-    final chosenResponse =
-        responses[Random().nextInt(responses.length)] as Map<String, dynamic>;
-
-    return SupabaseHitter.fromJson(chosenResponse);
-  }
-
-  /// ID で選手を検索する。
-  Future<SupabaseHitter> _searchHitterById(
-    String id,
-    SeasonType seasonType,
-  ) async {
-    final responses = await supabase.client
-        .from(seasonType.hitterTable)
-        .select<dynamic>(
-          'id, name, team, hasData',
-        )
-        .eq('hasData', true)
-        .eq('id', id) as List<dynamic>;
-
-    // 検索条件に合致する選手がいない場合、例外を返す
-    if (responses.isEmpty) {
-      throw SupabaseException.notFound();
-    }
-
-    return SupabaseHitter.fromJson(responses[0] as Map<String, dynamic>);
-  }
-
-  /// [playerId] から打撃成績の List を取得するする。
-  Future<List<HittingStats>> _fetchHittingStats(
-    String playerId,
-    SeasonType seasonType,
-  ) async {
-    final statsList = <HittingStats>[];
-    final responses = await supabase.client
-        .from(seasonType.hittingStatsTable)
-        .select<dynamic>()
-        .eq('playerId', playerId) as List<dynamic>;
-
-    for (final response in responses) {
-      final stats = HittingStats.fromJson(response as Map<String, dynamic>);
-      statsList.add(stats);
-    }
-
-    return statsList;
-  }
-
-  /// 解答を入力するテキストフィールドの検索用。
-  ///
-  /// 全選手の名前と ID を取得する。
-  Future<List<Hitter>> fetchAllHitter(SeasonType seasonType) async {
-    final responses = await supabase.client
-        .from(seasonType.hitterTable)
-        .select<dynamic>() as List<dynamic>;
-
-    final allHitterList = <Hitter>[];
-    for (final response in responses) {
-      final hitterMap = Hitter.fromJson(
-        response as Map<String, dynamic>,
+    return hitterList.map((player) {
+      return Hitter(
+        id: player.playerId,
+        label: '${player.nameFirst} ${player.nameLast}',
       );
-      allHitterList.add(hitterMap);
-    }
-    return allHitterList;
+    }).toList();
+  }
+
+  /// ノーマルクイズを取得する。
+  ///
+  /// 検索条件に合う選手を1人取得し、その選手の成績からクイズを生成して返す。
+  Future<Quiz> fetchNormalQuiz(SearchCondition searchCondition) async {
+    // 検索条件に合う選手を1人取得する。
+    final totalStat = await _searchTotalStatByCondition(searchCondition);
+    final batter = await _fetchBatterById(totalStat.playerId);
+    final battingStat = await _fetchBattingStatById(batter.playerId);
+    final selectedStatsList =
+        searchCondition.selectedStatsList.map(StatsType.fromString).toList();
+
+    final hitterQuiz = _createQuiz(
+      batter,
+      battingStat,
+      totalStat,
+      selectedStatsList,
+    );
+    return hitterQuiz;
+  }
+
+  /// デイリークイズを取得する。
+  ///
+  /// [playerId] から選手情報を取得し、その選手の成績からクイズを生成して返す。
+  Future<Quiz> fetchDailyQuiz(
+    String playerId,
+    List<StatsType> selectedStatsList,
+  ) async {
+    final totalStats = await _fetchTotalStatById(playerId);
+    final batter = await _fetchBatterById(playerId);
+    final battingStats = await _fetchBattingStatById(playerId);
+
+    final quiz = _createQuiz(
+      batter,
+      battingStats,
+      totalStats,
+      selectedStatsList,
+    );
+    return quiz;
+  }
+
+  /// [searchCondition] に合う通算成績を1人分取得する。
+  Future<TotalBattingStat> _searchTotalStatByCondition(
+    SearchCondition searchCondition,
+  ) async {
+    const finalYear = 2023;
+    final query = db.select(db.totalBattingStats)
+      ..where((stats) => stats.finalYear.equals(finalYear))
+      ..where((stats) => stats.finalTeamId.isIn(searchCondition.teamList))
+      ..where(
+        (stats) => stats.games.isBiggerOrEqualValue(searchCondition.minGames),
+      )
+      ..where(
+        (stats) => stats.hits.isBiggerOrEqualValue(searchCondition.minHits),
+      )
+      ..where(
+        (stats) => stats.homeRuns.isBiggerOrEqualValue(searchCondition.minHr),
+      )
+      ..orderBy([(stats) => OrderingTerm.random()])
+      ..limit(1);
+
+    return query.fetchSingleResult();
+  }
+
+  /// [playerId] に対応する通算選手の成績を取得する。
+  Future<TotalBattingStat> _fetchTotalStatById(String playerId) async {
+    final query = db.select(db.totalBattingStats)
+      ..where((stats) => stats.playerId.equals(playerId))
+      ..limit(1);
+
+    return query.fetchSingleResult();
+  }
+
+  Future<Player> _fetchBatterById(String playerId) async {
+    final query = db.select(db.players)
+      ..where((player) => player.playerId.equals(playerId))
+      ..limit(1);
+
+    return query.fetchSingleResult();
+  }
+
+  Future<List<BattingStat>> _fetchBattingStatById(String playerId) async {
+    final query = db.select(db.battingStats)
+      ..where((stats) => stats.playerId.equals(playerId))
+      ..orderBy([(stats) => OrderingTerm.asc(stats.displayOrder)]);
+
+    return query.fetchMultipleResults();
+  }
+
+  /// [Quiz] を生成する。
+  Quiz _createQuiz(
+    Player player,
+    List<BattingStat> battingStatList,
+    TotalBattingStat totalBattingStat,
+    List<StatsType> selectedStatsList,
+  ) {
+    final yearStats = _createYearStats(
+      battingStatList,
+      totalBattingStat,
+      selectedStatsList,
+    );
+
+    return Quiz(
+      playerId: player.playerId,
+      playerName: '${player.nameFirst} ${player.nameLast}',
+      yearStats: yearStats,
+      selectedStats: selectedStatsList,
+      unveilCount: 0,
+      incorrectCount: 0,
+    );
+  }
+
+  /// [battingStatList] と [totalBattingStat] から [YearStats] のリストを生成する。
+  List<YearStats> _createYearStats(
+    List<BattingStat> battingStatList,
+    TotalBattingStat totalBattingStat,
+    List<StatsType> selectedStatsList,
+  ) {
+    // `YearStats` のリストを生成する。
+    // この時点では、すべての `YearStats` の `unveilOrder` が 0 である。
+    final yearStats = battingStatList
+        .map((stat) => _createYearStat(stat, selectedStatsList))
+        .toList();
+    yearStats.add(_createTotalYearStat(totalBattingStat, selectedStatsList));
+
+    // 表示順をランダムにする。
+    final randomizedYearStats = _randomizeUnveilOrders(yearStats);
+    return randomizedYearStats;
+  }
+
+  YearStats _createYearStat(
+    BattingStat battingStat,
+    List<StatsType> selectedStatsList,
+  ) {
+    final stats = {
+      for (final statsType in selectedStatsList)
+        statsType: StatsValue(
+          unveilOrder: 0,
+          data: StatsValue.formatData(
+            statsType,
+            battingStat.toJson()[statsType.battingStatsColumn]?.toString() ??
+                StatsValue.emptyLabel,
+          ),
+        ),
+    };
+    return YearStats.perYear(
+      displayOrder: battingStat.displayOrder,
+      year: battingStat.year.toString(),
+      stats: stats,
+    );
+  }
+
+  YearStats _createTotalYearStat(
+    TotalBattingStat totalBattingStat,
+    List<StatsType> selectedStatsList,
+  ) {
+    final stats = {
+      for (final statsType in selectedStatsList)
+        statsType: StatsValue(
+          unveilOrder: 0,
+          data: StatsValue.formatData(
+            statsType,
+            totalBattingStat
+                    .toJson()[statsType.battingStatsColumn]
+                    ?.toString() ??
+                StatsValue.emptyLabel,
+          ),
+        ),
+    };
+    return YearStats.total(stats: stats);
+  }
+
+  List<YearStats> _randomizeUnveilOrders(List<YearStats> yearStats) {
+    final random = Random();
+    final allStats = yearStats.expand((ys) => ys.stats.values).toList();
+    final orders = List.generate(allStats.length, (i) => i)..shuffle(random);
+
+    var orderIndex = 0;
+    return yearStats.map((ys) {
+      final newStats = Map.fromEntries(
+        ys.stats.entries.map(
+          (e) => MapEntry(
+            e.key,
+            e.value.copyWith(unveilOrder: orders[orderIndex++]),
+          ),
+        ),
+      );
+      return ys.copyWith(stats: newStats);
+    }).toList();
   }
 }

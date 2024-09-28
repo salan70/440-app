@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PlayNormalQuizPageState {
-  HitterQuizState get normalQuizState => throw _privateConstructorUsedError;
+  QuizState get normalQuizState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlayNormalQuizPageStateCopyWith<PlayNormalQuizPageState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $PlayNormalQuizPageStateCopyWith<$Res> {
           $Res Function(PlayNormalQuizPageState) then) =
       _$PlayNormalQuizPageStateCopyWithImpl<$Res, PlayNormalQuizPageState>;
   @useResult
-  $Res call({HitterQuizState normalQuizState});
+  $Res call({QuizState normalQuizState});
 }
 
 /// @nodoc
@@ -52,7 +52,7 @@ class _$PlayNormalQuizPageStateCopyWithImpl<$Res,
       normalQuizState: null == normalQuizState
           ? _value.normalQuizState
           : normalQuizState // ignore: cast_nullable_to_non_nullable
-              as HitterQuizState,
+              as QuizState,
     ) as $Val);
   }
 }
@@ -66,7 +66,7 @@ abstract class _$$PlayNormalQuizPageStateImplCopyWith<$Res>
       __$$PlayNormalQuizPageStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({HitterQuizState normalQuizState});
+  $Res call({QuizState normalQuizState});
 }
 
 /// @nodoc
@@ -88,7 +88,7 @@ class __$$PlayNormalQuizPageStateImplCopyWithImpl<$Res>
       normalQuizState: null == normalQuizState
           ? _value.normalQuizState
           : normalQuizState // ignore: cast_nullable_to_non_nullable
-              as HitterQuizState,
+              as QuizState,
     ));
   }
 }
@@ -99,7 +99,7 @@ class _$PlayNormalQuizPageStateImpl implements _PlayNormalQuizPageState {
   const _$PlayNormalQuizPageStateImpl({required this.normalQuizState});
 
   @override
-  final HitterQuizState normalQuizState;
+  final QuizState normalQuizState;
 
   @override
   String toString() {
@@ -128,11 +128,11 @@ class _$PlayNormalQuizPageStateImpl implements _PlayNormalQuizPageState {
 
 abstract class _PlayNormalQuizPageState implements PlayNormalQuizPageState {
   const factory _PlayNormalQuizPageState(
-          {required final HitterQuizState normalQuizState}) =
+          {required final QuizState normalQuizState}) =
       _$PlayNormalQuizPageStateImpl;
 
   @override
-  HitterQuizState get normalQuizState;
+  QuizState get normalQuizState;
   @override
   @JsonKey(ignore: true)
   _$$PlayNormalQuizPageStateImplCopyWith<_$PlayNormalQuizPageStateImpl>

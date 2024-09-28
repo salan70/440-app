@@ -1,80 +1,140 @@
 enum StatsType {
   team,
   games,
-  pa,
+  plateAppearances,
   atBats,
   runs,
   hits,
-  twoB,
-  threeB,
-  hr,
-  tb,
-  rbi,
-  sb,
-  cs,
-  sac,
-  sf,
-  bb,
-  ibb,
-  hbp,
-  so,
-  gidp,
-  avg,
-  obp,
-  slg,
-  ops;
+  doubles,
+  triples,
+  homeRuns,
+  totalBases,
+  runsBattedIn,
+  stolenBases,
+  caughtStealing,
+  sacrificeHits,
+  sacrificeFlies,
+  walks,
+  intentionalWalks,
+  hitByPitch,
+  strikeouts,
+  groundedIntoDoublePlays,
+  battingAverage,
+  onBasePercentage,
+  sluggingPercentage,
+  onBasePlusSlugging,
+  extraBaseHits,
+  battingAverageOnBallsInPlay,
+  isolatedPower,
+  atBatsPerHomeRun,
+  walkToStrikeoutRatio,
+  walkPercentage,
+  strikeoutPercentage;
+
+  static StatsType fromString(String value) =>
+      StatsType.values.firstWhere((element) => element.label == value);
 
   String get label {
     switch (this) {
       case StatsType.team:
-        return '球団';
+        return 'team';
       case StatsType.games:
-        return '試合';
-      case StatsType.pa:
-        return '打席';
+        return 'G';
+      case StatsType.plateAppearances:
+        return 'PA';
       case StatsType.atBats:
-        return '打数';
+        return 'AB';
       case StatsType.runs:
-        return '得点';
+        return 'R';
       case StatsType.hits:
-        return '安打';
-      case StatsType.twoB:
-        return '二塁打';
-      case StatsType.threeB:
-        return '三塁打';
-      case StatsType.hr:
-        return '本塁打';
-      case StatsType.tb:
-        return '塁打';
-      case StatsType.rbi:
-        return '打点';
-      case StatsType.sb:
-        return '盗塁';
-      case StatsType.cs:
-        return '盗塁死';
-      case StatsType.sac:
-        return '犠打';
-      case StatsType.sf:
-        return '犠飛';
-      case StatsType.bb:
-        return '四球';
-      case StatsType.ibb:
-        return '敬遠';
-      case StatsType.hbp:
-        return '死球';
-      case StatsType.so:
-        return '三振';
-      case StatsType.gidp:
-        return '併殺打';
-      case StatsType.avg:
-        return '打率';
-      case StatsType.obp:
-        return '出塁率';
-      case StatsType.slg:
-        return '長打率';
-      case StatsType.ops:
+        return 'H';
+      case StatsType.doubles:
+        return '2B';
+      case StatsType.triples:
+        return '3B';
+      case StatsType.homeRuns:
+        return 'HR';
+      case StatsType.totalBases:
+        return 'TB';
+      case StatsType.runsBattedIn:
+        return 'RBI';
+      case StatsType.stolenBases:
+        return 'SB';
+      case StatsType.caughtStealing:
+        return 'CS';
+      case StatsType.sacrificeHits:
+        return 'SAC';
+      case StatsType.sacrificeFlies:
+        return 'SF';
+      case StatsType.walks:
+        return 'BB';
+      case StatsType.intentionalWalks:
+        return 'IBB';
+      case StatsType.hitByPitch:
+        return 'HBP';
+      case StatsType.strikeouts:
+        return 'SO';
+      case StatsType.groundedIntoDoublePlays:
+        return 'GIDP';
+      case StatsType.battingAverage:
+        return 'AVG';
+      case StatsType.onBasePercentage:
+        return 'OBP';
+      case StatsType.sluggingPercentage:
+        return 'SLG';
+      case StatsType.onBasePlusSlugging:
         return 'OPS';
+      case StatsType.extraBaseHits:
+        return 'XBH';
+      case StatsType.battingAverageOnBallsInPlay:
+        return 'BABIP';
+      case StatsType.isolatedPower:
+        return 'ISO';
+      case StatsType.atBatsPerHomeRun:
+        return 'AB/HR';
+      case StatsType.walkToStrikeoutRatio:
+        return 'BB/K';
+      case StatsType.walkPercentage:
+        return 'BB%';
+      case StatsType.strikeoutPercentage:
+        return 'SO%';
     }
+  }
+
+  /// %表記するかどうか。
+  bool get isPercentage {
+    final percentageStatsList = [
+      StatsType.walkPercentage,
+      StatsType.strikeoutPercentage,
+    ];
+
+    return percentageStatsList.contains(this);
+  }
+
+  /// .XXX や Y.XXX のように表記するかどうか。
+  /// ※ Y が 0 の場合、 .XXX のように 0 を表記しない。
+  bool get isDecimal {
+    final decimalStatsList = [
+      StatsType.battingAverage,
+      StatsType.onBasePercentage,
+      StatsType.sluggingPercentage,
+      StatsType.onBasePlusSlugging,
+      StatsType.battingAverageOnBallsInPlay,
+      StatsType.isolatedPower,
+      StatsType.atBatsPerHomeRun,
+    ];
+
+    return decimalStatsList.contains(this);
+  }
+
+  /// Y.XXX のように表記するかどうか。
+  /// ※ Y が 0 の場合、 0.XXX のように 0 を表記する。
+  bool get isDecimalWithZero {
+    final decimalWithZeroStatsList = [
+      StatsType.walkToStrikeoutRatio,
+    ];
+
+    return decimalWithZeroStatsList.contains(this);
   }
 }
 
@@ -115,8 +175,12 @@ const statsTypeList = StatsType.values;
 
 /// 確率系のStatsTypeのリスト
 final List<String> probabilityStats = [
-  StatsType.avg.label,
-  StatsType.obp.label,
-  StatsType.slg.label,
-  StatsType.ops.label,
+  StatsType.battingAverage.label,
+  StatsType.onBasePercentage.label,
+  StatsType.sluggingPercentage.label,
+  StatsType.onBasePlusSlugging.label,
+  StatsType.battingAverageOnBallsInPlay.label,
+  StatsType.isolatedPower.label,
+  StatsType.walkPercentage.label,
+  StatsType.strikeoutPercentage.label,
 ];

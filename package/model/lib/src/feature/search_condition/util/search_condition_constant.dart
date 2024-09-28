@@ -3,27 +3,22 @@ import '../domain/search_condition.dart';
 
 final defaultSearchCondition = SearchCondition(
   teamList: [
-    'オリックス・バファローズ',
-    '福岡ソフトバンクホークス',
-    '埼玉西武ライオンズ',
-    '東北楽天ゴールデンイーグルス',
-    '千葉ロッテマリーンズ',
-    '北海道日本ハムファイターズ',
+    'LAN',
   ],
-  minGames: 300,
-  minHits: 300,
-  minHr: 50,
+  minGames: 0,
+  minHits: 0,
+  minHr: 0,
   selectedStatsList: [
-    StatsType.team.label,
-    StatsType.avg.label,
-    StatsType.hr.label,
-    StatsType.ops.label,
+    StatsType.strikeoutPercentage.label,
+    StatsType.battingAverage.label,
+    StatsType.homeRuns.label,
+    StatsType.atBatsPerHomeRun.label,
   ],
 );
 
 // NPBの球団リスト
 const npbTeamList = <Map<String, String>>[
-  {'name': 'オリックス・バファローズ', 'league': 'パ・リーグ'},
+  {'name': 'LAN', 'league': 'パ・リーグ'},
   {'name': '福岡ソフトバンクホークス', 'league': 'パ・リーグ'},
   {'name': '埼玉西武ライオンズ', 'league': 'パ・リーグ'},
   {'name': '東北楽天ゴールデンイーグルス', 'league': 'パ・リーグ'},

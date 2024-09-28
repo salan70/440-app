@@ -19,12 +19,6 @@ mixin _$DbConfig {
   /// 配信中の DB のバージョン。
   Version get dbVersion => throw _privateConstructorUsedError;
 
-  /// 選手情報の DB の URL.
-  String get playersDbUrl => throw _privateConstructorUsedError;
-
-  /// 打撃成績の DB の URL.
-  String get battingStatsDbUrl => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $DbConfigCopyWith<DbConfig> get copyWith =>
       throw _privateConstructorUsedError;
@@ -35,7 +29,7 @@ abstract class $DbConfigCopyWith<$Res> {
   factory $DbConfigCopyWith(DbConfig value, $Res Function(DbConfig) then) =
       _$DbConfigCopyWithImpl<$Res, DbConfig>;
   @useResult
-  $Res call({Version dbVersion, String playersDbUrl, String battingStatsDbUrl});
+  $Res call({Version dbVersion});
 }
 
 /// @nodoc
@@ -52,22 +46,12 @@ class _$DbConfigCopyWithImpl<$Res, $Val extends DbConfig>
   @override
   $Res call({
     Object? dbVersion = null,
-    Object? playersDbUrl = null,
-    Object? battingStatsDbUrl = null,
   }) {
     return _then(_value.copyWith(
       dbVersion: null == dbVersion
           ? _value.dbVersion
           : dbVersion // ignore: cast_nullable_to_non_nullable
               as Version,
-      playersDbUrl: null == playersDbUrl
-          ? _value.playersDbUrl
-          : playersDbUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      battingStatsDbUrl: null == battingStatsDbUrl
-          ? _value.battingStatsDbUrl
-          : battingStatsDbUrl // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -80,7 +64,7 @@ abstract class _$$DbConfigImplCopyWith<$Res>
       __$$DbConfigImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Version dbVersion, String playersDbUrl, String battingStatsDbUrl});
+  $Res call({Version dbVersion});
 }
 
 /// @nodoc
@@ -95,22 +79,12 @@ class __$$DbConfigImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? dbVersion = null,
-    Object? playersDbUrl = null,
-    Object? battingStatsDbUrl = null,
   }) {
     return _then(_$DbConfigImpl(
       dbVersion: null == dbVersion
           ? _value.dbVersion
           : dbVersion // ignore: cast_nullable_to_non_nullable
               as Version,
-      playersDbUrl: null == playersDbUrl
-          ? _value.playersDbUrl
-          : playersDbUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      battingStatsDbUrl: null == battingStatsDbUrl
-          ? _value.battingStatsDbUrl
-          : battingStatsDbUrl // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -118,27 +92,15 @@ class __$$DbConfigImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DbConfigImpl extends _DbConfig {
-  const _$DbConfigImpl(
-      {required this.dbVersion,
-      required this.playersDbUrl,
-      required this.battingStatsDbUrl})
-      : super._();
+  const _$DbConfigImpl({required this.dbVersion}) : super._();
 
   /// 配信中の DB のバージョン。
   @override
   final Version dbVersion;
 
-  /// 選手情報の DB の URL.
-  @override
-  final String playersDbUrl;
-
-  /// 打撃成績の DB の URL.
-  @override
-  final String battingStatsDbUrl;
-
   @override
   String toString() {
-    return 'DbConfig(dbVersion: $dbVersion, playersDbUrl: $playersDbUrl, battingStatsDbUrl: $battingStatsDbUrl)';
+    return 'DbConfig(dbVersion: $dbVersion)';
   }
 
   @override
@@ -147,16 +109,11 @@ class _$DbConfigImpl extends _DbConfig {
         (other.runtimeType == runtimeType &&
             other is _$DbConfigImpl &&
             (identical(other.dbVersion, dbVersion) ||
-                other.dbVersion == dbVersion) &&
-            (identical(other.playersDbUrl, playersDbUrl) ||
-                other.playersDbUrl == playersDbUrl) &&
-            (identical(other.battingStatsDbUrl, battingStatsDbUrl) ||
-                other.battingStatsDbUrl == battingStatsDbUrl));
+                other.dbVersion == dbVersion));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, dbVersion, playersDbUrl, battingStatsDbUrl);
+  int get hashCode => Object.hash(runtimeType, dbVersion);
 
   @JsonKey(ignore: true)
   @override
@@ -166,24 +123,13 @@ class _$DbConfigImpl extends _DbConfig {
 }
 
 abstract class _DbConfig extends DbConfig {
-  const factory _DbConfig(
-      {required final Version dbVersion,
-      required final String playersDbUrl,
-      required final String battingStatsDbUrl}) = _$DbConfigImpl;
+  const factory _DbConfig({required final Version dbVersion}) = _$DbConfigImpl;
   const _DbConfig._() : super._();
 
   @override
 
   /// 配信中の DB のバージョン。
   Version get dbVersion;
-  @override
-
-  /// 選手情報の DB の URL.
-  String get playersDbUrl;
-  @override
-
-  /// 打撃成績の DB の URL.
-  String get battingStatsDbUrl;
   @override
   @JsonKey(ignore: true)
   _$$DbConfigImplCopyWith<_$DbConfigImpl> get copyWith =>

@@ -22,17 +22,21 @@ class SearchConditionRepository {
   final _boxKey = HiveBoxType.searchCondition.key;
 
   SearchCondition fetchSearchCondition() {
-    final searchCondition = box.get(
-      _boxKey,
-      defaultValue: defaultSearchCondition,
-    )!;
 
-    // selectedStatsListに年度が含まれている場合は削除して、返す
-    return searchCondition.copyWith(
-      selectedStatsList: List<String>.from(
-        searchCondition.selectedStatsList,
-      )..remove('年度'),
-    );
+    return defaultSearchCondition;
+
+    // TODO(me): ローカル DB から取得する。
+    // final searchCondition = box.get(
+    //   _boxKey,
+    //   defaultValue: defaultSearchCondition,
+    // )!;
+
+    // // selectedStatsListに年度が含まれている場合は削除して、返す
+    // return searchCondition.copyWith(
+    //   selectedStatsList: List<String>.from(
+    //     searchCondition.selectedStatsList,
+    //   )..remove('年度'),
+    // );
   }
 
   void saveSearchCondition(SearchCondition searchCondition) {

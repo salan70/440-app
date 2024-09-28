@@ -7,7 +7,7 @@ part of 'review_history_repository.dart';
 // **************************************************************************
 
 String _$reviewHistoryRepositoryHash() =>
-    r'561246f2c161e69e78effe2477af2b29cbdd19f2';
+    r'd679cb2c4a6eab04cbd8879aa58837462ab46c78';
 
 /// See also [reviewHistoryRepository].
 @ProviderFor(reviewHistoryRepository)

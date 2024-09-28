@@ -16,7 +16,7 @@ part 'play_daily_quiz_page_controller.g.dart';
 @freezed
 class PlayDailyQuizPageState with _$PlayDailyQuizPageState {
   const factory PlayDailyQuizPageState({
-    required HitterQuizState quizState,
+    required QuizState quizState,
   }) = _PlayDailyQuizPageState;
 }
 
@@ -30,25 +30,26 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
       throw ArgumentError.notNull('dailyQuiz');
     }
 
-    final hitterQuizState = await ref
+    final quiz = await ref
         .watch(hitterRepositoryProvider)
-        .fetchInputDailyQuizState(dailyQuiz);
+        .fetchDailyQuiz(dailyQuiz.playerId, dailyQuiz.selectedStatsList);
+    final quizState = QuizState.daily(quiz: quiz, enteredHitter: null);
 
-    return PlayDailyQuizPageState(quizState: hitterQuizState);
+    return PlayDailyQuizPageState(quizState: quizState);
   }
 
-  // * ---------------------- state.hitterQuiz の更新関連 ---------------------- * //
+  // * ---------------------- state.quiz の更新関連 ---------------------- * //
   /// ランダムに1つ成績を公開する。
   void _openRandom() {
     final currentValue = state.value!;
     final currentQuizState = currentValue.quizState;
 
-    final newHitterQuizState = currentQuizState.copyWith(
-      hitterQuiz: currentQuizState.hitterQuiz.copyWith(
-        unveilCount: currentQuizState.hitterQuiz.unveilCount + 1,
+    final newQuizState = currentQuizState.copyWith(
+      quiz: currentQuizState.quiz.copyWith(
+        unveilCount: currentQuizState.quiz.unveilCount + 1,
       ),
     );
-    final newValue = currentValue.copyWith(quizState: newHitterQuizState);
+    final newValue = currentValue.copyWith(quizState: newQuizState);
 
     state = AsyncData(newValue);
   }
@@ -58,12 +59,12 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
     final currentValue = state.value!;
     final currentQuizState = currentValue.quizState;
 
-    final newHitterQuizState = currentQuizState.copyWith(
-      hitterQuiz: currentQuizState.hitterQuiz.copyWith(
-        unveilCount: currentQuizState.hitterQuiz.totalStatsCount,
+    final newquizState = currentQuizState.copyWith(
+      quiz: currentQuizState.quiz.copyWith(
+        unveilCount: currentQuizState.quiz.totalStatsCount,
       ),
     );
-    final newValue = currentValue.copyWith(quizState: newHitterQuizState);
+    final newValue = currentValue.copyWith(quizState: newquizState);
 
     state = AsyncData(newValue);
   }
@@ -73,12 +74,12 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
     final currentValue = state.value!;
     final currentQuizState = currentValue.quizState;
 
-    final newHitterQuizState = currentQuizState.copyWith(
-      hitterQuiz: currentQuizState.hitterQuiz.copyWith(
-        incorrectCount: currentQuizState.hitterQuiz.incorrectCount + 1,
+    final newquizState = currentQuizState.copyWith(
+      quiz: currentQuizState.quiz.copyWith(
+        incorrectCount: currentQuizState.quiz.incorrectCount + 1,
       ),
     );
-    final newValue = currentValue.copyWith(quizState: newHitterQuizState);
+    final newValue = currentValue.copyWith(quizState: newquizState);
 
     state = AsyncData(newValue);
   }
@@ -88,9 +89,9 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
     final currentValue = state.value!;
     final currentQuizState = currentValue.quizState;
 
-    final newHitterQuizState =
+    final newquizState =
         currentQuizState.copyWith(enteredHitter: enteredHitter);
-    final newValue = currentValue.copyWith(quizState: newHitterQuizState);
+    final newValue = currentValue.copyWith(quizState: newquizState);
 
     state = AsyncData(newValue);
   }
@@ -119,8 +120,7 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
     // 回答入力用の TextField のフォーカスを外す。
     FocusManager.instance.primaryFocus?.unfocus();
 
-    final isAllStatsUnveiled =
-        state.value!.quizState.hitterQuiz.isAllStatsUnveiled;
+    final isAllStatsUnveiled = state.value!.quizState.quiz.isAllStatsUnveiled;
     // 非公開の成績が残っている場合、確認ダイアログを表示する。
     if (isAllStatsUnveiled == false) {
       _showConfirmOpenAllDialog();
@@ -131,8 +131,7 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
     // 回答入力用の TextField のフォーカスを外す。
     FocusManager.instance.primaryFocus?.unfocus();
 
-    final isAllStatsUnveiled =
-        state.value!.quizState.hitterQuiz.isAllStatsUnveiled;
+    final isAllStatsUnveiled = state.value!.quizState.quiz.isAllStatsUnveiled;
     // 非公開の成績が残っている場合、確認ダイアログを表示する。
     if (isAllStatsUnveiled == false) {
       _openRandom();
@@ -141,11 +140,7 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
 
   Future<List<Hitter>> onSearchHitter(String inputText) async {
     _updateEnteredHitter(null);
-
-    final seasonType = state.value!.quizState.hitterQuiz.seasonType;
-    return ref
-        .read(hitterQuizServiceProvider)
-        .searchHitter(inputText, seasonType);
+    return ref.read(hitterRepositoryProvider).searchHitter(inputText);
   }
 
   void onSelectedHitter(Hitter value) {
@@ -263,7 +258,6 @@ class PlayDailyQuizPageController extends _$PlayDailyQuizPageController {
     // 最大で回答できる数。
     const maxCanAnswerCount = 3;
 
-    return state.value!.quizState.hitterQuiz.incorrectCount ==
-        maxCanAnswerCount;
+    return state.value!.quizState.quiz.incorrectCount == maxCanAnswerCount;
   }
 }

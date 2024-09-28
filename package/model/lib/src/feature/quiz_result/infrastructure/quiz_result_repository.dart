@@ -2,13 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../util/enum/hitting_stats_type.dart';
 import '../../../util/extension/date_time_extension.dart';
 import '../../daily_quiz/domain/daily_quiz.dart';
-import '../../quiz/domain/hitter_quiz.dart';
-import '../../quiz/domain/hitter_quiz_state.dart';
-import '../../quiz/domain/stats_value.dart';
+import '../../quiz/domain/quiz.dart';
+import '../../quiz/domain/quiz_state.dart';
 import '../../search_condition/domain/search_condition.dart';
-import '../../season/util/season_type.dart';
 import '../domain/daily_hitter_quiz_result.dart';
 import '../domain/hitter_quiz_result.dart';
 
@@ -32,16 +31,18 @@ class QuizResultRepository {
         .set(<String, dynamic>{
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
-      'targetSeasonType': dailyQuiz.seasonType.firestoreValue,
     });
   }
 
   Future<void> updateDailyQuizResult(
     User user,
     DailyQuiz dailyQuiz,
-    HitterQuizState quizState,
+    QuizState quizState,
   ) async {
-    final hitterQuiz = quizState.hitterQuiz;
+    final quiz = quizState.quiz;
+    final selectedStats = quiz.selectedStats.map((e) => e.label).toList();
+    final yearStats = quiz.yearStats.map((e) => e.toFirestoreField()).toList();
+
     await firestore
         .collection('users')
         .doc(user.uid)
@@ -50,36 +51,25 @@ class QuizResultRepository {
         .set(<String, dynamic>{
       'questionedAt': dailyQuiz.questionedAt,
       'updatedAt': FieldValue.serverTimestamp(),
-      'playerId': hitterQuiz.hitterId,
-      'playerName': hitterQuiz.hitterName,
-      'selectedStatsList': hitterQuiz.selectedStatsList,
-      'yearList': hitterQuiz.yearList,
-      'statsMapList': hitterQuiz.statsMapList
-          .map(
-            (statsMap) => statsMap.map(
-              (key, value) => MapEntry(
-                key,
-                {
-                  'unveilOrder': value.unveilOrder,
-                  'data': value.data,
-                },
-              ),
-            ),
-          )
-          .toList(),
-      'unveilCount': hitterQuiz.unveilCount,
+      'playerId': quiz.playerId,
+      'playerName': quiz.playerName,
+      'selectedStats': selectedStats,
+      'yearStats': yearStats,
+      'unveilCount': quiz.unveilCount,
       'isCorrect': quizState.isCorrectEnteredHitter,
-      'incorrectCount': hitterQuiz.incorrectCount,
-      'targetSeasonType': dailyQuiz.seasonType.firestoreValue,
+      'incorrectCount': quiz.incorrectCount,
     });
   }
 
   Future<void> createNormalQuizResult(
     User user,
-    HitterQuizState quizState,
+    QuizState quizState,
     SearchCondition searchCondition,
   ) async {
-    final hitterQuiz = quizState.hitterQuiz;
+    final quiz = quizState.quiz;
+    final selectedStats = quiz.selectedStats.map((e) => e.label).toList();
+    final yearStats = quiz.yearStats.map((e) => e.toFirestoreField()).toList();
+
     await firestore
         .collection('users')
         .doc(user.uid)
@@ -87,28 +77,14 @@ class QuizResultRepository {
         .add(<String, dynamic>{
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
-      'playerId': hitterQuiz.hitterId,
-      'playerName': hitterQuiz.hitterName,
-      'selectedStatsList': hitterQuiz.selectedStatsList,
-      'yearList': hitterQuiz.yearList,
-      'statsMapList': hitterQuiz.statsMapList
-          .map(
-            (statsMap) => statsMap.map(
-              (key, value) => MapEntry(
-                key,
-                {
-                  'unveilOrder': value.unveilOrder,
-                  'data': value.data,
-                },
-              ),
-            ),
-          )
-          .toList(),
-      'unveilCount': hitterQuiz.unveilCount,
+      'playerId': quiz.playerId,
+      'playerName': quiz.playerName,
+      'selectedStats': selectedStats,
+      'yearStats': yearStats,
+      'unveilCount': quiz.unveilCount,
       'isCorrect': quizState.isCorrectEnteredHitter,
-      'incorrectCount': hitterQuiz.incorrectCount,
+      'incorrectCount': quiz.incorrectCount,
       'searchCondition': searchCondition.toJson(),
-      'targetSeasonType': hitterQuiz.seasonType.firestoreValue,
     });
   }
 
@@ -171,31 +147,23 @@ class QuizResultRepository {
     );
   }
 
-  /// ドキュメントから [HitterQuiz] を生成する。
-  HitterQuiz _toHitterQuiz(
+  /// ドキュメントから [Quiz] を生成する。
+  Quiz _toHitterQuiz(
     QueryDocumentSnapshot<Object?> document,
   ) {
     final data = document.data()! as Map<String, dynamic>;
 
-    return HitterQuiz(
-      hitterId: data['playerId'] as String,
-      hitterName: data['playerName'] as String,
-      yearList:
-          (data['yearList'] as List<dynamic>).map((e) => e as String).toList(),
-      selectedStatsList: (data['selectedStatsList'] as List<dynamic>)
-          .map((e) => e as String)
+    return Quiz(
+      playerId: data['playerId'] as String,
+      playerName: data['playerName'] as String,
+      yearStats: (data['yearStats'] as List<dynamic>)
+          .map((e) => YearStats.fromJson(e as Map<String, dynamic>))
           .toList(),
-      statsMapList: (data['statsMapList'] as List<dynamic>)
-          .map(
-            (e) => (e as Map<String, dynamic>).map(
-              (k, e) =>
-                  MapEntry(k, StatsValue.fromJson(e as Map<String, dynamic>)),
-            ),
-          )
+      selectedStats: (data['selectedStats'] as List<dynamic>)
+          .map((e) => StatsType.fromString(e as String))
           .toList(),
       unveilCount: data['unveilCount'] as int,
       incorrectCount: data['incorrectCount'] as int,
-      seasonType: SeasonType.fromFirestoreValue(data['seasonType'] as String?),
     );
   }
 
