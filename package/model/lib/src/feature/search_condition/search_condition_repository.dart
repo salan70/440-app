@@ -1,9 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../util/enum/hive_box_type.dart';
-import '../domain/search_condition.dart';
-import '../util/search_condition_constant.dart';
+import '../../util/enum/hive_box_type.dart';
+import 'search_condition.dart';
+import 'search_condition_constant.dart';
 
 part 'search_condition_repository.g.dart';
 

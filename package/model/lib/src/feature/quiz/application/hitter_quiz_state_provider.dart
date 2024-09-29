@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../search_condition/application/search_condition_state.dart';
+import '../../search_condition/search_condition_state.dart';
 import '../domain/quiz_state.dart';
 import '../infrastructure/hitter_repository.dart';
 
