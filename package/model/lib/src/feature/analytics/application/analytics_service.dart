@@ -26,7 +26,7 @@ class AnalyticsService {
   final Ref ref;
 
   Future<void> logSearchCondition() async {
-    final searchCondition = ref.read(searchConditionProvider);
+    final searchCondition = await ref.read(searchConditionProvider.future);
 
     try {
       await FirebaseAnalytics.instance.logEvent(

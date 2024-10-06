@@ -18,9 +18,9 @@ class SearchConditionRepository {
 
   final Box<SearchCondition> box;
 
-  // todo: getAsync に変更する
-  SearchCondition fetch() =>
+  Future<SearchCondition> fetch() async =>
       box.get(SearchCondition.defaultId) ?? defaultSearchCondition;
 
-  void save(SearchCondition searchCondition) => box.put(searchCondition);
+  Future<void> save(SearchCondition searchCondition) async =>
+      box.put(searchCondition);
 }

@@ -16,9 +16,9 @@ class NotificationSettingRepository {
 
   final Box<NotificationSetting> box;
 
-  NotificationSetting fetch() =>
+  Future<NotificationSetting> fetch() async =>
       box.get(NotificationSetting.defaultId) ?? NotificationSetting.initial();
 
-  void save(NotificationSetting notificationSetting) =>
+  Future<void> save(NotificationSetting notificationSetting) async =>
       box.put(notificationSetting);
 }

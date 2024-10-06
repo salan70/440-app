@@ -48,7 +48,7 @@ class QuizResultService {
   /// normalQuizResult を作成する。
   Future<void> createNormalQuizResult(QuizState quizState) async {
     final user = ref.read(authRepositoryProvider).getCurrentUser();
-    final searchCondition = ref.read(searchConditionProvider);
+    final searchCondition = await ref.read(searchConditionProvider.future);
 
     await ref.read(quizResultRepositoryProvider).createNormalQuizResult(
           user!,

@@ -9,7 +9,7 @@ part 'hitter_quiz_state_provider.g.dart';
 /// 保存されている検索条件をもとに [QuizState] を取得する。
 @riverpod
 Future<QuizState> normalQuizState(NormalQuizStateRef ref) async {
-  final searchCondition = ref.watch(searchConditionProvider);
+  final searchCondition = await ref.watch(searchConditionProvider.future);
 
   final hitterQuiz = await ref
       .watch(hitterRepositoryProvider)

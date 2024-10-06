@@ -7,5 +7,5 @@ part 'search_condition_state.g.dart';
 
 /// ノーマルクイズの検索条件を保持するプロバイダー。
 @riverpod
-SearchCondition searchCondition(SearchConditionRef ref) =>
+Future<SearchCondition> searchCondition(SearchConditionRef ref) async =>
     ref.watch(searchConditionRepositoryProvider).fetch();

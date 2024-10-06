@@ -224,7 +224,7 @@ class LocalPushNotificationService {
       allowStartDailyQuizNotification:
           !currentSetting.allowStartDailyQuizNotification,
     );
-    ref.read(notificationSettingRepositoryProvider).save(nextSetting);
+    await ref.read(notificationSettingRepositoryProvider).save(nextSetting);
 
     // スケジュール変更もしくはキャンセルの処理。
     if (nextSetting.allowStartDailyQuizNotification) {
@@ -247,7 +247,7 @@ class LocalPushNotificationService {
       allowRemindDailyQuizNotification:
           !currentSetting.allowRemindDailyQuizNotification,
     );
-    ref.read(notificationSettingRepositoryProvider).save(nextSetting);
+    await ref.read(notificationSettingRepositoryProvider).save(nextSetting);
 
     // スケジュール変更もしくはキャンセルの処理。
     if (nextSetting.allowRemindDailyQuizNotification) {
@@ -269,7 +269,7 @@ class LocalPushNotificationService {
     final nextSetting = currentSetting.copyWith(
       allowOtherNotification: !currentSetting.allowOtherNotification,
     );
-    ref.read(notificationSettingRepositoryProvider).save(nextSetting);
+    await ref.read(notificationSettingRepositoryProvider).save(nextSetting);
 
     // スケジュール変更もしくはキャンセルの処理。
     if (nextSetting.allowOtherNotification) {
