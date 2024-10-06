@@ -4,7 +4,3 @@ targets:
       drift_dev:
         options:
           case_from_dart_to_sql: camelCase
-      hive_generator:
-        options:
-          runs_before:
-            - auto_route_generator

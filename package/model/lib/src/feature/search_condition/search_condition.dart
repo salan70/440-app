@@ -1,18 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
+import 'package:objectbox/objectbox.dart';
 
 part 'search_condition.freezed.dart';
 part 'search_condition.g.dart';
 
-@HiveType(typeId: 1)
 @freezed
 class SearchCondition with _$SearchCondition {
+  @Entity(realClass: SearchCondition)
   const factory SearchCondition({
-    @HiveField(0) required List<String> teamList,
-    @HiveField(1) required int minGames,
-    @HiveField(3) required int minHits,
-    @HiveField(4) required int minHr,
-    @HiveField(5) required List<String> selectedStatsList,
+    @Id(assignable: true) required int id,
+    required List<String> teamList,
+    required int minGames,
+    required int minHits,
+    required int minHr,
+    required List<String> selectedStatsList,
   }) = _SearchCondition;
   const SearchCondition._();
 
@@ -21,4 +22,6 @@ class SearchCondition with _$SearchCondition {
 
   @override
   Map<String, dynamic> toJson();
+
+  static const defaultId = 1;
 }

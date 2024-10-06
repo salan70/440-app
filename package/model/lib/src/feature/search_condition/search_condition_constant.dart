@@ -2,6 +2,7 @@ import '../../util/enum/hitting_stats_type.dart';
 import 'search_condition.dart';
 
 final defaultSearchCondition = SearchCondition(
+  id: SearchCondition.defaultId,
   teamList: [
     'LAN',
   ],

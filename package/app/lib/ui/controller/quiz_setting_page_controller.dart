@@ -148,7 +148,7 @@ class QuizSettingPageController extends _$QuizSettingPageController
   void _saveSearchCondition() {
     ref
         .read(searchConditionRepositoryProvider)
-        .saveSearchCondition(state.searchCondition);
+        .save(state.searchCondition);
 
     // TODO(me): ここの invalidate によって、望ましくない UI のリビルドが発生しないか確認する。
     ref.invalidate(searchConditionProvider);
