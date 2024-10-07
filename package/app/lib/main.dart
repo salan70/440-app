@@ -12,9 +12,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:model/model.dart';
+import 'package:model/objectbox.g.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -32,13 +32,6 @@ Future<void> main() async {
   // 初期化関連
   await initialize();
 
-  // HiveのBoxをopen
-  final searchConditionBox =
-      await Hive.openBox<SearchCondition>(HiveBoxType.searchCondition.key);
-  final notificationSettingBox = await Hive.openBox<NotificationSetting>(
-    HiveBoxType.notificationSetting.key,
-  );
-
   // iOS 端末にてステータスバーを表示させるための設定。
   //
   // 参考: https://halzoblog.com/error-bug-diary/20220922-2/
@@ -50,6 +43,12 @@ Future<void> main() async {
   // Drift Database の初期化
   final dbFolder = await getApplicationDocumentsDirectory();
   final dbPath = p.join(dbFolder.path, 'app.db');
+
+  // ObjectBox の Box を取得
+  final docsDir = await getApplicationDocumentsDirectory();
+  final store = openStore(directory: p.join(docsDir.path, 'objectbox-model'));
+  final searchConditionBox = store.box<SearchCondition>();
+  final notificationSettingBox = store.box<NotificationSetting>();
 
   // 画面の向きを縦で固定する。
   await SystemChrome.setPreferredOrientations([
@@ -112,11 +111,6 @@ Future<void> initialize() async {
   // トークンの取得（デバッグ用）
   final token = await messaging.getToken();
   logger.i('🐯 FCM TOKEN: $token');
-
-  // Hiveの初期化
-  await Hive.initFlutter();
-  Hive.registerAdapter(SearchConditionAdapter());
-  Hive.registerAdapter(NotificationSettingAdapter());
 
   // table_calendarを日本語で表示するために必要
   await initializeDateFormatting();

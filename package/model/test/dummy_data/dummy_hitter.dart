@@ -1,8 +1,9 @@
 import 'package:model/src/feature/quiz/domain/quiz.dart';
-import 'package:model/src/feature/search_condition/domain/search_condition.dart';
+import 'package:model/src/feature/search_condition/search_condition.dart';
 import 'package:model/src/util/enum/hitting_stats_type.dart';
 
 const dummySearchCondition = SearchCondition(
+  id: SearchCondition.defaultId,
   teamList: ['横浜DeNAベイスターズ'],
   minGames: 100,
   minHits: 100,

@@ -19,47 +19,47 @@ class QuizSettingPageState with _$QuizSettingPageState {
 class QuizSettingPageController extends _$QuizSettingPageController
     with ControllerMixin {
   @override
-  QuizSettingPageState build() {
-    final searchCondition = ref.watch(searchConditionProvider);
-
+  Future<QuizSettingPageState> build() async {
+    final searchCondition = await ref.watch(searchConditionProvider.future);
     return QuizSettingPageState(searchCondition: searchCondition);
   }
 
-  /// state.teamList  を更新する。
+  /// [state.value!.teamList]  を更新する。
   void updateTeamList(List<Object?> selectedTeamList) {
     final teamList = selectedTeamList.cast<String>();
-    state = state.copyWith(
-      searchCondition: state.searchCondition.copyWith(teamList: teamList),
+    _updateSearchCondition(
+      teamList,
+      (condition, value) => condition.copyWith(teamList: value),
     );
   }
 
-  /// state.minGames を更新する。
-  void updateMinGames(int minGames) {
-    state = state.copyWith(
-      searchCondition: state.searchCondition.copyWith(minGames: minGames),
-    );
-  }
+  /// [state.value!.minGames] を更新する。
+  void updateMinGames(int minGames) => _updateSearchCondition(
+        minGames,
+        (condition, value) => condition.copyWith(minGames: value),
+      );
 
-  /// state.minHits を更新する。
+  /// [state.value!.minHits] を更新する。
   void updateMinHits(int minHits) {
-    state = state.copyWith(
-      searchCondition: state.searchCondition.copyWith(minHits: minHits),
+    _updateSearchCondition(
+      minHits,
+      (condition, value) => condition.copyWith(minHits: value),
     );
   }
 
-  /// state.minHr を更新する。
+  /// [state.value!.minHr] を更新する。
   void updateMinHr(int minHr) {
-    state = state.copyWith(
-      searchCondition: state.searchCondition.copyWith(minHr: minHr),
+    _updateSearchCondition(
+      minHr,
+      (condition, value) => condition.copyWith(minHr: value),
     );
   }
 
-  /// state.selectedStatsList を更新する。
+  /// [state.value!.selectedStatsList] を更新する。
   void updateSelectedStatsList(List<String> selectedStatsList) {
-    state = state.copyWith(
-      searchCondition: state.searchCondition.copyWith(
-        selectedStatsList: selectedStatsList,
-      ),
+    _updateSearchCondition(
+      selectedStatsList,
+      (condition, value) => condition.copyWith(selectedStatsList: value),
     );
   }
 
@@ -88,21 +88,32 @@ class QuizSettingPageController extends _$QuizSettingPageController
     );
   }
 
+  /// SearchConditionの特定のフィールドを更新する汎用メソッド
+  void _updateSearchCondition<T>(
+    T value,
+    SearchCondition Function(SearchCondition, T) updater,
+  ) {
+    state = AsyncValue.data(
+      state.value!.copyWith(
+        searchCondition: updater(state.value!.searchCondition, value),
+      ),
+    );
+  }
+
   /// 球団を取り除けるか判別する。
   ///
   /// state.teamList の長さが2以上の場合に取り除ける。
   /// （取り除くと空になる場合取り除けない。）
-  bool get _canRemoveTeam => state.searchCondition.teamList.length > 1;
+  bool get _canRemoveTeam => state.value!.searchCondition.teamList.length > 1;
 
   /// 選択した球団を取り除く。
   void _removeTeam(int selectedIndex) {
-    final teamList = state.searchCondition.teamList;
+    final teamList = state.value!.searchCondition.teamList;
     final removedTeamList = createRemovedTeamList(teamList, selectedIndex);
 
-    state = state.copyWith(
-      searchCondition: state.searchCondition.copyWith(
-        teamList: removedTeamList,
-      ),
+    _updateSearchCondition(
+      removedTeamList,
+      (condition, value) => condition.copyWith(teamList: value),
     );
   }
 
@@ -148,7 +159,7 @@ class QuizSettingPageController extends _$QuizSettingPageController
   void _saveSearchCondition() {
     ref
         .read(searchConditionRepositoryProvider)
-        .saveSearchCondition(state.searchCondition);
+        .save(state.value!.searchCondition);
 
     // TODO(me): ここの invalidate によって、望ましくない UI のリビルドが発生しないか確認する。
     ref.invalidate(searchConditionProvider);

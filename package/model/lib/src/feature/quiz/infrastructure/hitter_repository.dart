@@ -7,7 +7,7 @@ import '../../../util/enum/hitting_stats_type.dart';
 import '../../../util/extension/drift_query_extension.dart';
 import '../../app_db/my_drift_database.dart';
 import '../../app_db/tables.dart';
-import '../../search_condition/domain/search_condition.dart';
+import '../../search_condition/search_condition.dart';
 import '../domain/hitter.dart';
 import '../domain/quiz.dart';
 

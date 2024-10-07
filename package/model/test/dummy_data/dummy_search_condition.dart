@@ -1,8 +1,9 @@
-import 'package:model/src/feature/search_condition/domain/search_condition.dart';
+import 'package:model/src/feature/search_condition/search_condition.dart';
 import 'package:model/src/util/enum/hitting_stats_type.dart';
 
 /// 1つの球団を選択しているダミーデータ
 final dummySearchCondition1 = SearchCondition(
+  id: SearchCondition.defaultId,
   teamList: [
     '千葉ロッテマリーンズ',
   ],
@@ -19,6 +20,7 @@ final dummySearchCondition1 = SearchCondition(
 
 /// 2つの球団を選択しているダミーデータ
 final dummySearchCondition2 = SearchCondition(
+  id: SearchCondition.defaultId,
   teamList: [
     '千葉ロッテマリーンズ',
     '阪神タイガース',

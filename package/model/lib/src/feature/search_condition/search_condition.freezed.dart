@@ -20,15 +20,12 @@ SearchCondition _$SearchConditionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SearchCondition {
-  @HiveField(0)
+  @Id(assignable: true)
+  int get id => throw _privateConstructorUsedError;
   List<String> get teamList => throw _privateConstructorUsedError;
-  @HiveField(1)
   int get minGames => throw _privateConstructorUsedError;
-  @HiveField(3)
   int get minHits => throw _privateConstructorUsedError;
-  @HiveField(4)
   int get minHr => throw _privateConstructorUsedError;
-  @HiveField(5)
   List<String> get selectedStatsList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,11 +41,12 @@ abstract class $SearchConditionCopyWith<$Res> {
       _$SearchConditionCopyWithImpl<$Res, SearchCondition>;
   @useResult
   $Res call(
-      {@HiveField(0) List<String> teamList,
-      @HiveField(1) int minGames,
-      @HiveField(3) int minHits,
-      @HiveField(4) int minHr,
-      @HiveField(5) List<String> selectedStatsList});
+      {@Id(assignable: true) int id,
+      List<String> teamList,
+      int minGames,
+      int minHits,
+      int minHr,
+      List<String> selectedStatsList});
 }
 
 /// @nodoc
@@ -64,6 +62,7 @@ class _$SearchConditionCopyWithImpl<$Res, $Val extends SearchCondition>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? teamList = null,
     Object? minGames = null,
     Object? minHits = null,
@@ -71,6 +70,10 @@ class _$SearchConditionCopyWithImpl<$Res, $Val extends SearchCondition>
     Object? selectedStatsList = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       teamList: null == teamList
           ? _value.teamList
           : teamList // ignore: cast_nullable_to_non_nullable
@@ -104,11 +107,12 @@ abstract class _$$SearchConditionImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@HiveField(0) List<String> teamList,
-      @HiveField(1) int minGames,
-      @HiveField(3) int minHits,
-      @HiveField(4) int minHr,
-      @HiveField(5) List<String> selectedStatsList});
+      {@Id(assignable: true) int id,
+      List<String> teamList,
+      int minGames,
+      int minHits,
+      int minHr,
+      List<String> selectedStatsList});
 }
 
 /// @nodoc
@@ -122,6 +126,7 @@ class __$$SearchConditionImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? teamList = null,
     Object? minGames = null,
     Object? minHits = null,
@@ -129,6 +134,10 @@ class __$$SearchConditionImplCopyWithImpl<$Res>
     Object? selectedStatsList = null,
   }) {
     return _then(_$SearchConditionImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       teamList: null == teamList
           ? _value._teamList
           : teamList // ignore: cast_nullable_to_non_nullable
@@ -155,13 +164,15 @@ class __$$SearchConditionImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@Entity(realClass: SearchCondition)
 class _$SearchConditionImpl extends _SearchCondition {
   const _$SearchConditionImpl(
-      {@HiveField(0) required final List<String> teamList,
-      @HiveField(1) required this.minGames,
-      @HiveField(3) required this.minHits,
-      @HiveField(4) required this.minHr,
-      @HiveField(5) required final List<String> selectedStatsList})
+      {@Id(assignable: true) required this.id,
+      required final List<String> teamList,
+      required this.minGames,
+      required this.minHits,
+      required this.minHr,
+      required final List<String> selectedStatsList})
       : _teamList = teamList,
         _selectedStatsList = selectedStatsList,
         super._();
@@ -169,9 +180,11 @@ class _$SearchConditionImpl extends _SearchCondition {
   factory _$SearchConditionImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchConditionImplFromJson(json);
 
+  @override
+  @Id(assignable: true)
+  final int id;
   final List<String> _teamList;
   @override
-  @HiveField(0)
   List<String> get teamList {
     if (_teamList is EqualUnmodifiableListView) return _teamList;
     // ignore: implicit_dynamic_type
@@ -179,17 +192,13 @@ class _$SearchConditionImpl extends _SearchCondition {
   }
 
   @override
-  @HiveField(1)
   final int minGames;
   @override
-  @HiveField(3)
   final int minHits;
   @override
-  @HiveField(4)
   final int minHr;
   final List<String> _selectedStatsList;
   @override
-  @HiveField(5)
   List<String> get selectedStatsList {
     if (_selectedStatsList is EqualUnmodifiableListView)
       return _selectedStatsList;
@@ -199,7 +208,7 @@ class _$SearchConditionImpl extends _SearchCondition {
 
   @override
   String toString() {
-    return 'SearchCondition(teamList: $teamList, minGames: $minGames, minHits: $minHits, minHr: $minHr, selectedStatsList: $selectedStatsList)';
+    return 'SearchCondition(id: $id, teamList: $teamList, minGames: $minGames, minHits: $minHits, minHr: $minHr, selectedStatsList: $selectedStatsList)';
   }
 
   @override
@@ -207,6 +216,7 @@ class _$SearchConditionImpl extends _SearchCondition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SearchConditionImpl &&
+            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._teamList, _teamList) &&
             (identical(other.minGames, minGames) ||
                 other.minGames == minGames) &&
@@ -220,6 +230,7 @@ class _$SearchConditionImpl extends _SearchCondition {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       const DeepCollectionEquality().hash(_teamList),
       minGames,
       minHits,
@@ -243,31 +254,29 @@ class _$SearchConditionImpl extends _SearchCondition {
 
 abstract class _SearchCondition extends SearchCondition {
   const factory _SearchCondition(
-          {@HiveField(0) required final List<String> teamList,
-          @HiveField(1) required final int minGames,
-          @HiveField(3) required final int minHits,
-          @HiveField(4) required final int minHr,
-          @HiveField(5) required final List<String> selectedStatsList}) =
-      _$SearchConditionImpl;
+      {@Id(assignable: true) required final int id,
+      required final List<String> teamList,
+      required final int minGames,
+      required final int minHits,
+      required final int minHr,
+      required final List<String> selectedStatsList}) = _$SearchConditionImpl;
   const _SearchCondition._() : super._();
 
   factory _SearchCondition.fromJson(Map<String, dynamic> json) =
       _$SearchConditionImpl.fromJson;
 
   @override
-  @HiveField(0)
+  @Id(assignable: true)
+  int get id;
+  @override
   List<String> get teamList;
   @override
-  @HiveField(1)
   int get minGames;
   @override
-  @HiveField(3)
   int get minHits;
   @override
-  @HiveField(4)
   int get minHr;
   @override
-  @HiveField(5)
   List<String> get selectedStatsList;
   @override
   @JsonKey(ignore: true)

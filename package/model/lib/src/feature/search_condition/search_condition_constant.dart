@@ -1,7 +1,8 @@
-import '../../../util/enum/hitting_stats_type.dart';
-import '../domain/search_condition.dart';
+import '../../util/enum/hitting_stats_type.dart';
+import 'search_condition.dart';
 
 final defaultSearchCondition = SearchCondition(
+  id: SearchCondition.defaultId,
   teamList: [
     'LAN',
   ],

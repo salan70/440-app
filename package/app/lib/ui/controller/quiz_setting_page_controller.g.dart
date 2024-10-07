@@ -7,11 +7,11 @@ part of 'quiz_setting_page_controller.dart';
 // **************************************************************************
 
 String _$quizSettingPageControllerHash() =>
-    r'fb33dee20d80bdb9e5e6c4c42f986e1cadece66a';
+    r'2d7bec11ff7a8246dff37595ce670a384d007f87';
 
 /// See also [QuizSettingPageController].
 @ProviderFor(QuizSettingPageController)
-final quizSettingPageControllerProvider = AutoDisposeNotifierProvider<
+final quizSettingPageControllerProvider = AutoDisposeAsyncNotifierProvider<
     QuizSettingPageController, QuizSettingPageState>.internal(
   QuizSettingPageController.new,
   name: r'quizSettingPageControllerProvider',
@@ -22,6 +22,7 @@ final quizSettingPageControllerProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$QuizSettingPageController = AutoDisposeNotifier<QuizSettingPageState>;
+typedef _$QuizSettingPageController
+    = AutoDisposeAsyncNotifier<QuizSettingPageState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

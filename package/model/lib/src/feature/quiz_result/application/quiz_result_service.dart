@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../auth/infrastructure/auth_repository.dart';
 import '../../daily_quiz/application/daily_quiz_state.dart';
 import '../../quiz/domain/quiz_state.dart';
-import '../../search_condition/application/search_condition_state.dart';
+import '../../search_condition/search_condition_state.dart';
 import '../infrastructure/quiz_result_repository.dart';
 import 'quiz_result_state.dart';
 
@@ -48,7 +48,7 @@ class QuizResultService {
   /// normalQuizResult を作成する。
   Future<void> createNormalQuizResult(QuizState quizState) async {
     final user = ref.read(authRepositoryProvider).getCurrentUser();
-    final searchCondition = ref.read(searchConditionProvider);
+    final searchCondition = await ref.read(searchConditionProvider.future);
 
     await ref.read(quizResultRepositoryProvider).createNormalQuizResult(
           user!,

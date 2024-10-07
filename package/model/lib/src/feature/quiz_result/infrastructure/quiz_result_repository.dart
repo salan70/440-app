@@ -7,7 +7,7 @@ import '../../../util/extension/date_time_extension.dart';
 import '../../daily_quiz/domain/daily_quiz.dart';
 import '../../quiz/domain/quiz.dart';
 import '../../quiz/domain/quiz_state.dart';
-import '../../search_condition/domain/search_condition.dart';
+import '../../search_condition/search_condition.dart';
 import '../domain/daily_hitter_quiz_result.dart';
 import '../domain/hitter_quiz_result.dart';
 
