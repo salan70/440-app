@@ -20,7 +20,7 @@ part 'app_router.gr.dart';
 Raw<AppRouter> appRouter(AppRouterRef ref) => AppRouter();
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
-class AppRouter extends _$AppRouter {
+class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: TopRoute.page, initial: true),
