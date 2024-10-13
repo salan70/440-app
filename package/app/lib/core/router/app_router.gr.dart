@@ -9,89 +9,6 @@
 
 part of 'app_router.dart';
 
-abstract class _$AppRouter extends RootStackRouter {
-  // ignore: unused_element
-  _$AppRouter({super.navigatorKey});
-
-  @override
-  final Map<String, PageFactory> pagesMap = {
-    GalleryListRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const GalleryListPage(),
-      );
-    },
-    PlayDailyQuizRoute.name: (routeData) {
-      final args = routeData.argsAs<PlayDailyQuizRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: PlayDailyQuizPage(
-          key: args.key,
-          questionedAt: args.questionedAt,
-        ),
-      );
-    },
-    PlayNormalQuizRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const PlayNormalQuizPage(),
-      );
-    },
-    QuizHistoryDailyRoute.name: (routeData) {
-      final args = routeData.argsAs<QuizHistoryDailyRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: QuizHistoryDailyPage(
-          key: args.key,
-          quizResult: args.quizResult,
-        ),
-      );
-    },
-    QuizHistoryNormalRoute.name: (routeData) {
-      final args = routeData.argsAs<QuizHistoryNormalRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: QuizHistoryNormalPage(
-          key: args.key,
-          quizResult: args.quizResult,
-        ),
-      );
-    },
-    QuizSettingRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const QuizSettingPage(),
-      );
-    },
-    ResultDailyQuizRoute.name: (routeData) {
-      final args = routeData.argsAs<ResultDailyQuizRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: ResultDailyQuizPage(
-          key: args.key,
-          quizState: args.quizState,
-        ),
-      );
-    },
-    ResultNormalQuizRoute.name: (routeData) {
-      final args = routeData.argsAs<ResultNormalQuizRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: ResultNormalQuizPage(
-          key: args.key,
-          quizState: args.quizState,
-        ),
-      );
-    },
-    TopRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const TopPage(),
-      );
-    },
-  };
-}
-
 /// generated route for
 /// [GalleryListPage]
 class GalleryListRoute extends PageRouteInfo<void> {
@@ -103,7 +20,12 @@ class GalleryListRoute extends PageRouteInfo<void> {
 
   static const String name = 'GalleryListRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GalleryListPage();
+    },
+  );
 }
 
 /// generated route for
@@ -124,8 +46,16 @@ class PlayDailyQuizRoute extends PageRouteInfo<PlayDailyQuizRouteArgs> {
 
   static const String name = 'PlayDailyQuizRoute';
 
-  static const PageInfo<PlayDailyQuizRouteArgs> page =
-      PageInfo<PlayDailyQuizRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<PlayDailyQuizRouteArgs>();
+      return PlayDailyQuizPage(
+        key: args.key,
+        questionedAt: args.questionedAt,
+      );
+    },
+  );
 }
 
 class PlayDailyQuizRouteArgs {
@@ -155,7 +85,12 @@ class PlayNormalQuizRoute extends PageRouteInfo<void> {
 
   static const String name = 'PlayNormalQuizRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PlayNormalQuizPage();
+    },
+  );
 }
 
 /// generated route for
@@ -176,8 +111,16 @@ class QuizHistoryDailyRoute extends PageRouteInfo<QuizHistoryDailyRouteArgs> {
 
   static const String name = 'QuizHistoryDailyRoute';
 
-  static const PageInfo<QuizHistoryDailyRouteArgs> page =
-      PageInfo<QuizHistoryDailyRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<QuizHistoryDailyRouteArgs>();
+      return QuizHistoryDailyPage(
+        key: args.key,
+        quizResult: args.quizResult,
+      );
+    },
+  );
 }
 
 class QuizHistoryDailyRouteArgs {
@@ -214,8 +157,16 @@ class QuizHistoryNormalRoute extends PageRouteInfo<QuizHistoryNormalRouteArgs> {
 
   static const String name = 'QuizHistoryNormalRoute';
 
-  static const PageInfo<QuizHistoryNormalRouteArgs> page =
-      PageInfo<QuizHistoryNormalRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<QuizHistoryNormalRouteArgs>();
+      return QuizHistoryNormalPage(
+        key: args.key,
+        quizResult: args.quizResult,
+      );
+    },
+  );
 }
 
 class QuizHistoryNormalRouteArgs {
@@ -245,7 +196,12 @@ class QuizSettingRoute extends PageRouteInfo<void> {
 
   static const String name = 'QuizSettingRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const QuizSettingPage();
+    },
+  );
 }
 
 /// generated route for
@@ -266,8 +222,16 @@ class ResultDailyQuizRoute extends PageRouteInfo<ResultDailyQuizRouteArgs> {
 
   static const String name = 'ResultDailyQuizRoute';
 
-  static const PageInfo<ResultDailyQuizRouteArgs> page =
-      PageInfo<ResultDailyQuizRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ResultDailyQuizRouteArgs>();
+      return ResultDailyQuizPage(
+        key: args.key,
+        quizState: args.quizState,
+      );
+    },
+  );
 }
 
 class ResultDailyQuizRouteArgs {
@@ -304,8 +268,16 @@ class ResultNormalQuizRoute extends PageRouteInfo<ResultNormalQuizRouteArgs> {
 
   static const String name = 'ResultNormalQuizRoute';
 
-  static const PageInfo<ResultNormalQuizRouteArgs> page =
-      PageInfo<ResultNormalQuizRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ResultNormalQuizRouteArgs>();
+      return ResultNormalQuizPage(
+        key: args.key,
+        quizState: args.quizState,
+      );
+    },
+  );
 }
 
 class ResultNormalQuizRouteArgs {
@@ -335,5 +307,10 @@ class TopRoute extends PageRouteInfo<void> {
 
   static const String name = 'TopRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TopPage();
+    },
+  );
 }
