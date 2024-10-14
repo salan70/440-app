@@ -26,7 +26,7 @@ dependencies:
   riverpod_annotation: ^2.2.0
 
   # AdMob.
-  google_mobile_ads: ^4.0.0
+  google_mobile_ads: ^5.2.0
 
   # Local Database.
   drift: ^2.19.1+1
@@ -39,10 +39,10 @@ dependencies:
   pedantic_mono: ^1.20.1
 
   # Firebase.
-  cloud_firestore: ^5.2.1
-  firebase_analytics: ^11.2.1
-  firebase_auth: ^5.1.4
-  firebase_storage: ^12.1.3
+  cloud_firestore: ^5.4.4
+  firebase_analytics: ^11.3.3
+  firebase_auth: ^5.3.1
+  firebase_storage: ^12.3.3
 
   # Utility.
   flutter_app_badger: ^1.5.0
