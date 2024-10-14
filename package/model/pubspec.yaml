@@ -10,7 +10,6 @@ dependencies:
   common:
     path: ../common
 
-  device_info_plus: ^8.0.0
   flutter:
     sdk: flutter
 
@@ -29,11 +28,9 @@ dependencies:
   google_mobile_ads: ^5.2.0
 
   # Local Database.
-  drift: ^2.19.1+1
-  drift_flutter: ^0.1.0
+  drift: ^2.20.3
+  drift_flutter: ^0.2.0
   objectbox: ^4.0.2
-
-  
 
   # Static analysis.
   pedantic_mono: ^1.20.1
@@ -45,13 +42,14 @@ dependencies:
   firebase_storage: ^12.3.3
 
   # Utility.
+  device_info_plus: ^11.0.0
   flutter_app_badger: ^1.5.0
   intl: ^0.18.0
   in_app_review: ^2.0.6  
   ntp: ^2.0.0 # しばらくメンテされていないという懸念あり
-  package_info_plus: ^4.2.0
+  package_info_plus: ^8.0.3
   path_provider: ^2.0.11
-  share_plus: ^7.2.1
+  share_plus: ^10.0.3
   timezone: ^0.9.2
   url_launcher: ^6.1.8
   version: ^3.0.2
@@ -65,8 +63,8 @@ dependency_overrides:
 
 dev_dependencies:
   # Code generation.
-  build_runner: ^2.4.7
-  drift_dev: ^2.19.1
+  build_runner: ^2.4.13
+  drift_dev: ^2.20.3
   freezed: ^2.4.5
   json_serializable: ^6.7.1
   objectbox_generator: ^4.0.2
