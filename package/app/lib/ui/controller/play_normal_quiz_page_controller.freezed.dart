@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PlayNormalQuizPageState {
   QuizState get normalQuizState => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlayNormalQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlayNormalQuizPageStateCopyWith<PlayNormalQuizPageState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$PlayNormalQuizPageStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PlayNormalQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -79,6 +83,8 @@ class __$$PlayNormalQuizPageStateImplCopyWithImpl<$Res>
       $Res Function(_$PlayNormalQuizPageStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PlayNormalQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,7 +124,9 @@ class _$PlayNormalQuizPageStateImpl implements _PlayNormalQuizPageState {
   @override
   int get hashCode => Object.hash(runtimeType, normalQuizState);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlayNormalQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PlayNormalQuizPageStateImplCopyWith<_$PlayNormalQuizPageStateImpl>
@@ -133,8 +141,11 @@ abstract class _PlayNormalQuizPageState implements PlayNormalQuizPageState {
 
   @override
   QuizState get normalQuizState;
+
+  /// Create a copy of PlayNormalQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PlayNormalQuizPageStateImplCopyWith<_$PlayNormalQuizPageStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

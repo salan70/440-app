@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$QuizSettingPageState {
   SearchCondition get searchCondition => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of QuizSettingPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $QuizSettingPageStateCopyWith<QuizSettingPageState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,6 +47,8 @@ class _$QuizSettingPageStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of QuizSettingPageState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -58,6 +62,8 @@ class _$QuizSettingPageStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of QuizSettingPageState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SearchConditionCopyWith<$Res> get searchCondition {
@@ -89,6 +95,8 @@ class __$$QuizSettingPageStateImplCopyWithImpl<$Res>
       $Res Function(_$QuizSettingPageStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of QuizSettingPageState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -128,7 +136,9 @@ class _$QuizSettingPageStateImpl implements _QuizSettingPageState {
   @override
   int get hashCode => Object.hash(runtimeType, searchCondition);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of QuizSettingPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$QuizSettingPageStateImplCopyWith<_$QuizSettingPageStateImpl>
@@ -144,8 +154,11 @@ abstract class _QuizSettingPageState implements QuizSettingPageState {
 
   @override
   SearchCondition get searchCondition;
+
+  /// Create a copy of QuizSettingPageState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$QuizSettingPageStateImplCopyWith<_$QuizSettingPageStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
