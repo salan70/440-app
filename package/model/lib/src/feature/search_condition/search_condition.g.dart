@@ -9,7 +9,6 @@ part of 'search_condition.dart';
 _$SearchConditionImpl _$$SearchConditionImplFromJson(
         Map<String, dynamic> json) =>
     _$SearchConditionImpl(
-      id: (json['id'] as num).toInt(),
       teamList:
           (json['teamList'] as List<dynamic>).map((e) => e as String).toList(),
       minGames: (json['minGames'] as num).toInt(),
@@ -23,7 +22,6 @@ _$SearchConditionImpl _$$SearchConditionImplFromJson(
 Map<String, dynamic> _$$SearchConditionImplToJson(
         _$SearchConditionImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'teamList': instance.teamList,
       'minGames': instance.minGames,
       'minHits': instance.minHits,

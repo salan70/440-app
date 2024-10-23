@@ -1,5 +1,6 @@
-import 'package:objectbox/objectbox.dart';
+import 'package:common/common.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sembast/sembast.dart';
 
 import 'search_condition.dart';
 import 'search_condition_constant.dart';
@@ -14,13 +15,25 @@ SearchConditionRepository searchConditionRepository(
     throw UnimplementedError();
 
 class SearchConditionRepository {
-  SearchConditionRepository(this.box);
+  SearchConditionRepository(this.db);
 
-  final Box<SearchCondition> box;
+  final Database db;
+  final _store = StoreRef.main();
 
-  Future<SearchCondition> fetch() async =>
-      box.get(SearchCondition.defaultId) ?? defaultSearchCondition;
+  Future<SearchCondition> fetch() async {
+    final record = await _store.record(SearchCondition.recordName).get(db)
+        as Map<String, dynamic>?;
 
-  Future<void> save(SearchCondition searchCondition) async =>
-      box.put(searchCondition);
+    logger.d(record);
+
+    return record != null
+        ? SearchCondition.fromJson(record)
+        : defaultSearchCondition;
+  }
+
+  Future<void> save(SearchCondition searchCondition) async {
+    await _store
+        .record(SearchCondition.recordName)
+        .put(db, searchCondition.toJson());
+  }
 }

@@ -14,9 +14,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:model/model.dart';
-import 'package:model/objectbox.g.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:sembast/sembast_io.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -44,11 +44,10 @@ Future<void> main() async {
   final dbFolder = await getApplicationDocumentsDirectory();
   final dbPath = p.join(dbFolder.path, 'app.db');
 
-  // ObjectBox の Box を取得
+  // Sembast データベースの初期化
   final docsDir = await getApplicationDocumentsDirectory();
-  final store = openStore(directory: p.join(docsDir.path, 'objectbox-model'));
-  final searchConditionBox = store.box<SearchCondition>();
-  final notificationSettingBox = store.box<NotificationSetting>();
+  final db = await databaseFactoryIo
+      .openDatabase(p.join(docsDir.path, 'search_conditions.db'));
 
   // 画面の向きを縦で固定する。
   await SystemChrome.setPreferredOrientations([
@@ -60,10 +59,10 @@ Future<void> main() async {
         overrides: [
           flavorProvider.overrideWithValue(Flavor.fromEnvironment),
           searchConditionRepositoryProvider.overrideWith(
-            (ref) => SearchConditionRepository(searchConditionBox),
+            (ref) => SearchConditionRepository(db),
           ),
           notificationSettingRepositoryProvider.overrideWith(
-            (ref) => NotificationSettingRepository(notificationSettingBox),
+            (ref) => NotificationSettingRepository(db),
           ),
           dbPathProvider.overrideWith((ref) => dbPath),
         ],

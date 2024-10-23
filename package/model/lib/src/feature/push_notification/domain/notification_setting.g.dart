@@ -9,7 +9,6 @@ part of 'notification_setting.dart';
 _$NotificationSettingImpl _$$NotificationSettingImplFromJson(
         Map<String, dynamic> json) =>
     _$NotificationSettingImpl(
-      id: (json['id'] as num).toInt(),
       allowStartDailyQuizNotification:
           json['allowStartDailyQuizNotification'] as bool,
       allowRemindDailyQuizNotification:
@@ -20,7 +19,6 @@ _$NotificationSettingImpl _$$NotificationSettingImplFromJson(
 Map<String, dynamic> _$$NotificationSettingImplToJson(
         _$NotificationSettingImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'allowStartDailyQuizNotification':
           instance.allowStartDailyQuizNotification,
       'allowRemindDailyQuizNotification':

@@ -1,5 +1,5 @@
-import 'package:objectbox/objectbox.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sembast/sembast.dart';
 
 import '../domain/notification_setting.dart';
 
@@ -12,14 +12,23 @@ NotificationSettingRepository notificationSettingRepository(
     throw UnimplementedError();
 
 class NotificationSettingRepository {
-  NotificationSettingRepository(this.box);
+  NotificationSettingRepository(this.db);
 
-  final Box<NotificationSetting> box;
+  final Database db;
+  final _store = StoreRef.main();
 
-  Future<NotificationSetting> fetch() async =>
-      await box.getAsync(NotificationSetting.defaultId) ??
-      NotificationSetting.initial();
+  Future<NotificationSetting> fetch() async {
+    final record = await _store.record(NotificationSetting.recordName).get(db)
+        as Map<String, dynamic>?;
 
-  Future<void> save(NotificationSetting notificationSetting) async =>
-      box.putAsync(notificationSetting);
+    return record != null
+        ? NotificationSetting.fromJson(record)
+        : NotificationSetting.initial();
+  }
+
+  Future<void> save(NotificationSetting notificationSetting) async {
+    await _store
+        .record(NotificationSetting.recordName)
+        .put(db, notificationSetting.toJson());
+  }
 }
