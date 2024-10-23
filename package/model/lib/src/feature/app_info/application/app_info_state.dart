@@ -22,14 +22,14 @@ Future<bool> needUpdate(NeedUpdateRef ref) async {
   final userAppVersion = await ref.watch(currentAppVersionProvider.future);
 
   final appInfoRepository = ref.watch(appInfoRepositoryProvider);
-  late Version requiredAppVersion;
+  final requiredAppVersions =
+      await appInfoRepository.fetchRequiredAppVersions();
+
   if (Platform.isAndroid) {
-    requiredAppVersion =
-        await appInfoRepository.fetchRequiredAppVersionForAndroid();
-  } else {
-    requiredAppVersion =
-        await appInfoRepository.fetchRequiredAppVersionForIos();
+    // * Android の場合
+    return userAppVersion < requiredAppVersions.android;
   }
 
-  return userAppVersion < requiredAppVersion;
+  // * iOS の場合
+  return userAppVersion < requiredAppVersions.ios;
 }

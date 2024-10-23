@@ -10,6 +10,25 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [ForceUpdatePage]
+class ForceUpdateRoute extends PageRouteInfo<void> {
+  const ForceUpdateRoute({List<PageRouteInfo>? children})
+      : super(
+          ForceUpdateRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ForceUpdateRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ForceUpdatePage();
+    },
+  );
+}
+
+/// generated route for
 /// [GalleryListPage]
 class GalleryListRoute extends PageRouteInfo<void> {
   const GalleryListRoute({List<PageRouteInfo>? children})

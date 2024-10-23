@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PlayDailyQuizPageState {
   QuizState get quizState => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlayDailyQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlayDailyQuizPageStateCopyWith<PlayDailyQuizPageState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$PlayDailyQuizPageStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PlayDailyQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -79,6 +83,8 @@ class __$$PlayDailyQuizPageStateImplCopyWithImpl<$Res>
       $Res Function(_$PlayDailyQuizPageStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PlayDailyQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,7 +124,9 @@ class _$PlayDailyQuizPageStateImpl implements _PlayDailyQuizPageState {
   @override
   int get hashCode => Object.hash(runtimeType, quizState);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlayDailyQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PlayDailyQuizPageStateImplCopyWith<_$PlayDailyQuizPageStateImpl>
@@ -132,8 +140,11 @@ abstract class _PlayDailyQuizPageState implements PlayDailyQuizPageState {
 
   @override
   QuizState get quizState;
+
+  /// Create a copy of PlayDailyQuizPageState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PlayDailyQuizPageStateImplCopyWith<_$PlayDailyQuizPageStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

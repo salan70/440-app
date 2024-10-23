@@ -184,7 +184,7 @@ class _MyApp extends ConsumerState<MyApp> {
       builder: (context, child) => Navigator(
         key: ref.watch(navigatorKeyProvider),
         observers: [ref.watch(analyticsObserverProvider)],
-        onPopPage: (route, dynamic _) => false,
+        onDidRemovePage: (route) {},
         pages: [
           MaterialPage<Widget>(
             child: Stack(

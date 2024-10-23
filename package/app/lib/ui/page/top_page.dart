@@ -4,15 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:model/model.dart';
 
 import '../component/ad/banner_ad_widget.dart';
+import '../component/common/app_logo_widget.dart';
 import '../component/common/button/my_button.dart';
 import '../component/common/navigation_button/to_gallery_button.dart';
 import '../component/common/navigation_button/to_quiz_setting_button.dart';
 import '../component/play_quiz_daily/start_todays_daily_quiz_button.dart';
 import '../component/play_quiz_normal/start_normal_quiz_from_top_button.dart';
-import '../component/setting/force_update_dialog.dart';
-import '../component/setting/icon_widget.dart';
 import '../component/setting/open_setting_button.dart';
-import '../controller/common/navigator_key_controller.dart';
 import '../controller/top_page_controller.dart';
 
 @RoutePage()
@@ -32,15 +30,6 @@ class _TopPageState extends ConsumerState<TopPage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // バージョンチェック
-      final needUpdate = await ref.read(needUpdateProvider.future);
-      if (needUpdate) {
-        ref.read(navigatorKeyControllerProvider).showDialogWithChild(
-              child: const ForceUpdateDialog(),
-              barrierDismissible: false,
-            );
-      }
-
       // ローカルPUSH通知の初期設定を行う。
       await ref.read(localPushNotificationServiceProvider).onAppLaunch();
     });
@@ -72,7 +61,7 @@ class _TopPageState extends ConsumerState<TopPage> {
                   child: Column(
                     children: [
                       const SizedBox(height: 48),
-                      const IconWidget(),
+                      const AppLogoWidget(),
                       const SizedBox(height: 40),
                       const SizedBox(
                         width: _buttonWidth,
