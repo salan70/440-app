@@ -13,17 +13,19 @@ class AppInfoRepository {
 
   final FirebaseFirestore firestore;
 
-  /// iOS でプレイするのに必要なアプリバージョンを取得する。
-  Future<Version> fetchRequiredAppVersionForIos() async {
+  /// iOS と Android それぞれで必要なアプリバージョンを [Future] で返す。
+  Future<({Version ios, Version android})> fetchRequiredAppVersions() async {
     final doc =
         await firestore.collection('config').doc('configDocument').get();
-    return Version.parse(doc.data()!['requiredAppVersionForIos'] as String);
-  }
 
-  /// Android でプレイするのに必要なアプリバージョンを取得する。
-  Future<Version> fetchRequiredAppVersionForAndroid() async {
-    final doc =
-        await firestore.collection('config').doc('configDocument').get();
-    return Version.parse(doc.data()!['requiredAppVersionForAndroid'] as String);
+    final ios = Version.parse(
+      doc.data()!['requiredAppVersionForIos'] as String,
+    );
+
+    final android = Version.parse(
+      doc.data()!['requiredAppVersionForAndroid'] as String,
+    );
+
+    return (ios: ios, android: android);
   }
 }
