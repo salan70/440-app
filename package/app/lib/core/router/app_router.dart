@@ -32,6 +32,10 @@ class AppRouter extends RootStackRouter {
           guards: [ForceUpdateGuard()],
         ),
         AutoRoute(
+          page: QuizSettingRoute.page,
+          guards: [ForceUpdateGuard()],
+        ),
+        AutoRoute(
           page: GalleryListRoute.page,
           guards: [ForceUpdateGuard()],
         ),
