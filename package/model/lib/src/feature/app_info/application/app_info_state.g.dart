@@ -23,7 +23,7 @@ final currentAppVersionProvider = AutoDisposeFutureProvider<Version>.internal(
 );
 
 typedef CurrentAppVersionRef = AutoDisposeFutureProviderRef<Version>;
-String _$needUpdateHash() => r'700d83e10f9de5c1d841a62300d921c2030757f5';
+String _$needUpdateHash() => r'476f09d3b05d0a3a4507a7e993a978df17b2e0f0';
 
 /// アプリのアップデートが必要かどうかを返す。
 ///
