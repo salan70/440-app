@@ -9,7 +9,7 @@ import '../component/common/navigation_button/to_gallery_button.dart';
 import '../component/common/navigation_button/to_quiz_setting_button.dart';
 import '../component/play_quiz_daily/start_todays_daily_quiz_button.dart';
 import '../component/play_quiz_normal/start_normal_quiz_from_top_button.dart';
-import '../component/setting/icon_widget.dart';
+import '../component/setting/app_logo_widget.dart';
 import '../component/setting/open_setting_button.dart';
 import '../controller/top_page_controller.dart';
 
@@ -61,7 +61,7 @@ class _TopPageState extends ConsumerState<TopPage> {
                   child: Column(
                     children: [
                       const SizedBox(height: 48),
-                      const IconWidget(),
+                      const AppLogoWidget(),
                       const SizedBox(height: 40),
                       const SizedBox(
                         width: _buttonWidth,
