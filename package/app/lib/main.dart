@@ -23,14 +23,18 @@ import 'package:timezone/timezone.dart' as tz;
 import 'core/router/app_router.dart';
 import 'core/router/navigator_key.dart';
 import 'core/util/colors_constant.dart';
+import 'core/util/config/firebase_config.dart';
 import 'ui/component/common/loading_widget.dart';
 import 'ui/controller/login_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // 環境変数から [Flavor] を取得する。
+  final flavor = Flavor.fromEnvironment;
+
   // 初期化関連
-  await initialize();
+  await initialize(flavor);
 
   // iOS 端末にてステータスバーを表示させるための設定。
   //
@@ -59,7 +63,7 @@ Future<void> main() async {
     runApp(
       ProviderScope(
         overrides: [
-          flavorProvider.overrideWithValue(Flavor.fromEnvironment),
+          flavorProvider.overrideWithValue(flavor),
           searchConditionRepositoryProvider.overrideWith(
             (ref) => SearchConditionRepository(db),
           ),
@@ -75,17 +79,18 @@ Future<void> main() async {
   });
 }
 
-Future<void> initialize() async {
+Future<void> initialize(Flavor flavor) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // .envの読み込み
   await dotenv.load();
 
   // Firebaseの初期化
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: flavor.firebaseOptions);
 
   // App Check の初期化
   await FirebaseAppCheck.instance.activate(
+    webProvider: ReCaptchaV3Provider('site-key'),
     androidProvider:
         kReleaseMode ? AndroidProvider.playIntegrity : AndroidProvider.debug,
     appleProvider:
@@ -110,9 +115,11 @@ Future<void> initialize() async {
   final messaging = FirebaseMessaging.instance;
   await messaging.requestPermission();
 
-  // トークンの取得（デバッグ用）
-  final token = await messaging.getToken();
-  logger.i('🐯 FCM TOKEN: $token');
+  // トークンの取得（ `web` 以外の場合のみ）
+  if (!kIsWeb) {
+    final token = await messaging.getToken();
+    logger.i('🐯 FCM TOKEN: $token');
+  }
 
   // table_calendarを日本語で表示するために必要
   await initializeDateFormatting();
