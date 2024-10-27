@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'my_drift_database.dart';
+part of 'drift_database.dart';
 
 // ignore_for_file: type=lint
 class $PlayersTable extends Players with TableInfo<$PlayersTable, Player> {
@@ -3342,9 +3342,9 @@ class TotalBattingStatsCompanion extends UpdateCompanion<TotalBattingStat> {
   }
 }
 
-abstract class _$MyDriftDatabase extends GeneratedDatabase {
-  _$MyDriftDatabase(QueryExecutor e) : super(e);
-  $MyDriftDatabaseManager get managers => $MyDriftDatabaseManager(this);
+abstract class _$BaseDriftDatabase extends GeneratedDatabase {
+  _$BaseDriftDatabase(QueryExecutor e) : super(e);
+  $BaseDriftDatabaseManager get managers => $BaseDriftDatabaseManager(this);
   late final $PlayersTable players = $PlayersTable(this);
   late final $BattingStatsTable battingStats = $BattingStatsTable(this);
   late final $TotalBattingStatsTable totalBattingStats =
@@ -3371,7 +3371,7 @@ typedef $$PlayersTableUpdateCompanionBuilder = PlayersCompanion Function({
 });
 
 class $$PlayersTableFilterComposer
-    extends FilterComposer<_$MyDriftDatabase, $PlayersTable> {
+    extends FilterComposer<_$BaseDriftDatabase, $PlayersTable> {
   $$PlayersTableFilterComposer(super.$state);
   ColumnFilters<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -3390,7 +3390,7 @@ class $$PlayersTableFilterComposer
 }
 
 class $$PlayersTableOrderingComposer
-    extends OrderingComposer<_$MyDriftDatabase, $PlayersTable> {
+    extends OrderingComposer<_$BaseDriftDatabase, $PlayersTable> {
   $$PlayersTableOrderingComposer(super.$state);
   ColumnOrderings<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -3409,17 +3409,17 @@ class $$PlayersTableOrderingComposer
 }
 
 class $$PlayersTableTableManager extends RootTableManager<
-    _$MyDriftDatabase,
+    _$BaseDriftDatabase,
     $PlayersTable,
     Player,
     $$PlayersTableFilterComposer,
     $$PlayersTableOrderingComposer,
     $$PlayersTableCreateCompanionBuilder,
     $$PlayersTableUpdateCompanionBuilder,
-    (Player, BaseReferences<_$MyDriftDatabase, $PlayersTable, Player>),
+    (Player, BaseReferences<_$BaseDriftDatabase, $PlayersTable, Player>),
     Player,
     PrefetchHooks Function()> {
-  $$PlayersTableTableManager(_$MyDriftDatabase db, $PlayersTable table)
+  $$PlayersTableTableManager(_$BaseDriftDatabase db, $PlayersTable table)
       : super(TableManagerState(
           db: db,
           table: table,
@@ -3459,14 +3459,14 @@ class $$PlayersTableTableManager extends RootTableManager<
 }
 
 typedef $$PlayersTableProcessedTableManager = ProcessedTableManager<
-    _$MyDriftDatabase,
+    _$BaseDriftDatabase,
     $PlayersTable,
     Player,
     $$PlayersTableFilterComposer,
     $$PlayersTableOrderingComposer,
     $$PlayersTableCreateCompanionBuilder,
     $$PlayersTableUpdateCompanionBuilder,
-    (Player, BaseReferences<_$MyDriftDatabase, $PlayersTable, Player>),
+    (Player, BaseReferences<_$BaseDriftDatabase, $PlayersTable, Player>),
     Player,
     PrefetchHooks Function()>;
 typedef $$BattingStatsTableCreateCompanionBuilder = BattingStatsCompanion
@@ -3547,7 +3547,7 @@ typedef $$BattingStatsTableUpdateCompanionBuilder = BattingStatsCompanion
 });
 
 class $$BattingStatsTableFilterComposer
-    extends FilterComposer<_$MyDriftDatabase, $BattingStatsTable> {
+    extends FilterComposer<_$BaseDriftDatabase, $BattingStatsTable> {
   $$BattingStatsTableFilterComposer(super.$state);
   ColumnFilters<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -3722,7 +3722,7 @@ class $$BattingStatsTableFilterComposer
 }
 
 class $$BattingStatsTableOrderingComposer
-    extends OrderingComposer<_$MyDriftDatabase, $BattingStatsTable> {
+    extends OrderingComposer<_$BaseDriftDatabase, $BattingStatsTable> {
   $$BattingStatsTableOrderingComposer(super.$state);
   ColumnOrderings<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -3897,7 +3897,7 @@ class $$BattingStatsTableOrderingComposer
 }
 
 class $$BattingStatsTableTableManager extends RootTableManager<
-    _$MyDriftDatabase,
+    _$BaseDriftDatabase,
     $BattingStatsTable,
     BattingStat,
     $$BattingStatsTableFilterComposer,
@@ -3906,12 +3906,12 @@ class $$BattingStatsTableTableManager extends RootTableManager<
     $$BattingStatsTableUpdateCompanionBuilder,
     (
       BattingStat,
-      BaseReferences<_$MyDriftDatabase, $BattingStatsTable, BattingStat>
+      BaseReferences<_$BaseDriftDatabase, $BattingStatsTable, BattingStat>
     ),
     BattingStat,
     PrefetchHooks Function()> {
   $$BattingStatsTableTableManager(
-      _$MyDriftDatabase db, $BattingStatsTable table)
+      _$BaseDriftDatabase db, $BattingStatsTable table)
       : super(TableManagerState(
           db: db,
           table: table,
@@ -4075,7 +4075,7 @@ class $$BattingStatsTableTableManager extends RootTableManager<
 }
 
 typedef $$BattingStatsTableProcessedTableManager = ProcessedTableManager<
-    _$MyDriftDatabase,
+    _$BaseDriftDatabase,
     $BattingStatsTable,
     BattingStat,
     $$BattingStatsTableFilterComposer,
@@ -4084,7 +4084,7 @@ typedef $$BattingStatsTableProcessedTableManager = ProcessedTableManager<
     $$BattingStatsTableUpdateCompanionBuilder,
     (
       BattingStat,
-      BaseReferences<_$MyDriftDatabase, $BattingStatsTable, BattingStat>
+      BaseReferences<_$BaseDriftDatabase, $BattingStatsTable, BattingStat>
     ),
     BattingStat,
     PrefetchHooks Function()>;
@@ -4164,7 +4164,7 @@ typedef $$TotalBattingStatsTableUpdateCompanionBuilder
 });
 
 class $$TotalBattingStatsTableFilterComposer
-    extends FilterComposer<_$MyDriftDatabase, $TotalBattingStatsTable> {
+    extends FilterComposer<_$BaseDriftDatabase, $TotalBattingStatsTable> {
   $$TotalBattingStatsTableFilterComposer(super.$state);
   ColumnFilters<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -4334,7 +4334,7 @@ class $$TotalBattingStatsTableFilterComposer
 }
 
 class $$TotalBattingStatsTableOrderingComposer
-    extends OrderingComposer<_$MyDriftDatabase, $TotalBattingStatsTable> {
+    extends OrderingComposer<_$BaseDriftDatabase, $TotalBattingStatsTable> {
   $$TotalBattingStatsTableOrderingComposer(super.$state);
   ColumnOrderings<String> get playerId => $state.composableBuilder(
       column: $state.table.playerId,
@@ -4504,7 +4504,7 @@ class $$TotalBattingStatsTableOrderingComposer
 }
 
 class $$TotalBattingStatsTableTableManager extends RootTableManager<
-    _$MyDriftDatabase,
+    _$BaseDriftDatabase,
     $TotalBattingStatsTable,
     TotalBattingStat,
     $$TotalBattingStatsTableFilterComposer,
@@ -4513,13 +4513,13 @@ class $$TotalBattingStatsTableTableManager extends RootTableManager<
     $$TotalBattingStatsTableUpdateCompanionBuilder,
     (
       TotalBattingStat,
-      BaseReferences<_$MyDriftDatabase, $TotalBattingStatsTable,
+      BaseReferences<_$BaseDriftDatabase, $TotalBattingStatsTable,
           TotalBattingStat>
     ),
     TotalBattingStat,
     PrefetchHooks Function()> {
   $$TotalBattingStatsTableTableManager(
-      _$MyDriftDatabase db, $TotalBattingStatsTable table)
+      _$BaseDriftDatabase db, $TotalBattingStatsTable table)
       : super(TableManagerState(
           db: db,
           table: table,
@@ -4679,7 +4679,7 @@ class $$TotalBattingStatsTableTableManager extends RootTableManager<
 }
 
 typedef $$TotalBattingStatsTableProcessedTableManager = ProcessedTableManager<
-    _$MyDriftDatabase,
+    _$BaseDriftDatabase,
     $TotalBattingStatsTable,
     TotalBattingStat,
     $$TotalBattingStatsTableFilterComposer,
@@ -4688,15 +4688,15 @@ typedef $$TotalBattingStatsTableProcessedTableManager = ProcessedTableManager<
     $$TotalBattingStatsTableUpdateCompanionBuilder,
     (
       TotalBattingStat,
-      BaseReferences<_$MyDriftDatabase, $TotalBattingStatsTable,
+      BaseReferences<_$BaseDriftDatabase, $TotalBattingStatsTable,
           TotalBattingStat>
     ),
     TotalBattingStat,
     PrefetchHooks Function()>;
 
-class $MyDriftDatabaseManager {
-  final _$MyDriftDatabase _db;
-  $MyDriftDatabaseManager(this._db);
+class $BaseDriftDatabaseManager {
+  final _$BaseDriftDatabase _db;
+  $BaseDriftDatabaseManager(this._db);
   $$PlayersTableTableManager get players =>
       $$PlayersTableTableManager(_db, _db.players);
   $$BattingStatsTableTableManager get battingStats =>
@@ -4709,20 +4709,25 @@ class $MyDriftDatabaseManager {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myDriftDatabaseHash() => r'66c7cd2997c5c795c2d06e336ac3026402702041';
+String _$driftDatabaseHash() => r'9f18cf19b72689f54bc560fb7066352076cbc29c';
 
-/// See also [myDriftDatabase].
-@ProviderFor(myDriftDatabase)
-final myDriftDatabaseProvider = AutoDisposeProvider<MyDriftDatabase>.internal(
-  myDriftDatabase,
-  name: r'myDriftDatabaseProvider',
+/// Drift データベースを保持するプロバイダー。
+///
+/// プラットフォーム（ モバイル or Web ）に応じた
+/// 適切な Drift データベースの実装を `override` して使用すること。
+///
+/// Copied from [driftDatabase].
+@ProviderFor(driftDatabase)
+final driftDatabaseProvider = AutoDisposeProvider<BaseDriftDatabase>.internal(
+  driftDatabase,
+  name: r'driftDatabaseProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$myDriftDatabaseHash,
+      : _$driftDatabaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef MyDriftDatabaseRef = AutoDisposeProviderRef<MyDriftDatabase>;
+typedef DriftDatabaseRef = AutoDisposeProviderRef<BaseDriftDatabase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

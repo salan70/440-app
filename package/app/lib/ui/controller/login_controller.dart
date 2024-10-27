@@ -6,7 +6,6 @@ import 'package:model/model.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'login_controller.g.dart';
 
@@ -84,10 +83,6 @@ class LoginController {
     final dbFile = File(dbPath);
 
     await _downloadAndCreateDatabase(dbFile);
-
-    if (Platform.isAndroid) {
-      await applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
-    }
   }
 
   Future<void> _downloadAndCreateDatabase(File dbFile) async {

@@ -41,8 +41,10 @@ Future<void> main() async {
   );
 
   // Drift Database の初期化
+
   final dbFolder = await getApplicationDocumentsDirectory();
-  final dbPath = p.join(dbFolder.path, 'app.db');
+  final dbPath = p.join(dbFolder.path, driftDatabaseName);
+  final driftDatabase = MyDriftDatabase(dbPath);
 
   // Sembast データベースの初期化
   final docsDir = await getApplicationDocumentsDirectory();
@@ -65,6 +67,7 @@ Future<void> main() async {
             (ref) => NotificationSettingRepository(db),
           ),
           dbPathProvider.overrideWith((ref) => dbPath),
+          driftDatabaseProvider.overrideWith((ref) => driftDatabase),
         ],
         child: const MyApp(),
       ),
