@@ -15,8 +15,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:model/model.dart';
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast_io.dart';
+import 'package:sembast_web/sembast_web.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -45,15 +45,18 @@ Future<void> main() async {
   );
 
   // Drift Database の初期化
-
-  final dbFolder = await getApplicationDocumentsDirectory();
-  final dbPath = p.join(dbFolder.path, driftDatabaseName);
+  final dbFolderPath = await getApplicationDocumentsDirectoryPath();
+  final dbPath = p.join(dbFolderPath, driftDatabaseName);
   final driftDatabase = MyDriftDatabase(dbPath);
 
   // Sembast データベースの初期化
-  final docsDir = await getApplicationDocumentsDirectory();
-  final db = await databaseFactoryIo
-      .openDatabase(p.join(docsDir.path, 'search_conditions.db'));
+  final docsDirPath = await getApplicationDocumentsDirectoryPath();
+  final sembastFactory = switch (kIsWeb) {
+    true => databaseFactoryWeb,
+    false => databaseFactoryIo,
+  };
+  final db = await sembastFactory
+      .openDatabase(p.join(docsDirPath, 'search_conditions.db'));
 
   // 画面の向きを縦で固定する。
   await SystemChrome.setPreferredOrientations([

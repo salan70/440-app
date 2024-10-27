@@ -4,7 +4,6 @@ import 'package:common/common.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:model/model.dart';
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_controller.g.dart';
@@ -78,8 +77,8 @@ class LoginController {
 
   /// データベースの初期化を行う。
   Future<void> _initializeDatabase() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final dbPath = p.join(dbFolder.path, 'app.db');
+    final dbFolderPath = await getApplicationDocumentsDirectoryPath();
+    final dbPath = p.join(dbFolderPath, 'app.db');
     final dbFile = File(dbPath);
 
     await _downloadAndCreateDatabase(dbFile);
