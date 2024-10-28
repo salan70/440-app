@@ -15,9 +15,6 @@ extension ContextExtension on BuildContext {
   Orientation get orientation => MediaQuery.orientationOf(this);
 
   // * ------ Theme ------ * //
-  bool get isAndroid => Theme.of(this).platform == TargetPlatform.android;
-  bool get isIOS => Theme.of(this).platform == TargetPlatform.iOS;
-
   TextStyle get titleLarge => Theme.of(this).textTheme.titleLarge!;
   TextStyle get titleMedium => Theme.of(this).textTheme.titleMedium!;
   TextStyle get titleSmall => Theme.of(this).textTheme.titleSmall!;

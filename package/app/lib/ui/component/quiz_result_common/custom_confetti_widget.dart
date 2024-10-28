@@ -1,8 +1,8 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 // ! iOS だと紙吹雪がうまく表示されない。
 // ! どうやらパッケージ側のバグっぽい。
@@ -28,7 +28,7 @@ class _CustomConfettiWidgetState extends State<CustomConfettiWidget> {
     super.initState();
 
     // iOS の場合は紙吹雪を表示しない。
-    if (Platform.isIOS) {
+    if (UniversalPlatform.isIOS) {
       return;
     }
 

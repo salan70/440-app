@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:version/version.dart';
 
 import '../infrastructure/app_info_repository.dart';
@@ -25,7 +24,7 @@ Future<bool> needUpdate(NeedUpdateRef ref) async {
   final requiredAppVersions =
       await appInfoRepository.fetchRequiredAppVersions();
 
-  if (Platform.isAndroid) {
+  if (UniversalPlatform.isAndroid) {
     // * Android の場合
     return userAppVersion < requiredAppVersions.android;
   }

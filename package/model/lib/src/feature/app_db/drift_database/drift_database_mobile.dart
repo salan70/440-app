@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'drift_database.dart';
 
@@ -18,7 +19,7 @@ QueryExecutor _connect(String dbPath) {
   return LazyDatabase(() async {
     final file = File(dbPath);
 
-    if (Platform.isAndroid) {
+    if (UniversalPlatform.isAndroid) {
       await applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
     }
 
