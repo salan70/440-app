@@ -13,14 +13,17 @@ assignees: salan70
 
 1. 
 
+## スクリーンショット
+
 ## バグが発生した環境
 
 <!-- バグが発生した端末と OS を記載する。 -->
 
-- iPhone 11 (実機) / iOS XX
-- Pixel 6a (実機) / Android XX
-- iPhone XX (Simulator) / iOS XX
-- XX (Emulator) / Android XX
+- iPhone 15 (実機) / iOS 18.0
+- Pixel 6a (実機) / Android 14.0
+- iPhone 16 ( Simulator ) / iOS 18.0
+- Pixel 7a ( Emulator ) / Android 14.0
+- Chrome ( Mac Local )
 
 ## ログ
 
@@ -28,8 +31,6 @@ assignees: salan70
 hoge
 ```
 
-## 期待される動作
-
-## スクリーンショット
+## ユーザーへの影響
 
 ## その他
