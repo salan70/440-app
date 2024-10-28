@@ -62,24 +62,24 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(
-      ProviderScope(
-        overrides: [
-          flavorProvider.overrideWithValue(flavor),
-          searchConditionRepositoryProvider.overrideWith(
-            (ref) => SearchConditionRepository(db),
-          ),
-          notificationSettingRepositoryProvider.overrideWith(
-            (ref) => NotificationSettingRepository(db),
-          ),
-          dbPathProvider.overrideWith((ref) => dbPath),
-          driftDatabaseProvider.overrideWith((ref) => driftDatabase),
-        ],
-        child: const MyApp(),
-      ),
-    );
-  });
+  ]);
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        flavorProvider.overrideWithValue(flavor),
+        searchConditionRepositoryProvider.overrideWith(
+          (ref) => SearchConditionRepository(db),
+        ),
+        notificationSettingRepositoryProvider.overrideWith(
+          (ref) => NotificationSettingRepository(db),
+        ),
+        dbPathProvider.overrideWith((ref) => dbPath),
+        driftDatabaseProvider.overrideWith((ref) => driftDatabase),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 Future<void> initialize(Flavor flavor) async {
@@ -93,7 +93,9 @@ Future<void> initialize(Flavor flavor) async {
 
   // App Check の初期化
   await FirebaseAppCheck.instance.activate(
-    webProvider: ReCaptchaEnterpriseProvider(flavor.recaptchaSiteKey,),
+    webProvider: ReCaptchaEnterpriseProvider(
+      flavor.recaptchaSiteKey,
+    ),
     androidProvider:
         kReleaseMode ? AndroidProvider.playIntegrity : AndroidProvider.debug,
     appleProvider:
