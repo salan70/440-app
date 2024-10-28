@@ -93,7 +93,7 @@ Future<void> initialize(Flavor flavor) async {
 
   // App Check の初期化
   await FirebaseAppCheck.instance.activate(
-    webProvider: ReCaptchaV3Provider('site-key'),
+    webProvider: ReCaptchaEnterpriseProvider(flavor.recaptchaSiteKey,),
     androidProvider:
         kReleaseMode ? AndroidProvider.playIntegrity : AndroidProvider.debug,
     appleProvider:

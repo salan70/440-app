@@ -1,6 +1,7 @@
 import 'package:common/common.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 extension FirebaseConfig on Flavor {
   /// `web` の場合、 [Flavor] に応じた [FirebaseOptions] を返す。
@@ -12,6 +13,13 @@ extension FirebaseConfig on Flavor {
     }
 
     return null;
+  }
+
+  String get recaptchaSiteKey {
+    return switch (this) {
+      Flavor.dev => dotenv.env['RECAPTCHA_SITE_KEY_DEV']!,
+      Flavor.prod => dotenv.env['RECAPTCHA_SITE_KEY_PROD']!,
+    };
   }
 }
 
