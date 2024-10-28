@@ -1,25 +1,58 @@
 {
-    "version": "0.2.0",
     "configurations": [
         {
+            "args": [
+                "--dart-define-from-file=dart_defines/dev.json"
+            ],
+            "flutterMode": "debug",
             "name": "Debug dev",
             "program": "package/app/lib/main.dart",
             "request": "launch",
-            "type": "dart",
-            "flutterMode": "debug",
-            "args": [
-                "--dart-define-from-file=dart_defines/dev.json"
-            ]
+            "type": "dart"
         },
         {
+            "args": [
+                "--dart-define-from-file=dart_defines/prod.json"
+            ],
+            "flutterMode": "debug",
             "name": "Debug prod",
             "program": "package/app/lib/main.dart",
             "request": "launch",
-            "type": "dart",
-            "flutterMode": "debug",
+            "type": "dart"
+        },
+        // * Web
+        {
             "args": [
-                "--dart-define-from-file=dart_defines/prod.json"
-            ]
+                "--debug",
+                "chrome",
+                "--web-renderer",
+                "html",
+                "--dart-define-from-file=dart_defines/dev.json",
+                "--web-port",
+                "8080"
+            ],
+            "flutterMode": "debug",
+            "name": "Debug dev web",
+            "program": "package/app/lib/main.dart",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "args": [
+                "--debug",
+                "chrome",
+                "--web-renderer",
+                "html",
+                "--dart-define-from-file=dart_defines/prod.json",
+                "--web-port",
+                "8081"
+            ],
+            "flutterMode": "debug",
+            "name": "Debug prod web",
+            "program": "package/app/lib/main.dart",
+            "request": "launch",
+            "type": "dart"
         }
-    ]
+    ],
+    "version": "0.2.0"
 }
