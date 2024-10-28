@@ -22,7 +22,7 @@ assignees: salan70
 - iPhone 15 (実機) / iOS 18.0
 - Pixel 6a (実機) / Android 14.0
 - iPhone 16 ( Simulator ) / iOS 18.0
-- Pixel7a ( Emulator ) / Android 14.0
+- Pixel 7a ( Emulator ) / Android 14.0
 - Chrome ( Mac Local )
 
 ## ログ
