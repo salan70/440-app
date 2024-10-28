@@ -1,5 +1,6 @@
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:common/common.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -77,7 +78,12 @@ Future<void> main() async {
         dbPathProvider.overrideWith((ref) => dbPath),
         driftDatabaseProvider.overrideWith((ref) => driftDatabase),
       ],
-      child: const MyApp(),
+      child: DevicePreview(
+        enabled: kIsWeb,
+        builder: (context) {
+          return const MyApp();
+        },
+      ),
     ),
   );
 }
