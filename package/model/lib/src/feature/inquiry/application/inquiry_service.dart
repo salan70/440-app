@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../util/constant/strings_constant.dart';
@@ -43,7 +42,7 @@ class InquiryService {
     late String? osVersion;
     late String? device;
 
-    if (Platform.isIOS) {
+    if (UniversalPlatform.isIOS) {
       final iosInfo = await deviceInfo.iosInfo;
       os = 'iOS';
       osVersion = iosInfo.systemVersion;

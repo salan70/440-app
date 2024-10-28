@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 part 'flavor.g.dart';
 
@@ -32,11 +31,11 @@ enum Flavor {
   String get interstitialId {
     switch (this) {
       case Flavor.dev:
-        return Platform.isAndroid
+        return UniversalPlatform.isAndroid
             ? dotenv.env['TEST_INTERSTITIAL_ID_ANDROID']!
             : dotenv.env['TEST_INTERSTITIAL_ID_IOS']!;
       case Flavor.prod:
-        return Platform.isAndroid
+        return UniversalPlatform.isAndroid
             ? dotenv.env['INTERSTITIAL_ID_ANDROID']!
             : dotenv.env['INTERSTITIAL_ID_IOS']!;
     }
@@ -46,11 +45,11 @@ enum Flavor {
   String get bannerId {
     switch (this) {
       case Flavor.dev:
-        return Platform.isAndroid
+        return UniversalPlatform.isAndroid
             ? dotenv.env['TEST_BANNER_ID_ANDROID']!
             : dotenv.env['TEST_BANNER_ID_IOS']!;
       case Flavor.prod:
-        return Platform.isAndroid
+        return UniversalPlatform.isAndroid
             ? dotenv.env['BANNER_ID_ANDROID']!
             : dotenv.env['BANNER_ID_IOS']!;
     }
@@ -60,11 +59,11 @@ enum Flavor {
   String get rewardId {
     switch (this) {
       case Flavor.dev:
-        return Platform.isAndroid
+        return UniversalPlatform.isAndroid
             ? dotenv.env['TEST_REWARD_ID_ANDROID']!
             : dotenv.env['TEST_REWARD_ID_IOS']!;
       case Flavor.prod:
-        return Platform.isAndroid
+        return UniversalPlatform.isAndroid
             ? dotenv.env['REWARD_ID_ANDROID']!
             : dotenv.env['REWARD_ID_IOS']!;
     }

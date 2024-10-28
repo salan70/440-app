@@ -20,8 +20,6 @@ SearchCondition _$SearchConditionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SearchCondition {
-  @Id(assignable: true)
-  int get id => throw _privateConstructorUsedError;
   List<String> get teamList => throw _privateConstructorUsedError;
   int get minGames => throw _privateConstructorUsedError;
   int get minHits => throw _privateConstructorUsedError;
@@ -41,8 +39,7 @@ abstract class $SearchConditionCopyWith<$Res> {
       _$SearchConditionCopyWithImpl<$Res, SearchCondition>;
   @useResult
   $Res call(
-      {@Id(assignable: true) int id,
-      List<String> teamList,
+      {List<String> teamList,
       int minGames,
       int minHits,
       int minHr,
@@ -62,7 +59,6 @@ class _$SearchConditionCopyWithImpl<$Res, $Val extends SearchCondition>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? teamList = null,
     Object? minGames = null,
     Object? minHits = null,
@@ -70,10 +66,6 @@ class _$SearchConditionCopyWithImpl<$Res, $Val extends SearchCondition>
     Object? selectedStatsList = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       teamList: null == teamList
           ? _value.teamList
           : teamList // ignore: cast_nullable_to_non_nullable
@@ -107,8 +99,7 @@ abstract class _$$SearchConditionImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@Id(assignable: true) int id,
-      List<String> teamList,
+      {List<String> teamList,
       int minGames,
       int minHits,
       int minHr,
@@ -126,7 +117,6 @@ class __$$SearchConditionImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? teamList = null,
     Object? minGames = null,
     Object? minHits = null,
@@ -134,10 +124,6 @@ class __$$SearchConditionImplCopyWithImpl<$Res>
     Object? selectedStatsList = null,
   }) {
     return _then(_$SearchConditionImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       teamList: null == teamList
           ? _value._teamList
           : teamList // ignore: cast_nullable_to_non_nullable
@@ -164,11 +150,9 @@ class __$$SearchConditionImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@Entity(realClass: SearchCondition)
 class _$SearchConditionImpl extends _SearchCondition {
   const _$SearchConditionImpl(
-      {@Id(assignable: true) required this.id,
-      required final List<String> teamList,
+      {required final List<String> teamList,
       required this.minGames,
       required this.minHits,
       required this.minHr,
@@ -180,9 +164,6 @@ class _$SearchConditionImpl extends _SearchCondition {
   factory _$SearchConditionImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchConditionImplFromJson(json);
 
-  @override
-  @Id(assignable: true)
-  final int id;
   final List<String> _teamList;
   @override
   List<String> get teamList {
@@ -208,7 +189,7 @@ class _$SearchConditionImpl extends _SearchCondition {
 
   @override
   String toString() {
-    return 'SearchCondition(id: $id, teamList: $teamList, minGames: $minGames, minHits: $minHits, minHr: $minHr, selectedStatsList: $selectedStatsList)';
+    return 'SearchCondition(teamList: $teamList, minGames: $minGames, minHits: $minHits, minHr: $minHr, selectedStatsList: $selectedStatsList)';
   }
 
   @override
@@ -216,7 +197,6 @@ class _$SearchConditionImpl extends _SearchCondition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SearchConditionImpl &&
-            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._teamList, _teamList) &&
             (identical(other.minGames, minGames) ||
                 other.minGames == minGames) &&
@@ -230,7 +210,6 @@ class _$SearchConditionImpl extends _SearchCondition {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
       const DeepCollectionEquality().hash(_teamList),
       minGames,
       minHits,
@@ -254,8 +233,7 @@ class _$SearchConditionImpl extends _SearchCondition {
 
 abstract class _SearchCondition extends SearchCondition {
   const factory _SearchCondition(
-      {@Id(assignable: true) required final int id,
-      required final List<String> teamList,
+      {required final List<String> teamList,
       required final int minGames,
       required final int minHits,
       required final int minHr,
@@ -265,9 +243,6 @@ abstract class _SearchCondition extends SearchCondition {
   factory _SearchCondition.fromJson(Map<String, dynamic> json) =
       _$SearchConditionImpl.fromJson;
 
-  @override
-  @Id(assignable: true)
-  int get id;
   @override
   List<String> get teamList;
   @override

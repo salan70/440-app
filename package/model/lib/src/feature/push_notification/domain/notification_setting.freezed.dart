@@ -20,8 +20,6 @@ NotificationSetting _$NotificationSettingFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NotificationSetting {
-  @Id(assignable: true)
-  int get id => throw _privateConstructorUsedError;
   bool get allowStartDailyQuizNotification =>
       throw _privateConstructorUsedError;
   bool get allowRemindDailyQuizNotification =>
@@ -41,8 +39,7 @@ abstract class $NotificationSettingCopyWith<$Res> {
       _$NotificationSettingCopyWithImpl<$Res, NotificationSetting>;
   @useResult
   $Res call(
-      {@Id(assignable: true) int id,
-      bool allowStartDailyQuizNotification,
+      {bool allowStartDailyQuizNotification,
       bool allowRemindDailyQuizNotification,
       bool allowOtherNotification});
 }
@@ -60,16 +57,11 @@ class _$NotificationSettingCopyWithImpl<$Res, $Val extends NotificationSetting>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? allowStartDailyQuizNotification = null,
     Object? allowRemindDailyQuizNotification = null,
     Object? allowOtherNotification = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       allowStartDailyQuizNotification: null == allowStartDailyQuizNotification
           ? _value.allowStartDailyQuizNotification
           : allowStartDailyQuizNotification // ignore: cast_nullable_to_non_nullable
@@ -95,8 +87,7 @@ abstract class _$$NotificationSettingImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@Id(assignable: true) int id,
-      bool allowStartDailyQuizNotification,
+      {bool allowStartDailyQuizNotification,
       bool allowRemindDailyQuizNotification,
       bool allowOtherNotification});
 }
@@ -112,16 +103,11 @@ class __$$NotificationSettingImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? allowStartDailyQuizNotification = null,
     Object? allowRemindDailyQuizNotification = null,
     Object? allowOtherNotification = null,
   }) {
     return _then(_$NotificationSettingImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       allowStartDailyQuizNotification: null == allowStartDailyQuizNotification
           ? _value.allowStartDailyQuizNotification
           : allowStartDailyQuizNotification // ignore: cast_nullable_to_non_nullable
@@ -140,20 +126,15 @@ class __$$NotificationSettingImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@Entity(realClass: NotificationSetting)
 class _$NotificationSettingImpl implements _NotificationSetting {
   const _$NotificationSettingImpl(
-      {@Id(assignable: true) required this.id,
-      required this.allowStartDailyQuizNotification,
+      {required this.allowStartDailyQuizNotification,
       required this.allowRemindDailyQuizNotification,
       required this.allowOtherNotification});
 
   factory _$NotificationSettingImpl.fromJson(Map<String, dynamic> json) =>
       _$$NotificationSettingImplFromJson(json);
 
-  @override
-  @Id(assignable: true)
-  final int id;
   @override
   final bool allowStartDailyQuizNotification;
   @override
@@ -163,7 +144,7 @@ class _$NotificationSettingImpl implements _NotificationSetting {
 
   @override
   String toString() {
-    return 'NotificationSetting(id: $id, allowStartDailyQuizNotification: $allowStartDailyQuizNotification, allowRemindDailyQuizNotification: $allowRemindDailyQuizNotification, allowOtherNotification: $allowOtherNotification)';
+    return 'NotificationSetting(allowStartDailyQuizNotification: $allowStartDailyQuizNotification, allowRemindDailyQuizNotification: $allowRemindDailyQuizNotification, allowOtherNotification: $allowOtherNotification)';
   }
 
   @override
@@ -171,7 +152,6 @@ class _$NotificationSettingImpl implements _NotificationSetting {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NotificationSettingImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.allowStartDailyQuizNotification,
                     allowStartDailyQuizNotification) ||
                 other.allowStartDailyQuizNotification ==
@@ -186,12 +166,8 @@ class _$NotificationSettingImpl implements _NotificationSetting {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      allowStartDailyQuizNotification,
-      allowRemindDailyQuizNotification,
-      allowOtherNotification);
+  int get hashCode => Object.hash(runtimeType, allowStartDailyQuizNotification,
+      allowRemindDailyQuizNotification, allowOtherNotification);
 
   @JsonKey(ignore: true)
   @override
@@ -210,17 +186,13 @@ class _$NotificationSettingImpl implements _NotificationSetting {
 
 abstract class _NotificationSetting implements NotificationSetting {
   const factory _NotificationSetting(
-      {@Id(assignable: true) required final int id,
-      required final bool allowStartDailyQuizNotification,
+      {required final bool allowStartDailyQuizNotification,
       required final bool allowRemindDailyQuizNotification,
       required final bool allowOtherNotification}) = _$NotificationSettingImpl;
 
   factory _NotificationSetting.fromJson(Map<String, dynamic> json) =
       _$NotificationSettingImpl.fromJson;
 
-  @override
-  @Id(assignable: true)
-  int get id;
   @override
   bool get allowStartDailyQuizNotification;
   @override

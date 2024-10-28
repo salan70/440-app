@@ -1,14 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:objectbox/objectbox.dart';
 
 part 'search_condition.freezed.dart';
 part 'search_condition.g.dart';
 
 @freezed
 class SearchCondition with _$SearchCondition {
-  @Entity(realClass: SearchCondition)
   const factory SearchCondition({
-    @Id(assignable: true) required int id,
     required List<String> teamList,
     required int minGames,
     required int minHits,
@@ -23,5 +20,5 @@ class SearchCondition with _$SearchCondition {
   @override
   Map<String, dynamic> toJson();
 
-  static const defaultId = 1;
+  static const recordName = 'search_conditions';
 }

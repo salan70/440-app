@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../util/enum/hitting_stats_type.dart';
 import '../../../util/extension/drift_query_extension.dart';
-import '../../app_db/my_drift_database.dart';
+import '../../app_db/drift_database/drift_database.dart';
 import '../../app_db/tables.dart';
 import '../../search_condition/search_condition.dart';
 import '../domain/hitter.dart';
@@ -15,14 +15,14 @@ part 'hitter_repository.g.dart';
 
 @riverpod
 HitterRepository hitterRepository(HitterRepositoryRef ref) {
-  final myDriftDatabase = ref.watch(myDriftDatabaseProvider);
-  return HitterRepository(myDriftDatabase);
+  final driftDatabase = ref.watch(driftDatabaseProvider);
+  return HitterRepository(driftDatabase);
 }
 
 class HitterRepository {
   HitterRepository(this.db);
 
-  final MyDriftDatabase db;
+  final BaseDriftDatabase db;
 
   /// [searchWord] で選手を部分検索する。
   Future<List<Hitter>> searchHitter(String searchWord) async {

@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../util/constant/strings_constant.dart';
@@ -20,7 +19,7 @@ class AppInfoService {
   /// ストアに遷移する
   Future<void> launchStore() async {
     late Uri launchStoreUrl;
-    if (Platform.isAndroid) {
+    if (UniversalPlatform.isAndroid) {
       launchStoreUrl = Uri.parse(playStoreUrl);
     } else {
       launchStoreUrl = Uri.parse(appStoreUrl);

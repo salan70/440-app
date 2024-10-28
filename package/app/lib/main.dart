@@ -1,5 +1,6 @@
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:common/common.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,23 +15,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:model/model.dart';
-import 'package:model/objectbox.g.dart';
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
+import 'package:sembast/sembast_io.dart';
+import 'package:sembast_web/sembast_web.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'core/router/app_router.dart';
 import 'core/router/navigator_key.dart';
 import 'core/util/colors_constant.dart';
+import 'core/util/config/firebase_config.dart';
 import 'ui/component/common/loading_widget.dart';
 import 'ui/controller/login_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // 環境変数から [Flavor] を取得する。
+  final flavor = Flavor.fromEnvironment;
+
   // 初期化関連
-  await initialize();
+  await initialize(flavor);
 
   // iOS 端末にてステータスバーを表示させるための設定。
   //
@@ -41,49 +46,62 @@ Future<void> main() async {
   );
 
   // Drift Database の初期化
-  final dbFolder = await getApplicationDocumentsDirectory();
-  final dbPath = p.join(dbFolder.path, 'app.db');
+  final dbFolderPath = await getApplicationDocumentsDirectoryPath();
+  final dbPath = p.join(dbFolderPath, driftDatabaseName);
+  final driftDatabase = MyDriftDatabase(dbPath);
 
-  // ObjectBox の Box を取得
-  final docsDir = await getApplicationDocumentsDirectory();
-  final store = openStore(directory: p.join(docsDir.path, 'objectbox-model'));
-  final searchConditionBox = store.box<SearchCondition>();
-  final notificationSettingBox = store.box<NotificationSetting>();
+  // Sembast データベースの初期化
+  final docsDirPath = await getApplicationDocumentsDirectoryPath();
+  final sembastFactory = switch (kIsWeb) {
+    true => databaseFactoryWeb,
+    false => databaseFactoryIo,
+  };
+  final db = await sembastFactory
+      .openDatabase(p.join(docsDirPath, 'search_conditions.db'));
 
   // 画面の向きを縦で固定する。
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(
-      ProviderScope(
-        overrides: [
-          flavorProvider.overrideWithValue(Flavor.fromEnvironment),
-          searchConditionRepositoryProvider.overrideWith(
-            (ref) => SearchConditionRepository(searchConditionBox),
-          ),
-          notificationSettingRepositoryProvider.overrideWith(
-            (ref) => NotificationSettingRepository(notificationSettingBox),
-          ),
-          dbPathProvider.overrideWith((ref) => dbPath),
-        ],
-        child: const MyApp(),
+  ]);
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        flavorProvider.overrideWithValue(flavor),
+        searchConditionRepositoryProvider.overrideWith(
+          (ref) => SearchConditionRepository(db),
+        ),
+        notificationSettingRepositoryProvider.overrideWith(
+          (ref) => NotificationSettingRepository(db),
+        ),
+        dbPathProvider.overrideWith((ref) => dbPath),
+        driftDatabaseProvider.overrideWith((ref) => driftDatabase),
+      ],
+      child: DevicePreview(
+        enabled: kIsWeb,
+        builder: (context) {
+          return const MyApp();
+        },
       ),
-    );
-  });
+    ),
+  );
 }
 
-Future<void> initialize() async {
+Future<void> initialize(Flavor flavor) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // .envの読み込み
   await dotenv.load();
 
   // Firebaseの初期化
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: flavor.firebaseOptions);
 
   // App Check の初期化
   await FirebaseAppCheck.instance.activate(
+    webProvider: ReCaptchaEnterpriseProvider(
+      flavor.recaptchaSiteKey,
+    ),
     androidProvider:
         kReleaseMode ? AndroidProvider.playIntegrity : AndroidProvider.debug,
     appleProvider:
@@ -108,9 +126,11 @@ Future<void> initialize() async {
   final messaging = FirebaseMessaging.instance;
   await messaging.requestPermission();
 
-  // トークンの取得（デバッグ用）
-  final token = await messaging.getToken();
-  logger.i('🐯 FCM TOKEN: $token');
+  // トークンの取得（ `web` 以外の場合のみ）
+  if (!kIsWeb) {
+    final token = await messaging.getToken();
+    logger.i('🐯 FCM TOKEN: $token');
+  }
 
   // table_calendarを日本語で表示するために必要
   await initializeDateFormatting();
